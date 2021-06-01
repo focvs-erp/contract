@@ -467,10 +467,10 @@
                         </page>
                         <!-- AX4B - CPTM - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO -->
                         <page name="Orçamento" string="Orçamento">
-                            <!-- <group>
-                                <field name="nota_empenho" />
+                            <group>
+                                <field name= "nota_empenho" />
                                 <field name= "nota_reserva" />
-                                <field name= "ds_orgao" />
+                                <!-- <field name= "ds_orgao" />
                                 <field name= "ds_uo" />
                                 <field name= "ds_fonte" />
                                 <field name= "nome_categoria" />
@@ -484,9 +484,9 @@
                                 <field name= "ds_projeto_atividade" />
                                 <field name= "cod_ptres" />
                                 <field name= "programa_trabalho" />
-                                <field name= "cod_processo" />
+                                <field name= "cod_processo" /> -->
                             </group>
-                            <group>
+                            <!-- <group>
                                 <field name= "ano_orcamento" />   
                                 <field name= "cod_orgao" />
                                 <field name= "cod_poder" />
