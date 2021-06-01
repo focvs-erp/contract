@@ -487,10 +487,9 @@
                                 <field name= "cod_processo" />
                             </group>
                             <group>
-
-                                <field name = "ano_orcamento"/>   
-                                <field name = "cod_orgao"/>
-                                <field name = "cod_poder"/>
+                                <field name= "ano_orcamento"/>   
+                                <field name= "cod_orgao"/>
+                                <field name= "cod_poder"/>
                                 <field name= "cod_uo"/>
                                 <field name= "cod_fonte" />
                                 <field name= "cod_categoria" />
