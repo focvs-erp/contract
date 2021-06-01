@@ -45,6 +45,7 @@
         "views/res_config_settings.xml",
         "views/contract_terminate_reason.xml",
         "views/contract_portal_templates.xml",
+        "views/contrato_fornecedor_view.xml",
     ],
     "installable": True,
 }

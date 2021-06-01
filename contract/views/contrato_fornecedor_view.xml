@@ -1,0 +1,106 @@
+<odoo>
+
+    <record id="contracts_expense_form" model="ir.ui.view">
+
+        <field name="name">Orçamento</field>
+
+        <field name="model">purchase.order_line</field>
+
+        <field name="inherit_id" ref="contract.contract_contract_supplier_form_view" />
+
+        <field name="arch" type="xml"> 
+
+        <page string="Orçamento" name="orcamento">
+
+            <xpath expr="/form/sheet/notebook[1]/page[3]" position="after">
+
+                <page name='orcamento' string='Orçamento'>
+
+                    <div class="oe_title"> </div>
+
+
+
+                    <group>
+
+                        <group>
+
+                            <field name="nota_empenho"/>
+
+                            <field name = "nota_reserva"/>
+
+                            <field name= "ds_orgao" />
+
+                            <field name= "ds_uo" />
+
+                            <field name= "ds_fonte" />
+
+                            <field name= "nome_categoria" />
+
+                            <field name= "nome_classe" />
+
+                            <field name= "nome_modalidade" />
+
+                            <field name= "nome_grupo" />
+
+                            <field name= "ds_elemento" />
+
+                            <field name= "ds_funcao" />
+
+                            <field name= "ds_subfuncao" />
+
+                            <field name= "ds_programa" />
+
+                            <field name= "ds_projeto_atividade" />
+
+                            <field name= "cod_ptres" />
+
+                            <field name= "programa_trabalho" />
+
+                            <field name= "cod_processo" />
+
+                        </group>
+                        <group>
+
+                            <fiel name = "ano_orcamento"/>   
+
+                            <fiel name = "cod_orgao"/>
+
+                            <fiel name = "cod_poder"/>
+
+                            <field name= "cod_uo"/>
+
+                            <field name= "cod_fonte" />
+
+                            <field name= "cod_categoria" />
+
+                            <field name= "cod_classe" />
+
+                            <field name= "cod_modalidade" />
+
+                            <field name= "cod_grupo" />
+
+                            <field name= "cod_elemento" />
+
+                            <field name= "cod_funcao" />
+
+                            <field name= "cod_subfuncao" />
+
+                            <field name= "cod_programa" />
+
+                            <field name= "cod_projeto_atividade" />
+
+
+
+                        </group>    
+
+                    </group>
+
+                </page> 
+
+            </xpath>
+
+        </field>
+
+    </record>
+
+</odoo>
