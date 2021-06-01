@@ -10,7 +10,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
-    "name": "CPTM Recurring - Contracts Management",
+    "name": "Recurring - Contracts Management",
     "version": "14.0.1.1.0",
     "category": "Contract Management",
     "license": "AGPL-3",
