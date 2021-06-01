@@ -466,7 +466,7 @@
                             </group>
                         </page>
                         <!-- AX4B - CPTM - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO -->
-                        <page name="Orçamento" string="Orçamento">
+                        <!-- <page name="Orçamento" string="Orçamento"> -->
                             <!-- <group>
                                 <field name="nota_empenho" />
                                 <field name= "nota_reserva" />
@@ -502,7 +502,7 @@
                                 <field name= "cod_programa" />
                                 <field name= "cod_projeto_atividade" />
                             </group>     -->
-                        </page>
+                        <!-- </page> -->
                          <!-- AX4B - CPTM - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO -->
                     </notebook>
                 </sheet>
