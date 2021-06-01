@@ -488,9 +488,9 @@
                             </group>
                             <group>
 
-                                <fiel name = "ano_orcamento"/>   
-                                <fiel name = "cod_orgao"/>
-                                <fiel name = "cod_poder"/>
+                                <field name = "ano_orcamento"/>   
+                                <field name = "cod_orgao"/>
+                                <field name = "cod_poder"/>
                                 <field name= "cod_uo"/>
                                 <field name= "cod_fonte" />
                                 <field name= "cod_categoria" />
