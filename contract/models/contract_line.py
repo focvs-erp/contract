@@ -1128,17 +1128,18 @@ class ContractLine(models.Model):
     
     @api.onchange('contract_id.nota_empenho')
     def set_nota_empenho_linha_pedido(self):
-        raise ValidationError("Passei no método")
-        if self.nota_empenho.id == False :
-            return
-        if not self.ids:
-            return
+        self.nota_empenho = 5
+
+        # if self.nota_empenho.id == False :
+        #     return
+        # if not self.ids:
+        #     return
                 
-        self._cr.execute('''UPDATE contract_line SET nota_empenho_linha = %(nota)s WHERE order_id = %(orderId)s''',
-            {
-                'nota': str(self.nota_empenho.id),
-                'orderId': str(self.ids[0])
-            })  
+        # self._cr.execute('''UPDATE contract_line SET nota_empenho_linha = %(nota)s WHERE order_id = %(orderId)s''',
+        #     {
+        #         'nota': str(self.nota_empenho.id),
+        #         'orderId': str(self.ids[0])
+        #     })  
 
     # @api.model
     # def create(self,vals):
