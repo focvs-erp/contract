@@ -55,6 +55,9 @@
                     />
                 </group>
             </group>
+            <group groups="base.group.orcamento">
+                  
+            </group>
         </field>
     </record>
     <!--Customer FORM view-->

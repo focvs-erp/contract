@@ -1091,3 +1091,5 @@ class ContractLine(models.Model):
     ):
         self.ensure_one()
         return self.quantity if not self.display_type else 0.0
+
+# AX4B - CPTM - LINHAS DO CONTRATO
