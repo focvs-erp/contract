@@ -648,7 +648,7 @@ class ContractContract(models.Model):
         )
 # AX4B - CPTM - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO
     nota_empenho = fields.Many2one('x_nota_de_empenho', string ="Nota de Empenho")
-    nota_reserva = fields.Many2one(relate='x_studio_many2one_field_6ECHp', string="Nota de Reserva")
+    nota_reserva = fields.Many2one(relate='nota_empenho.x_studio_many2one_field_6ECHp', string="Nota de Reserva")
     ano_orcamento = fields.Char(related='nota_empenho.x_studio_ano_empenho', string="Exercício")
     cod_orgao = fields.Char(related='nota_empenho.x_studio_orgao_empenho', string="Órgão")
     ds_orgao = fields.Char(related='nota_empenho.x_studio_cod_orgao_empenho', string='Nome Órgão')
