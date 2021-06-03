@@ -1125,31 +1125,4 @@ class ContractLine(models.Model):
     cod_ptres = fields.Char(related='nota_empenho.x_studio_cod_ptres_empenho', string='PTRES')
     programa_trabalho = fields.Char(related='nota_empenho.x_studio_programa_trabalho_empenho', string='Programa de Trabalho')
     cod_processo = fields.Char(related='nota_empenho.x_studio_cod_processo_empenho', string='Processo')
-    
-    @api.onchange('contract_id.nota_empenho')
-    def set_nota_empenho_linha_pedido(self):
-        self.nota_empenho = 5
-
-        # if self.nota_empenho.id == False :
-        #     return
-        # if not self.ids:
-        #     return
-                
-        # self._cr.execute('''UPDATE contract_line SET nota_empenho_linha = %(nota)s WHERE order_id = %(orderId)s''',
-        #     {
-        #         'nota': str(self.nota_empenho.id),
-        #         'orderId': str(self.ids[0])
-        #     })  
-
-    # @api.model
-    # def create(self,vals):
-    #     obj = super(ContractLine, self).create(vals)
-    #     if not obj['nota_empenho']: 
-    #         return
-    #     self._cr.execute('''UPDATE contract_line SET nota_empenho_linha = %(nota)s WHERE order_id = %(orderId)s''',
-    #         {
-    #             'nota': str(obj['nota_empenho']['id']),
-    #             'orderId': str(obj['id'])
-    #         })  
-    #     return obj
 # AX4B - CPTM - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO
