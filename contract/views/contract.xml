@@ -493,7 +493,7 @@
                                 <field name= "cod_uo" />
                                 <field name= "cod_fonte" />
                                 <field name= "cod_categoria" />
-                                <field name= "cod_classe" />
+                                <!-- <field name= "cod_classe" /> -->
                                 <field name= "cod_modalidade" />
                                 <field name= "cod_grupo" />
                                 <field name= "cod_elemento" />

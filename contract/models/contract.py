@@ -660,7 +660,7 @@ class ContractContract(models.Model):
     ds_fonte = fields.Char(related='nota_empenho.x_studio_nome_da_fonte_empenho', string='Nome da Fonte')
     cod_categoria = fields.Char(related='nota_empenho.x_studio_categoria_empenho', string='Categoria')
     nome_categoria = fields.Char(related='nota_empenho.x_studio_nome_da_categoria_empenho', string='Nome da Categoria')
-    cod_classe = fields.Char(related='nota_empenho.x_studio_clase_empenho', string='Classe')
+    # cod_classe = fields.Char(related='nota_empenho.x_studio_clase_empenho', string='Classe')
     nome_classe = fields.Char(related='nota_empenho.x_studio_nome_da_classe_empenho', string='Nome da Classe')
     cod_modalidade = fields.Char(related='nota_empenho.x_studio_modalidade_empenho', string='Modalidade')
     nome_modalidade = fields.Char(related='nota_empenho.x_studio_nome_da_modalidade_empenho', string='Nome da Modalidade')
