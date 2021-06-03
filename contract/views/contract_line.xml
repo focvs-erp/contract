@@ -56,7 +56,7 @@
                 </group>
                     <group>
                         <group>
-                            <field name= "nota_empenho" domain="[('x_studio_status_empenho', '=', 'Aprovado'), ('x_studio_bloquear_empenho','=', False)]" />
+                            <field name= "nota_empenho_linha" />
                             <field name= "nota_reserva" /> 
                             <field name= "ds_orgao" />
                             <field name= "ds_uo" />
