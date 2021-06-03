@@ -55,7 +55,7 @@
                     />
                 </group>               
                     <group>
-                        <field name= "nota_empenho_linha" />
+                        <field name= "nota_empenho" />
                         <field name= "nota_reserva" /> 
                         <field name= "ds_orgao" />
                         <field name= "ds_uo" />
