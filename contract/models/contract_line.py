@@ -1093,8 +1093,8 @@ class ContractLine(models.Model):
         return self.quantity if not self.display_type else 0.0
 
 # AX4B - CPTM - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO
-    nota_empenho_linha = fields.Many2one('x_nota_de_empenho', string ="Nota de Empenho")
-    # nota_reserva = fields.Char(related='nota_empenho.x_studio_many2one_field_6ECHp', string="Nota de Reserva")
+    nota_empenho = fields.Many2one('x_nota_de_empenho', string ="Nota de Empenho")
+    nota_reserva = fields.Many2one(related='nota_empenho.x_studio_many2one_field_6ECHp', string="Nota de Reserva")
     ano_orcamento = fields.Char(related='nota_empenho.x_studio_ano_empenho', string="Exercicio")
     cod_orgao = fields.Char(related='nota_empenho.x_studio_orgao_empenho', string="Órgão")
     ds_orgao = fields.Char(related='nota_empenho.x_studio_cod_orgao_empenho', string='Nome Órgão')
@@ -1126,27 +1126,27 @@ class ContractLine(models.Model):
     programa_trabalho = fields.Char(related='nota_empenho.x_studio_programa_trabalho_empenho', string='Programa de Trabalho')
     cod_processo = fields.Char(related='nota_empenho.x_studio_cod_processo_empenho', string='Processo')
     
-    # @api.onchange('nota_empenho')
-    # def set_nota_empenho_linha_pedido(self):
-    #     if self.nota_empenho.id == False :
-    #         return
-    #     if not self.ids:
-    #         return
+    @api.onchange('nota_empenho')
+    def set_nota_empenho_linha_pedido(self):
+        if self.nota_empenho.id == False :
+            return
+        if not self.ids:
+            return
                 
-    #     self._cr.execute('''UPDATE contract_line SET nota_empenho_linha = %(nota)s WHERE order_id = %(orderId)s''',
-    #         {
-    #             'nota': str(self.nota_empenho.id),
-    #             'orderId': str(self.ids[0])
-    #         })  
-    # @api.model
-    # def create(self,vals):
-    #     obj = super(ContractLine, self).create(vals)
-    #     if not obj['nota_empenho']: 
-    #         return
-    #     self._cr.execute('''UPDATE contract_line SET nota_empenho_linha = %(nota)s WHERE order_id = %(orderId)s''',
-    #         {
-    #             'nota': str(obj['nota_empenho']['id']),
-    #             'orderId': str(obj['id'])
-    #         })  
-    #     return obj
+        self._cr.execute('''UPDATE contract_line SET nota_empenho_linha = %(nota)s WHERE order_id = %(orderId)s''',
+            {
+                'nota': str(self.nota_empenho.id),
+                'orderId': str(self.ids[0])
+            })  
+    @api.model
+    def create(self,vals):
+        obj = super(ContractLine, self).create(vals)
+        if not obj['nota_empenho']: 
+            return
+        self._cr.execute('''UPDATE contract_line SET nota_empenho_linha = %(nota)s WHERE order_id = %(orderId)s''',
+            {
+                'nota': str(obj['nota_empenho']['id']),
+                'orderId': str(obj['id'])
+            })  
+        return obj
 # AX4B - CPTM - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO
