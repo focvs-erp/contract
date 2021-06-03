@@ -55,9 +55,7 @@
                     />
                 </group>
             </group>
-            <group groups="base.group.orcamento">
-                  
-            </group>
+           
         </field>
     </record>
     <!--Customer FORM view-->
@@ -180,6 +178,8 @@
                     groups="base.group_no_one"
                     attrs="{'invisible': [('is_auto_renew', '=', False)]}"
                 />
+                <page name="Orçamento" string="Orçamento">
+                </page>
             </tree>
         </field>
     </record>
