@@ -178,10 +178,10 @@
                     groups="base.group_no_one"
                     attrs="{'invisible': [('is_auto_renew', '=', False)]}"
                 />
-                <page name="Orçamento" string="Orçamento">
-                </page>
             </tree>
         </field>
+        <page name="Orçamento" string="Orçamento">
+        </page>
     </record>
     <!--Supplier TREE view-->
     <record id="contract_line_supplier_tree_view" model="ir.ui.view">
