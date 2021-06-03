@@ -54,6 +54,10 @@
                         groups="analytic.group_analytic_tags"
                     />
                 </group>               
+            </group>
+        <notebook>
+            <page>
+                <group>
                     <group>
                         <field name= "nota_empenho" />
                         <field name= "nota_reserva" /> 
@@ -89,7 +93,9 @@
                         <field name= "cod_programa" />
                         <field name= "cod_projeto_atividade" />
                     </group> 
-            </group>
+                </group> 
+            </page>
+        </notebook>
         </field>
     </record>
     <!--Customer FORM view-->
