@@ -678,5 +678,5 @@ class ContractContract(models.Model):
     ds_projeto_atividade = fields.Char(related='nota_empenho.x_studio_nome_do_projeto_atividade_empenho', string='Nome do Projeto')
     cod_ptres = fields.Char(related='nota_empenho.x_studio_cod_ptres_empenho', string='PTRES')
     # programa_trabalho = fields.Char(related='nota_empenho.x_studio_programa_de_trabalho', string='Programa de Trabalho')
-    cod_processo = fields.Char(related='nota_empenho.x_studio_processo', string='Processo')
+    # cod_processo = fields.Char(related='nota_empenho.x_studio_processo', string='Processo')
 # AX4B - CPTM - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO
