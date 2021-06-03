@@ -55,42 +55,44 @@
                     />
                 </group>
                     <group>
-                        <field name= "nota_empenho" domain="[('x_studio_status_empenho', '=', 'Aprovado'), ('x_studio_bloquear_empenho','=', False)]" />
-                        <!-- <field name= "nota_reserva" /> -->
-                        <field name= "ds_orgao" />
-                        <field name= "ds_uo" />
-                        <field name= "ds_fonte" />
-                        <field name= "nome_categoria" />
-                        <field name= "nome_classe" />
-                        <field name= "nome_modalidade" />
-                        <field name= "nome_grupo" />
-                        <field name= "ds_elemento" />
-                        <field name= "ds_funcao" />
-                        <field name= "ds_subfuncao" />
-                        <field name= "ds_programa" />
-                        <field name= "ds_projeto_atividade" />
-                        <field name= "cod_ptres" />
-                        <field name= "programa_trabalho" />
-                        <field name= "cod_processo" />
+                        <group>
+                            <field name= "nota_empenho" domain="[('x_studio_status_empenho', '=', 'Aprovado'), ('x_studio_bloquear_empenho','=', False)]" />
+                            <field name= "nota_reserva" /> 
+                            <field name= "ds_orgao" />
+                            <field name= "ds_uo" />
+                            <field name= "ds_fonte" />
+                            <field name= "nome_categoria" />
+                            <field name= "nome_classe" />
+                            <field name= "nome_modalidade" />
+                            <field name= "nome_grupo" />
+                            <field name= "ds_elemento" />
+                            <field name= "ds_funcao" />
+                            <field name= "ds_subfuncao" />
+                            <field name= "ds_programa" />
+                            <field name= "ds_projeto_atividade" />
+                            <field name= "cod_ptres" />
+                            <field name= "programa_trabalho" />
+                            <field name= "cod_processo" />
+                        </group>
+                        <group>
+                            <field name= "ano_orcamento" />   
+                            <field name= "cod_orgao" />
+                            <field name= "cod_poder" />
+                            <field name= "cod_uo" />
+                            <field name= "cod_fonte" />
+                            <field name= "cod_categoria" />
+                            <field name= "cod_classe" />
+                            <field name= "cod_modalidade" />
+                            <field name= "cod_grupo" />
+                            <field name= "cod_elemento" />
+                            <field name= "cod_funcao" />
+                            <field name= "cod_subfuncao" />
+                            <field name= "cod_programa" />
+                            <field name= "cod_projeto_atividade" />
+                        </group> 
                     </group>
-                    <group>
-                        <field name= "ano_orcamento" />   
-                        <field name= "cod_orgao" />
-                        <field name= "cod_poder" />
-                        <field name= "cod_uo" />
-                        <field name= "cod_fonte" />
-                        <field name= "cod_categoria" />
-                        <field name= "cod_classe" />
-                        <field name= "cod_modalidade" />
-                        <field name= "cod_grupo" />
-                        <field name= "cod_elemento" />
-                        <field name= "cod_funcao" />
-                        <field name= "cod_subfuncao" />
-                        <field name= "cod_programa" />
-                        <field name= "cod_projeto_atividade" />
-                    </group> 
 
-            </group>
+                </group>
             <!-- AX4B - CPTM - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO -->
             <!-- <group name="linhas_orcamento" position="after">
                 <group>
