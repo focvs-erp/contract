@@ -180,8 +180,6 @@
                 />
             </tree>
         </field>
-        <page name="Orçamento" string="Orçamento">
-        </page>
     </record>
     <!--Supplier TREE view-->
     <record id="contract_line_supplier_tree_view" model="ir.ui.view">
