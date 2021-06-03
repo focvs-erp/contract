@@ -483,8 +483,8 @@
                                 <field name= "ds_programa" />
                                 <field name= "ds_projeto_atividade" />
                                 <field name= "cod_ptres" />
-                                <!-- <field name= "programa_trabalho" /> -->
-                                <!-- <field name= "cod_processo" /> -->
+                                <field name= "programa_trabalho" />
+                                <field name= "cod_processo" />
                             </group>
                             <group>
                                 <field name= "ano_orcamento" />   
@@ -493,7 +493,7 @@
                                 <field name= "cod_uo" />
                                 <field name= "cod_fonte" />
                                 <field name= "cod_categoria" />
-                                <!-- <field name= "cod_classe" /> -->
+                                <field name= "cod_classe" />
                                 <field name= "cod_modalidade" />
                                 <field name= "cod_grupo" />
                                 <field name= "cod_elemento" />

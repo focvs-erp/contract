@@ -660,7 +660,7 @@ class ContractContract(models.Model):
     ds_fonte = fields.Char(related='nota_empenho.x_studio_nome_da_fonte_empenho', string='Nome da Fonte')
     cod_categoria = fields.Char(related='nota_empenho.x_studio_categoria_empenho', string='Categoria')
     nome_categoria = fields.Char(related='nota_empenho.x_studio_nome_da_categoria_empenho', string='Nome da Categoria')
-    # cod_classe = fields.Char(related='nota_empenho.x_studio_clase_empenho', string='Classe')
+    cod_classe = fields.Char(related='nota_empenho.x_studio_classe_empenho', string='Classe')
     nome_classe = fields.Char(related='nota_empenho.x_studio_nome_da_classe_empenho', string='Nome da Classe')
     cod_modalidade = fields.Char(related='nota_empenho.x_studio_modalidade_empenho', string='Modalidade')
     nome_modalidade = fields.Char(related='nota_empenho.x_studio_nome_da_modalidade_empenho', string='Nome da Modalidade')
@@ -677,6 +677,6 @@ class ContractContract(models.Model):
     cod_projeto_atividade = fields.Char(related='nota_empenho.x_studio_projeto_atividade_empenho', string='Projeto Atividade')
     ds_projeto_atividade = fields.Char(related='nota_empenho.x_studio_nome_do_projeto_atividade_empenho', string='Nome do Projeto')
     cod_ptres = fields.Char(related='nota_empenho.x_studio_cod_ptres_empenho', string='PTRES')
-    # programa_trabalho = fields.Char(related='nota_empenho.x_studio_programa_de_trabalho', string='Programa de Trabalho')
-    # cod_processo = fields.Char(related='nota_empenho.x_studio_processo', string='Processo')
+    programa_trabalho = fields.Char(related='nota_empenho.x_studio_programa_trabalho_empenho', string='Programa de Trabalho')
+    cod_processo = fields.Char(related='nota_empenho.x_studio_cod_processo_empenho', string='Processo')
 # AX4B - CPTM - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO
