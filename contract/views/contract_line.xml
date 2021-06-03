@@ -54,10 +54,11 @@
                         groups="analytic.group_analytic_tags"
                     />
                 </group>
-                    <group name="Orçamento">
+                 <page name="Orçamento" string="Orçamento" position="after">
+                    <group>
                         <field name= "nota_empenho" domain="[('x_studio_status_empenho', '=', 'Aprovado'), ('x_studio_bloquear_empenho','=', False)]" />
                         <!-- <field name= "nota_reserva" /> -->
-                        <field name= "ds_orgao" />
+                        <field name= "ds_orgao" readonly="True" />
                         <field name= "ds_uo" />
                         <field name= "ds_fonte" />
                         <field name= "nome_categoria" />
@@ -89,6 +90,7 @@
                         <field name= "cod_programa" />
                         <field name= "cod_projeto_atividade" />
                     </group> 
+                </page>
 
             </group>
             <!-- AX4B - CPTM - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO -->
