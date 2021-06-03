@@ -483,7 +483,7 @@
                                 <field name= "ds_programa" />
                                 <field name= "ds_projeto_atividade" />
                                 <field name= "cod_ptres" />
-                                <field name= "programa_trabalho" />
+                                <!-- <field name= "programa_trabalho" /> -->
                                 <field name= "cod_processo" />
                             </group>
                             <group>
