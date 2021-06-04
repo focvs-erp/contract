@@ -697,12 +697,11 @@ class ContractContract(models.Model):
     @api.model
     def create(self,vals):
         obj = super(ContractContract, self).create(vals)
-        if not obj['nota_empenho']: 
-            return
-        self._cr.execute('''UPDATE contract_line SET nota_empenho = %(nota)s WHERE contract_id = %(contractId)s''',
-            {
-                'nota': str(obj['nota_empenho']['id']),
-                'contractId': str(obj['id'])
-            })  
+        if obj['nota_empenho']:
+            self._cr.execute('''UPDATE contract_line SET nota_empenho = %(nota)s WHERE contract_id = %(contractId)s''',
+                {
+                    'nota': str(obj['nota_empenho']['id']),
+                    'contractId': str(obj['id'])
+                })  
         return obj
 # AX4B - CPTM - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO
