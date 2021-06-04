@@ -698,7 +698,7 @@ class ContractContract(models.Model):
     def create(self,vals):
         obj = super(ContractContract, self).create(vals)
     #     if obj['nota_empenho']:
-        raise ValidationError(obj['nota_empenho'])
+        raise ValidationError(obj['id'])
     #         self._cr.execute('''UPDATE contract_line SET nota_empenho = %(nota)s WHERE contract_id = %(contractId)s''',
     #             {
     #                 'nota': str(obj['nota_empenho']['id']),
