@@ -720,10 +720,11 @@ class ContractContract(models.Model):
 
     def action_atualizar_preco(self):
         for record in self:
-            if record.date_start.date() >= datetime.now().date():
-                raise ValidationError("Data inicial maior que atual")
-            elif record.date_end.date() <= datetime.now().date():
-                raise ValidationError("Data final menor que atual")
-            else:
-                raise ValidationError("Entrou no else")
+            ValidationError(str(record.date_start.date()))
+            # if record.date_start.date() >= datetime.now().date():
+            #     raise ValidationError("Data inicial maior que atual")
+            # elif record.date_end.date() <= datetime.now().date():
+            #     raise ValidationError("Data final menor que atual")
+            # else:
+            #     raise ValidationError("Entrou no else")
     # <!-- AX4B - CPTM - CONTRATO REAJUSTE DE PREÇO -->
