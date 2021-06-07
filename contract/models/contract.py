@@ -719,8 +719,9 @@ class ContractContract(models.Model):
             return datetime.strptime(date_string, datetime_format)    
 
     def action_atualizar_preco(self):
-        for record in self:
-            ValidationError(str(record.date_start))
+        ValidationError(str(self.date_start))
+        # for record in self:
+            # ValidationError(str(record.date_start))
             # if record.date_start.date() >= datetime.now().date():
             #     raise ValidationError("Data inicial maior que atual")
             # elif record.date_end.date() <= datetime.now().date():
