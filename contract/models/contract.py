@@ -720,9 +720,9 @@ class ContractContract(models.Model):
 
     def action_atualizar_preco(self):
         for record in self:
-            if self.convert_date_string_to_object(date_string=record.date_start) >= datetime.now():
+            if record.date_start >= datetime.now():
                 raise ValidationError("Data inicial maior que atual")
-            elif self.convert_date_string_to_object(date_string=record.date_end) <= datetime.now():
+            elif record.date_end <= datetime.now():
                 raise ValidationError("Data final menor que atual")
             else:
                 raise ValidationError("Entrou no else")
