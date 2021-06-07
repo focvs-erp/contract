@@ -23,6 +23,11 @@ class ContractAbstractContract(models.AbstractModel):
         comodel_name="res.partner", string="Partner", index=True
     )
     pricelist_id = fields.Many2one(comodel_name="product.pricelist", string="Pricelist")
+    
+    #<!-- AX4B - CPTM - CONTRATO REAJUSTE DE PREÇO -->
+    reajuste_preco = fields.Many2one(comodel_name="reajuste_preco", string="Reajuste de Preço")
+    #<!-- AX4B - CPTM - CONTRATO REAJUSTE DE PREÇO -->
+    
     contract_type = fields.Selection(
         selection=[("sale", "Customer"), ("purchase", "Supplier")],
         default="sale",

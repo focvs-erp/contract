@@ -202,7 +202,12 @@ class ContractContract(models.Model):
             "target": "self",
             "url": self.get_portal_url(),
         }
-
+        
+    # <!-- AX4B - CPTM - CONTRATO REAJUSTE DE PREÇO -->
+    def action_atualizar_preco(self):
+        raise ValidationError("Executou botão")
+    # <!-- AX4B - CPTM - CONTRATO REAJUSTE DE PREÇO -->
+    
     def _inverse_partner_id(self):
         for rec in self:
             if not rec.invoice_partner_id:
