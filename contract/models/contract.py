@@ -11,7 +11,7 @@ from odoo import api, fields, models
 from odoo.exceptions import UserError, ValidationError
 from odoo.tests import Form
 from odoo.tools.translate import _
-
+from datetime import datetime
 
 class ContractContract(models.Model):
     _name = "contract.contract"
@@ -708,9 +708,22 @@ class ContractContract(models.Model):
                 })  
         return obj
     # AX4B - CPTM - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO
-    
+
     # <!-- AX4B - CPTM - CONTRATO REAJUSTE DE PREÇO -->
+    def convert_date_string_to_object(self, date_string=None, datetime_string=None):
+        date_format = '%m/%d/%Y' # Exemplo '06/07/2021'
+        datetime_format = '%m/%d/%Y %H:%m:%S' # Exemplo 06/07/2021 15:06:45'
+        if date_string:
+            return datetime.strftime(date_string,date_format)
+        else:
+            return datetime.strptime(date_string, datetime_format)    
+
     def action_atualizar_preco(self):
-        raise ValidationError("Executou botão")
+        for record in self:
+            if self.convert_date_string_to_object(date_string=record.date_start) >= datetime.now():
+                raise ValidationError("Data inicial maior que atual")
+            elif self.convert_date_string_to_object(date_string=record.date_end) <= datetime.now():
+                raise ValidationError("Data final menor que atual")
+            else:
+                raise ValidationError("Entrou no else")
     # <!-- AX4B - CPTM - CONTRATO REAJUSTE DE PREÇO -->
-    
