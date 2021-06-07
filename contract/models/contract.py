@@ -130,6 +130,9 @@ class ContractContract(models.Model):
         inverse_name="contract_id",
         string="Modifications",
     )
+    #<!-- AX4B - CPTM - CONTRATO REAJUSTE DE PREÇO -->
+    reajuste_preco = fields.Many2one(comodel_name="reajuste_preco", string="Reajuste de Preço")
+    #<!-- AX4B - CPTM - CONTRATO REAJUSTE DE PREÇO -->
 
     def get_formview_id(self, access_uid=None):
         if self.contract_type == "sale":
@@ -202,12 +205,7 @@ class ContractContract(models.Model):
             "target": "self",
             "url": self.get_portal_url(),
         }
-        
-    # <!-- AX4B - CPTM - CONTRATO REAJUSTE DE PREÇO -->
-    def action_atualizar_preco(self):
-        raise ValidationError("Executou botão")
-    # <!-- AX4B - CPTM - CONTRATO REAJUSTE DE PREÇO -->
-    
+
     def _inverse_partner_id(self):
         for rec in self:
             if not rec.invoice_partner_id:
@@ -709,4 +707,10 @@ class ContractContract(models.Model):
                     'contractId': str(obj['id'])
                 })  
         return obj
-# AX4B - CPTM - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO
+    # AX4B - CPTM - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO
+    
+    # <!-- AX4B - CPTM - CONTRATO REAJUSTE DE PREÇO -->
+    def action_atualizar_preco(self):
+        raise ValidationError("Executou botão")
+    # <!-- AX4B - CPTM - CONTRATO REAJUSTE DE PREÇO -->
+    
