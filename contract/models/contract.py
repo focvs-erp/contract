@@ -735,9 +735,12 @@ class ContractContract(models.Model):
         for produto in produtos:
             produto.price_unit = self.calcular_novo_preco(reajuste_item, produto)
 
-    def aplicar_em_um_produto(self, produto):
+    def aplicar_em_um_produto(self, produto, produtos):
         # APLICAR UM FILTER NOS PRODUTOS DO SELF PRA OBTER O PRODUTO SOLICITADO
-        pass
+        for item in self.product_id:
+            if item.id == produto.id:
+                item.price_unit = self.calcular_novo_preco(reajuste_item, produto)
+
 
     def calcular_data_validacao_contrato(self, item, date_start, date_end, msg):
         DATA_ATUAL = datetime.now().date()
@@ -756,12 +759,19 @@ class ContractContract(models.Model):
 
         reajuste_preco_items = self.env['purchase.reajuste_preco_item'].search([('reajuste_preco', '=', self.reajuste_preco.id)])
 
-        for item in reajuste_preco_items:
-            if item.aplicado_em == '1': # todos os pr
-                self.aplicar_em_todos_produtos(item, self.contract_line_ids)
+        STATE_TODOS_OS_PRODUTOS = False
 
-            elif item.applicado_em == '2': # apenas um produto.
-                pass
+        for item in reajuste_preco_items:
+            if item.data_inicial < DATA_ATUAL or item.data_final > DATA_ATUAL:
+                if item.aplicado_em == '1': # todos os produtos
+                    self.aplicar_em_todos_produtos(item, self.contract_line_ids)
+                    STATE_TODOS_OS_PRODUTOS = True
+
+                elif item.applicado_em == '2': # apenas um produto.
+                    self.aplicar_em_um_produto(item)
+
+            if STATE_TODOS_OS_PRODUTOS:
+                break
 
     # <!-- AX4B - CPTM - CONTRATO REAJUSTE DE PREÇO -->
 
