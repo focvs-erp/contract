@@ -754,6 +754,7 @@ class ContractContract(models.Model):
 
         for item in reajuste_preco_items:
             if item.aplicado_em == '1': # todos os pr
+                pass
 
             elif item.applicado_em == '2': # apenas um produto.
                 pass
