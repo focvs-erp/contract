@@ -726,7 +726,7 @@ class ContractContract(models.Model):
             return float(item.fixed_price)
         elif item.compute_price == 'percentage':
             return produto.price_unit + ((produto.price_unit * item.percent_price) / 100)
-        elif item.compute_price == 'indice'
+        elif item.compute_price == 'indice':
             taxa = self.env['res.currency'].search([('id', '=', item.indice.id)]).rate
             return produto.price_unit + ((produto.price_unit * taxa) / 100)
 
