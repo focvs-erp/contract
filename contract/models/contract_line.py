@@ -429,7 +429,7 @@ class ContractLine(models.Model):
     @api.onchange('product_id')
     def _obter_preco_original(self):
         for rec in self:
-            rec.preco_original = rec.unit_price
+            rec.preco_original = rec.price_unit
             raise ValidationError(str(rec.preco_original))
 
     @api.onchange(

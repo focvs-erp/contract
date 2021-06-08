@@ -753,8 +753,7 @@ class ContractContract(models.Model):
         reajuste_preco_items = self.env['purchase.reajuste_preco_item'].search([('reajuste_preco', '=', self.reajuste_preco.id)])
 
         for item in reajuste_preco_items:
-            if item.aplicado_em == '1': # todos os produtos
-                pass
+            if item.aplicado_em == '1': # todos os pr
 
             elif item.applicado_em == '2': # apenas um produto.
                 pass
