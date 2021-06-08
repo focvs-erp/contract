@@ -713,4 +713,14 @@ class ContractContract(models.Model):
     def action_atualizar_preco(self):
         raise ValidationError("Executou botão")
     # <!-- AX4B - CPTM - CONTRATO REAJUSTE DE PREÇO -->
+
+    # AX4B - CPTM - CONTRATO MEDIÇÃO
+  
+    cd_recebido = fields.integer(string="Recebido")
+
+    def action_receber_fatura(self):
+        raise ValidationError("Click on button!")
+    # AX4B - CPTM - CONTRATO MEDIÇÃO
+
+
     

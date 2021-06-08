@@ -45,7 +45,7 @@ class ContractAbstractContract(models.AbstractModel):
         default=lambda self: self.env.company.id,
     )
     line_recurrence = fields.Boolean(
-        string="Recurrence at line level?",
+        string="Recorrência ao nível da linha?",
         help="Mark this check if you want to control recurrrence at line level instead"
         " of all together for the whole contract.",
     )
