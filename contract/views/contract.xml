@@ -71,9 +71,6 @@
                     <button type="object" string="ATUALIZAR PREÇO" name="action_atualizar_preco" />
                     <!-- AX4B - CPTM - CONTRATO REAJUSTE DE PREÇO -->
 
-                    <!-- AX4B - CPTM - CONTRATO MEDIÇÃO -->
-                    <!-- <button type="object" string="RECEBER FATURA" name="action_receber_fatura" /> -->
-                    <!-- AX4B - CPTM - CONTRATO MEDIÇÃO -->
                 </header>
                 <sheet string="Contract">
                     <field name="active" invisible="1" />
@@ -229,9 +226,6 @@
                                         groups="analytic.group_analytic_tags"
                                     />
                                     <field name="quantity" />
-                                     <!-- AX4B - CPTM - CONTRATO MEDIÇÃO -->
-                                    <!-- <field name="cd_recebido" /> -->
-                                     <!-- AX4B - CPTM - CONTRATO MEDIÇÃO -->
                                     <field name="uom_id" />
                                     <field
                                         name="automatic_price"
