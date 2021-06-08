@@ -682,6 +682,7 @@ class ContractContract(models.Model):
     cod_ptres = fields.Char(related='nota_empenho.x_studio_cod_ptres_empenho', string='PTRES')
     programa_trabalho = fields.Char(related='nota_empenho.x_studio_programa_trabalho_empenho', string='Programa de Trabalho')
     cod_processo = fields.Char(related='nota_empenho.x_studio_cod_processo_empenho', string='Processo')
+    # cd_recebido = fields.Integer(string="Recebido")
      
     @api.onchange('nota_empenho')
     def set_nota_empenho_linha_pedido(self):
@@ -720,9 +721,9 @@ class ContractContract(models.Model):
 
     def action_atualizar_preco(self):
         for record in self:
-            if self.convert_date_string_to_object(date_string=record.date_start) >= datetime.now():
+            if record.date_start >= datetime.now().date():
                 raise ValidationError("Data inicial maior que atual")
-            elif self.convert_date_string_to_object(date_string=record.date_end) <= datetime.now():
+            elif record.date_end <= datetime.now().date():
                 raise ValidationError("Data final menor que atual")
             else:
                 raise ValidationError("Entrou no else")
@@ -731,3 +732,8 @@ class ContractContract(models.Model):
     # AX4B - CPTM ADICIONANDO FIELD SELECTION DE TIPO DE CONTRATO
     tipo = fields.Selection([("price_records", "Registro de Preço"), ("normal", "Normal")], string="Tipo")
     # AX4B - CPTM ADICIONANDO FIELD SELECTION DE TIPO DE CONTRATO
+    
+    # AX4B - CPTM - CONTRATO MEDIÇÃO
+    # def action_receber_fatura(self):
+    #     raise ValidationError("Click on button!")
+    # AX4B - CPTM - CONTRATO MEDIÇÃO
