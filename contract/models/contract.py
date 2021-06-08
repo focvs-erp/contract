@@ -730,7 +730,6 @@ class ContractContract(models.Model):
     # <!-- AX4B - CPTM - CONTRATO REAJUSTE DE PREÇO -->
 
     # AX4B - CPTM ADICIONANDO FIELD SELECTION DE TIPO DE CONTRATO
-    tipo = fields.Selection([("price_records", "Registro de Preço"), ("normal", "Normal")], string="Tipo")
     # AX4B - CPTM ADICIONANDO FIELD SELECTION DE TIPO DE CONTRATO
     
     # AX4B - CPTM - CONTRATO MEDIÇÃO

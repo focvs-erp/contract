@@ -148,7 +148,7 @@
                                 attrs="{'readonly': [('is_terminated','=',True)]}"
                             />
                             <!-- AX4B_CPTM CAMPO TIPO DE CONTRATO -->
-                            <field name="tipo" required="1" />
+                            <!-- <field name="tipo" required="1" /> -->
                             <!-- AX4B_CPTM CAMPO TIPO DE CONTRATO-->
                             <field
                                 name="journal_id"
