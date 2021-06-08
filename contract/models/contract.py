@@ -683,20 +683,20 @@ class ContractContract(models.Model):
     programa_trabalho = fields.Char(related='nota_empenho.x_studio_programa_trabalho_empenho', string='Programa de Trabalho')
     cod_processo = fields.Char(related='nota_empenho.x_studio_cod_processo_empenho', string='Processo')
     # cd_recebido = fields.Integer(string="Recebido")
-     
+
     @api.onchange('nota_empenho')
     def set_nota_empenho_linha_pedido(self):
-    
+
         if self.nota_empenho.id == False :
             return
         if not self.ids:
             return
-                
+
         self._cr.execute('''UPDATE contract_line SET nota_empenho = %(nota)s WHERE contract_id = %(contractId)s''',
             {
                 'nota': str(self.nota_empenho.id),
                 'contractId': str(self.ids[0])
-            })  
+            })
 
     @api.model
     def create(self,vals):
@@ -706,7 +706,7 @@ class ContractContract(models.Model):
                 {
                     'nota': str(obj['nota_empenho']['id']),
                     'contractId': str(obj['id'])
-                })  
+                })
         return obj
     # AX4B - CPTM - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO
 
@@ -717,53 +717,58 @@ class ContractContract(models.Model):
         if date_string:
             return datetime.strftime(date_string,date_format)
         else:
-            return datetime.strptime(date_string, datetime_format) 
+            return datetime.strptime(date_string, datetime_format)
 
-    def calcular_novo_preco(self, item):
+    def calcular_novo_preco(self, item, produto):
         # {'compute_price': ['fixed', 'percentage', 'indice']}
         # fixed_price
         if item.compute_price == 'fixed':
             return float(item.fixed_price)
         elif item.compute_price == 'percentage':
-            pass
-            # return item.fixed_price = 
+            return produto.price_unit + ((produto.price_unit * item.percent_price) / 100)
+        elif item.compute_price == 'indice'
+            taxa = self.env['res.currency'].search([('id', '=', item.indice.id)]).rate
+            return produto.price_unit + ((produto.price_unit * taxa) / 100)
 
-    def aplicar_em_todos_produtos(self, produtos):
-        pass
+
+    def aplicar_em_todos_produtos(self, reajuste_item, produtos):
+        for produto in produtos:
+            produto.price_unit = self.calcular_novo_preco(reajuste_item, produto)
 
     def aplicar_em_um_produto(self, produto):
+        # APLICAR UM FILTER NOS PRODUTOS DO SELF PRA OBTER O PRODUTO SOLICITADO
         pass
-        
+
     def calcular_data_validacao_contrato(self, item, date_start, date_end, msg):
         DATA_ATUAL = datetime.now().date()
 
         if getattr(item, date_start) < DATA_ATUAL or getattr(item, date_end) > DATA_ATUAL:
             raise ValidationError(msg)
-            
+
 
     def action_atualizar_preco(self):
 
-        calcular_data_validacao_contrato(self, 
+        calcular_data_validacao_contrato(self,
             item=self,
-            date_start='date_start', 
+            date_start='date_start',
             date_end='date_end',
             msg='Validade do contrato fora do periodo valido!'
             )
- 
+
         reajuste_preco_items = self.env['purchase.reajuste_preco_item'].search([('reajuste_preco', '=', self.reajuste_preco.id)])
 
         for item in reajuste_preco_items:
             if item.aplicado_em == '1': # todos os pr
-                pass
+                self.aplicar_em_todos_produtos(item, self.contract_line_ids)
 
             elif item.applicado_em == '2': # apenas um produto.
                 pass
-                
+
     # <!-- AX4B - CPTM - CONTRATO REAJUSTE DE PREÇO -->
 
     # AX4B - CPTM ADICIONANDO FIELD SELECTION DE TIPO DE CONTRATO
     # AX4B - CPTM ADICIONANDO FIELD SELECTION DE TIPO DE CONTRATO
-    
+
     # AX4B - CPTM - CONTRATO MEDIÇÃO
     # def action_receber_fatura(self):
     #     raise ValidationError("Click on button!")
