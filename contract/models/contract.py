@@ -682,7 +682,6 @@ class ContractContract(models.Model):
     cod_ptres = fields.Char(related='nota_empenho.x_studio_cod_ptres_empenho', string='PTRES')
     programa_trabalho = fields.Char(related='nota_empenho.x_studio_programa_trabalho_empenho', string='Programa de Trabalho')
     cod_processo = fields.Char(related='nota_empenho.x_studio_cod_processo_empenho', string='Processo')
-    # cd_recebido = fields.Integer(string="Recebido")
 
     @api.onchange('nota_empenho')
     def set_nota_empenho_linha_pedido(self):
@@ -767,8 +766,3 @@ class ContractContract(models.Model):
 
     # AX4B - CPTM ADICIONANDO FIELD SELECTION DE TIPO DE CONTRATO
     # AX4B - CPTM ADICIONANDO FIELD SELECTION DE TIPO DE CONTRATO
-
-    # AX4B - CPTM - CONTRATO MEDIÇÃO
-    # def action_receber_fatura(self):
-    #     raise ValidationError("Click on button!")
-    # AX4B - CPTM - CONTRATO MEDIÇÃO
