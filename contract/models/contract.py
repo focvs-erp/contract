@@ -747,7 +747,7 @@ class ContractContract(models.Model):
 
     def action_atualizar_preco(self):
 
-        calcular_data_validacao_contrato(self,
+        self.calcular_data_validacao_contrato(self,
             item=self,
             date_start='date_start',
             date_end='date_end',
