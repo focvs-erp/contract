@@ -34,7 +34,7 @@ class ContractLine(models.Model):
         ondelete="cascade",
     )
 
-    preco_original = fields.Float(string='Preço Original')
+    preco_original = fields.Float(string='Preço Original', compute='_obter_preco_original')
 
     analytic_account_id = fields.Many2one(
         string="Analytic account",
@@ -426,7 +426,7 @@ class ContractLine(models.Model):
             - relativedelta(days=1)
         )
 
-    @api.onchange('product_id')
+    @api.depends('product_id')
     def _obter_preco_original(self):
         for rec in self:
             rec.preco_original = rec.price_unit
