@@ -33,6 +33,9 @@ class ContractLine(models.Model):
         auto_join=True,
         ondelete="cascade",
     )
+
+    preco_original = fields.Float(string='Preço Original')
+
     analytic_account_id = fields.Many2one(
         string="Analytic account",
         comodel_name="account.analytic.account",
@@ -422,6 +425,12 @@ class ContractLine(models.Model):
             + self.get_relative_delta(auto_renew_rule_type, auto_renew_interval)
             - relativedelta(days=1)
         )
+
+    @api.onchange('product_id')
+    def _obter_preco_original(self):
+        for rec in self:
+            rec.preco_original = rec.unit_price
+            raise ValidationError(str(rec.preco_original))
 
     @api.onchange(
         "date_start",

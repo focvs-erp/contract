@@ -717,16 +717,48 @@ class ContractContract(models.Model):
         if date_string:
             return datetime.strftime(date_string,date_format)
         else:
-            return datetime.strptime(date_string, datetime_format)    
+            return datetime.strptime(date_string, datetime_format) 
+
+    def calcular_novo_preco(self, item):
+        # {'compute_price': ['fixed', 'percentage', 'indice']}
+        # fixed_price
+        if item.compute_price == 'fixed':
+            return float(item.fixed_price)
+        elif item.compute_price == 'percentage':
+            pass
+            # return item.fixed_price = 
+
+    def aplicar_em_todos_produtos(self, produtos):
+        pass
+
+    def aplicar_em_um_produto(self, produto):
+        pass
+        
+    def calcular_data_validacao_contrato(self, item, date_start, date_end, msg):
+        DATA_ATUAL = datetime.now().date()
+
+        if getattr(item, date_start) < DATA_ATUAL or getattr(item, date_end) > DATA_ATUAL:
+            raise ValidationError(msg)
+            
 
     def action_atualizar_preco(self):
-        for record in self:
-            if record.date_start >= datetime.now().date():
-                raise ValidationError("Data inicial maior que atual")
-            elif record.date_end <= datetime.now().date():
-                raise ValidationError("Data final menor que atual")
-            else:
-                raise ValidationError("Entrou no else")
+
+        calcular_data_validacao_contrato(self, 
+            item=self,
+            date_start='date_start', 
+            date_end='date_end',
+            msg='Validade do contrato fora do periodo valido!'
+            )
+ 
+        reajuste_preco_items = self.env['purchase.reajuste_preco_item'].search([('reajuste_preco', '=', self.reajuste_preco.id)])
+
+        for item in reajuste_preco_items:
+            if item.aplicado_em == '1': # todos os produtos
+                pass
+
+            elif item.applicado_em == '2': # apenas um produto.
+                pass
+                
     # <!-- AX4B - CPTM - CONTRATO REAJUSTE DE PREÇO -->
 
     # AX4B - CPTM ADICIONANDO FIELD SELECTION DE TIPO DE CONTRATO
