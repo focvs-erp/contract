@@ -740,7 +740,7 @@ class ContractContract(models.Model):
         if getattr(item, date_start) < DATA_ATUAL or getattr(item, date_end) > DATA_ATUAL:
             raise ValidationError(msg)
             
-
+            
     def action_atualizar_preco(self):
 
         calcular_data_validacao_contrato(self, 
