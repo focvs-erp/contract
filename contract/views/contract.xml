@@ -123,7 +123,7 @@
                                 attrs="{'readonly': [('is_terminated','=',True)]}"
                             />
                             <!-- AX4B - CPTM - CONTRATO REAJUSTE DE PREÇO -->
-                            <field  
+                            <field
                                 name="payment_term_id"
                                 attrs="{'readonly': [('is_terminated','=',True)]}"
                             />
@@ -145,7 +145,7 @@
                                 attrs="{'readonly': [('is_terminated','=',True)]}"
                             />
                             <!-- AX4B_CPTM CAMPO TIPO DE CONTRATO -->
-                            <!-- <field name="tipo" required="1" /> -->
+                            <field name="tipo" required="1" />
                             <!-- AX4B_CPTM CAMPO TIPO DE CONTRATO-->
                             <field
                                 name="journal_id"
@@ -477,7 +477,7 @@
                                     invoiced period
                                 </p>
                             </group>
-                        </page>      
+                        </page>
                     <!-- AX4B - CPTM - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO -->
                         <page name="Orçamento" string="Orçamento">
                             <group>
@@ -501,7 +501,7 @@
                                     <field name= "cod_processo" />
                                 </group>
                                 <group>
-                                    <field name= "ano_orcamento" />   
+                                    <field name= "ano_orcamento" />
                                     <field name= "cod_orgao" />
                                     <field name= "cod_poder" />
                                     <field name= "cod_uo" />
@@ -516,7 +516,7 @@
                                     <field name= "cod_programa" />
                                     <field name= "cod_projeto_atividade" />
                                 </group>
-                            </group>   
+                            </group>
                         </page>
                         <!-- AX4B - CPTM - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO -->
                     </notebook>
