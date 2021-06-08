@@ -682,7 +682,7 @@ class ContractContract(models.Model):
     cod_ptres = fields.Char(related='nota_empenho.x_studio_cod_ptres_empenho', string='PTRES')
     programa_trabalho = fields.Char(related='nota_empenho.x_studio_programa_trabalho_empenho', string='Programa de Trabalho')
     cod_processo = fields.Char(related='nota_empenho.x_studio_cod_processo_empenho', string='Processo')
-    cd_recebido = fields.integer(string="Recebido")
+    cd_recebido = fields.Integer(string="Recebido")
      
     @api.onchange('nota_empenho')
     def set_nota_empenho_linha_pedido(self):
