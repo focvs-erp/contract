@@ -750,8 +750,9 @@ class ContractContract(models.Model):
             raise ValidationError('Data inicial e data final devem ser preenchidas!')
         
         # data inicial e final no contrato tem que estar preenchido
-        elif data_inicial < DATA_ATUAL or data_final > DATA_ATUAL:
+        elif not data_inicial >= DATA_ATUAL and data_final <= DATA_ATUAL:
             raise ValidationError(msg)
+
 
     def action_atualizar_preco(self):
 
@@ -766,7 +767,7 @@ class ContractContract(models.Model):
         STATE_TODOS_OS_PRODUTOS = False # Muda o estado para parar o loop e impedir que altere para outros produtos
 
         for item in reajuste_preco_items:
-            if item.data_inicial < DATA_ATUAL or item.data_final > DATA_ATUAL:
+            if item.data_inicial >= DATA_ATUAL and item.data_final <= DATA_ATUAL:
                 if item.aplicado_em == '1': # todos os produtos
                     self.aplicar_em_todos_produtos(item, self.contract_line_ids)
                     STATE_TODOS_OS_PRODUTOS = True
