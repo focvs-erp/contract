@@ -53,6 +53,9 @@
                         widget="many2many_tags"
                         groups="analytic.group_analytic_tags"
                     />
+                    <!-- AX4B - CPTM - CONTRATO MEDIÇÃO  -->
+                    <field name="cd_recebido"/>
+                    <!-- AX4B - CPTM - CONTRATO MEDIÇÃO  -->
                 </group>
             </group>
         </field>
@@ -109,6 +112,9 @@
                     groups="analytic.group_analytic_tags"
                 />
                 <field name="quantity" />
+                <!-- AX4B - CPTM - CONTRATO MEDIÇÃO  -->
+                <field name="cd_recebido"/>
+                <!-- AX4B - CPTM - CONTRATO MEDIÇÃO  -->
                 <field name="uom_id" />
                 <field name="automatic_price" />
                 <field
