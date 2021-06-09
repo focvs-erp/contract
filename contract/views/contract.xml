@@ -67,6 +67,9 @@
                         groups="contract.can_terminate_contract"
                     />
                     <button type="object" string="Preview" name="action_preview" />
+                    <!-- AX4B - CPTM - CONTRATO MEDIÇÃO -->
+                    <button type="object" string="RECEBER FATURA" name="action_receber_fatura" />
+                    <!-- AX4B - CPTM - CONTRATO MEDIÇÃO -->
                 </header>
                 <sheet string="Contract">
                     <field name="active" invisible="1" />
