@@ -739,16 +739,17 @@ class ContractContract(models.Model):
             if item.id == produto.id:
                 item.price_unit = self.calcular_novo_preco(reajuste_item, produto)
 
-    def calcular_data_validacao_contrato(self, date_start, date_end, msg):
+    def calcular_data_validacao_contrato(self, item, date_start, date_end, msg):
         '''REALIZA O CALCULO DE DATAS PARA VALIDAR SE ESTA DENTRO DO PRAZO'''
         DATA_ATUAL = datetime.now().date()
 
-        if getattr(self, date_start) < DATA_ATUAL or getattr(self, date_end) > DATA_ATUAL:
+        if getattr(item, date_start) < DATA_ATUAL or getattr(item, date_end) > DATA_ATUAL:
             raise ValidationError(msg)
 
     def action_atualizar_preco(self):
 
         self.calcular_data_validacao_contrato(
+            item=self,
             date_start='date_start',
             date_end='date_end',
             msg='Validade do contrato fora do periodo valido!'
