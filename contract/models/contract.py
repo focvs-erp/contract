@@ -734,12 +734,16 @@ class ContractContract(models.Model):
             produto.price_unit = self.calcular_novo_preco(reajuste_item, produto)
 
     def aplicar_em_um_produto(self, reajuste_item, produtos):
+
+        DATA_ATUAL = datetime.now().date()
         # APLICAR UM FILTER NOS PRODUTOS DO SELF PRA OBTER O PRODUTO SOLICITADO
         for item in produtos:
             # raise ValidationError(f'{item.product_id} {produto.id}')
             # produto=item.product_id
+            
             if item.product_id.id == reajuste_item.product_id.id:
-                item.price_unit = self.calcular_novo_preco(reajuste_item, item)
+                if not (item.date_start <= DATA_ATUAL and item.date_end >= DATA_ATUAL):
+                    item.price_unit = self.calcular_novo_preco(reajuste_item, item)
 
     def calcular_data_validacao_contrato(self, date_start, date_end, msg):
         '''REALIZA O CALCULO DE DATAS PARA VALIDAR SE ESTA DENTRO DO PRAZO'''
@@ -777,6 +781,7 @@ class ContractContract(models.Model):
                     STATE_TODOS_OS_PRODUTOS = True
 
                 elif item.aplicado_em == '2': # apenas um produto.
+
                     self.aplicar_em_um_produto(reajuste_item=item, produtos=self.contract_line_ids)
 
             if STATE_TODOS_OS_PRODUTOS:
