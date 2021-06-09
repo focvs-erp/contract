@@ -774,7 +774,7 @@ class ContractContract(models.Model):
                     self.aplicar_em_todos_produtos(item, self.contract_line_ids)
                     STATE_TODOS_OS_PRODUTOS = True
 
-                elif item.applicado_em == '2': # apenas um produto.
+                elif item.aplicado_em == '2': # apenas um produto.
                     self.aplicar_em_um_produto(produto=item, produtos=self.contract_line_ids)
 
             if STATE_TODOS_OS_PRODUTOS:
