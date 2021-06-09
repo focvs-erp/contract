@@ -579,7 +579,7 @@
             <tree>
                 <field name="name" string="Name" />
                 <!-- AX4B - CPTM ADICIONANDO FIELD SELECTION DE TIPO DE CONTRATO -->
-                <field name="tipo" />
+                <!-- <field name="tipo" /> -->
                 <!-- AX4B - CPTM ADICIONANDO FIELD SELECTION DE TIPO DE CONTRATO -->
                 <field name="code" />
                 <field name="journal_id" groups="account.group_account_user" />
