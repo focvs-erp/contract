@@ -735,9 +735,9 @@ class ContractContract(models.Model):
 
     def aplicar_em_um_produto(self, produto, produtos):
         # APLICAR UM FILTER NOS PRODUTOS DO SELF PRA OBTER O PRODUTO SOLICITADO
+        raise ValidationError(produto.id)
         for item in produtos:
             if item.id == produto.id:
-                ValidationError(f'item: {item.id} - product: {produto.id}')
                 item.price_unit = self.calcular_novo_preco(reajuste_item, produto)
 
     def calcular_data_validacao_contrato(self, date_start, date_end, msg):
