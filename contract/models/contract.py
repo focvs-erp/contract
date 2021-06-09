@@ -748,7 +748,7 @@ class ContractContract(models.Model):
 
     def action_atualizar_preco(self):
 
-        self.calcular_data_validacao_contrato(self,
+        self.calcular_data_validacao_contrato(
             date_start='date_start',
             date_end='date_end',
             msg='Validade do contrato fora do periodo valido!'
