@@ -743,7 +743,7 @@ class ContractContract(models.Model):
             
             if item.product_id.id == reajuste_item.product_id.id:
                 if (item.date_start <= DATA_ATUAL and item.date_end >= DATA_ATUAL):
-                    # raise ValidationError(f'{item.date_start} {item.date_end}')
+                    raise ValidationError(f'{item.date_start} {item.date_end}')
                     item.price_unit = self.calcular_novo_preco(reajuste_item, item)
 
     def calcular_data_validacao_contrato(self, date_start, date_end, msg):
