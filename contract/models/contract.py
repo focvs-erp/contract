@@ -738,7 +738,6 @@ class ContractContract(models.Model):
         for item in produtos:
             # raise ValidationError(f'{item.product_id} {produto.id}')
             if item.product_id.id == produto.id:
-                raise ValidationError('Entrou')
                 item.price_unit = self.calcular_novo_preco(reajuste_item, produto)
 
     def calcular_data_validacao_contrato(self, date_start, date_end, msg):
