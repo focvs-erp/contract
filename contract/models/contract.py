@@ -735,7 +735,6 @@ class ContractContract(models.Model):
 
     def aplicar_em_um_produto(self, produto, produtos):
         # APLICAR UM FILTER NOS PRODUTOS DO SELF PRA OBTER O PRODUTO SOLICITADO
-        raise ValidationError(produto.id)
         for item in produtos:
             if item.id == produto.id:
                 item.price_unit = self.calcular_novo_preco(reajuste_item, produto)
@@ -776,7 +775,7 @@ class ContractContract(models.Model):
                     STATE_TODOS_OS_PRODUTOS = True
 
                 elif item.aplicado_em == '2': # apenas um produto.
-                    self.aplicar_em_um_produto(produto=item, produtos=self.contract_line_ids)
+                    self.aplicar_em_um_produto(produto=item.product_id, produtos=self.contract_line_ids)
 
             if STATE_TODOS_OS_PRODUTOS:
                 break
