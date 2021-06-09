@@ -739,7 +739,7 @@ class ContractContract(models.Model):
             # raise ValidationError(f'{item.product_id} {produto.id}')
             # produto=item.product_id
             if item.product_id.id == reajuste_item.product_id.id:
-                item.price_unit = self.calcular_novo_preco(reajuste_item, reajuste_item)
+                item.price_unit = self.calcular_novo_preco(reajuste_item, item)
 
     def calcular_data_validacao_contrato(self, date_start, date_end, msg):
         '''REALIZA O CALCULO DE DATAS PARA VALIDAR SE ESTA DENTRO DO PRAZO'''
