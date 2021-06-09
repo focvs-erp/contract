@@ -743,7 +743,14 @@ class ContractContract(models.Model):
         '''REALIZA O CALCULO DE DATAS PARA VALIDAR SE ESTA DENTRO DO PRAZO'''
         DATA_ATUAL = datetime.now().date()
 
-        if getattr(self, date_start) < DATA_ATUAL or getattr(self, date_end) > DATA_ATUAL:
+        data_inicial = getattr(self, date_start)
+        data_final = getattr(self, date_end)
+
+        if not data_final or not data_final:
+            raise ValidationError('Data inicial e data final devem ser preenchidas!')
+        
+        # data inicial e final no contrato tem que estar preenchido
+        elif data_inicial < DATA_ATUAL or data_final > DATA_ATUAL:
             raise ValidationError(msg)
 
     def action_atualizar_preco(self):
