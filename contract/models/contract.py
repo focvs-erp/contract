@@ -756,6 +756,8 @@ class ContractContract(models.Model):
 
     def action_atualizar_preco(self):
 
+        DATA_ATUAL = datetime.now().date()
+
         self.calcular_data_validacao_contrato(
             date_start='date_start',
             date_end='date_end',
