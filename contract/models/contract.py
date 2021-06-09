@@ -656,6 +656,7 @@ class ContractContract(models.Model):
         result = self.env["ir.actions.actions"]._for_xml_id('stock.action_picking_tree_all')
         # override the context to get rid of the default filtering on operation type
         result['context'] = {'default_partner_id': self.partner_id.id, 'default_origin': self.name, 'default_picking_type_id': 1}
+        raise UserError(self.picking_ids)
         pick_ids = self.mapped('picking_ids')
         # choose the view_mode accordingly
         if not pick_ids or len(pick_ids) > 1:
