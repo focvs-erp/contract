@@ -745,7 +745,7 @@ class ContractContract(models.Model):
                 if (item.date_start <= DATA_ATUAL and item.date_end >= DATA_ATUAL):
                     item.price_unit = self.calcular_novo_preco(reajuste_item, item)
 
-    def calcular_data_validacao_contrato(self, date_start, date_end, msg):
+    def calcular_data_validacao_contrato(self, date_start, date_end):
         '''REALIZA O CALCULO DE DATAS PARA VALIDAR SE ESTA DENTRO DO PRAZO'''
         DATA_ATUAL = datetime.now().date()
 
@@ -753,11 +753,11 @@ class ContractContract(models.Model):
         data_final = getattr(self, date_end)
 
         if not data_final or not data_final:
-            raise ValidationError('Data inicial e data final devem ser preenchidas!')
+            break
         
         # data inicial e final no contrato tem que estar preenchido
         elif not (data_inicial <= DATA_ATUAL and data_final >= DATA_ATUAL):
-            raise ValidationError(msg)
+            break
 
 
     def action_atualizar_preco(self):
@@ -767,7 +767,6 @@ class ContractContract(models.Model):
         self.calcular_data_validacao_contrato(
             date_start='date_start',
             date_end='date_end',
-            msg='Validade do contrato fora do periodo valido!'
             )
 
         reajuste_preco_items = self.env['purchase.reajuste_preco_item'].search([('reajuste_preco', '=', self.reajuste_preco.id)])
