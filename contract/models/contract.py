@@ -791,9 +791,3 @@ class ContractContract(models.Model):
 
     # AX4B - CPTM ADICIONANDO FIELD SELECTION DE TIPO DE CONTRATO
     # AX4B - CPTM ADICIONANDO FIELD SELECTION DE TIPO DE CONTRATO
-
-
-
-    def screenLog(self):
-        self.message_post(
-                body="EXECUÇÃO DO LOG")

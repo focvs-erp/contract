@@ -31,12 +31,6 @@
                 </div>
                 <header>
                     <button
-                        name="screenLog"
-                        type="object"
-                        string="LOG"
-                    />
-
-                    <button
                         name="action_contract_send"
                         type="object"
                         string="Send by Email"
