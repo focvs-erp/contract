@@ -752,13 +752,13 @@ class ContractContract(models.Model):
         data_inicial = getattr(self, date_start)
         data_final = getattr(self, date_end)
 
-        while True:
-            if not data_final or not data_final:
-                break
-            
-            # data inicial e final no contrato tem que estar preenchido
-            elif not (data_inicial <= DATA_ATUAL and data_final >= DATA_ATUAL):
-                break
+
+        if not data_final or not data_final:
+            raise ValidationError('Data inicial e final devem ser preenchidas')
+        
+        # data inicial e final no contrato tem que estar preenchido
+        elif not (data_inicial <= DATA_ATUAL and data_final >= DATA_ATUAL):
+            raise ValidationError('Contrato fora de validade')
 
     def action_atualizar_preco(self):
 
