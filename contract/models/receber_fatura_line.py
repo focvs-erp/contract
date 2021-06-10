@@ -4,10 +4,10 @@ from odoo.exceptions import ValidationError
 from datetime import datetime
 
 class ReceberFaturaLine(models.Model):
-    _name = "receber.fatura.line"
+    _name = "contract.receber_fatura_line"
     _description = "Receber Fatura Line"
     
-    receber_fatura = fields.Many2one("receber.fatura", invisible=True)
+    receber_fatura = fields.Many2one("contract.receber_fatura", invisible=True)
     
     products_list = fields.Many2one("contract.line")
     demanda = fields.Float(related="products_list.quantity", string="Demanda")
