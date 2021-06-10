@@ -6,6 +6,7 @@
             <field name="arch" type="xml">
                 <form string="Receber Fatura">
                     <header position="inside">
+                        <button type="object" string="VALIDAR" name="btn_validar_concluido" attrs="{'invisible': [('state', '=', 'draft')]}" />
                         <field name="state" widget="statusbar"/>
                     </header>
                     <group>

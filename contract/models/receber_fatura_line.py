@@ -11,4 +11,4 @@ class ReceberFaturaLine(models.Model):
     
     products_list = fields.Many2one("contract.line")
     demanda = fields.Float(related="products_list.quantity", string="Demanda")
-    recebido = fields.Integer(string="Recebido")
+    concluido = fields.Integer(string="Concluído")
