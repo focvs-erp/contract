@@ -740,7 +740,7 @@ class ContractContract(models.Model):
         for item in produtos:
             # raise ValidationError(f'{item.product_id} {produto.id}')
             # produto=item.product_id
-            
+
             if item.product_id.id == reajuste_item.product_id.id:
                 if (item.date_start <= DATA_ATUAL and item.date_end >= DATA_ATUAL):
                     item.price_unit = self.calcular_novo_preco(reajuste_item, item)
@@ -754,7 +754,7 @@ class ContractContract(models.Model):
 
         if not data_final or not data_final:
             raise ValidationError('Data inicial e data final devem ser preenchidas!')
-        
+
         # data inicial e final no contrato tem que estar preenchido
         elif not (data_inicial <= DATA_ATUAL and data_final >= DATA_ATUAL):
             raise ValidationError(msg)
@@ -791,3 +791,9 @@ class ContractContract(models.Model):
 
     # AX4B - CPTM ADICIONANDO FIELD SELECTION DE TIPO DE CONTRATO
     # AX4B - CPTM ADICIONANDO FIELD SELECTION DE TIPO DE CONTRATO
+
+
+
+    def screenLog(self):
+        self.message_post(
+                body="EXECUÇÃO DO LOG")
