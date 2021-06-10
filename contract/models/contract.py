@@ -646,3 +646,6 @@ class ContractContract(models.Model):
                 "terminate_date": False,
             }
         )
+
+    def action_log(self):
+        self.message_post("mensagem")
