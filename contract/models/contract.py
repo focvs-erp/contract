@@ -759,7 +759,6 @@ class ContractContract(models.Model):
         elif not (data_inicial <= DATA_ATUAL and data_final >= DATA_ATUAL):
             break
 
-
     def action_atualizar_preco(self):
 
         DATA_ATUAL = datetime.now().date()
