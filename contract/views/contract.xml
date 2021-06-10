@@ -67,9 +67,6 @@
                         groups="contract.can_terminate_contract"
                     />
                     <button type="object" string="Preview" name="action_preview" />
-
-                    <button type="object" string="LOG" name="action_log" />
-
                 </header>
                 <sheet string="Contract">
                     <field name="active" invisible="1" />

@@ -144,6 +144,11 @@ class ContractContract(models.Model):
         return records
 
     def write(self, vals):
+        if "date_end" in vals:
+            self.message_post(body=_(
+                _("A data final foi alterada de %s para: '%s'.")
+                % (self.date_end, vals["date_end"])
+            ))
         if "modification_ids" in vals:
             res = super(
                 ContractContract, self.with_context(bypass_modification_send=True)
@@ -646,6 +651,3 @@ class ContractContract(models.Model):
                 "terminate_date": False,
             }
         )
-
-    def action_log(self):
-        self.message_post("mensagem")
