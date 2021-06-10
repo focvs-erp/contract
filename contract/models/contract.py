@@ -785,6 +785,8 @@ class ContractContract(models.Model):
 
             if STATE_TODOS_OS_PRODUTOS:
                 break
+            
+        self.message_post(body='Efetuado reajuste de preço.')
 
     # <!-- AX4B - CPTM - CONTRATO REAJUSTE DE PREÇO -->
 
