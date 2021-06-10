@@ -10,6 +10,7 @@
                         <field name="state" widget="statusbar"/>
                     </header>
                     <group>
+                    
                         <group>
                             <field name="partner_id" readonly="1"/>
                         </group>
