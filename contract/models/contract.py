@@ -650,7 +650,7 @@ class ContractContract(models.Model):
 
     # AX4B - CPTM - CONTRATO MEDIÇÃO
     def action_receber_fatura(self):
-        raise UserError('Função cancelada')
+        # raise UserError('Função cancelada')
 
         vals = {
         "contract_id": self.id,
