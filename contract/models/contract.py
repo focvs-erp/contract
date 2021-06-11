@@ -133,6 +133,7 @@ class ContractContract(models.Model):
     #<!-- AX4B - CPTM - CONTRATO REAJUSTE DE PREÇO -->
     reajuste_preco = fields.Many2one("purchase.reajuste_preco", string="Reajuste de Preço")
     #<!-- AX4B - CPTM - CONTRATO REAJUSTE DE PREÇO -->
+    
 
     def get_formview_id(self, access_uid=None):
         if self.contract_type == "sale":
