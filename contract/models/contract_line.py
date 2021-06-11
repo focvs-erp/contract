@@ -1135,6 +1135,7 @@ class ContractLine(models.Model):
     programa_trabalho = fields.Char(related='nota_empenho.x_studio_programa_trabalho_empenho', string='Programa de Trabalho')
     cod_processo = fields.Char(related='nota_empenho.x_studio_cod_processo_empenho', string='Processo')
     # AX4B - CPTM - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO
+    
     # AX4B - CPTM - CONTRATO MEDIÇÃO 
-    cd_recebido = fields.Integer(string="Recebido")
+    cd_recebido = fields.Float(string="Recebido")
     # AX4B - CPTM - CONTRATO MEDIÇÃO 

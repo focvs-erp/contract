@@ -258,8 +258,3 @@ class ContractAbstractContractLine(models.AbstractModel):
         vals["price_unit"] = product.price
         self.update(vals)
         return {"domain": domain}
-
-
-    # AX4B - CPTM - CONTRATO MEDIÇÃO 
-    cd_recebido = fields.Integer(string="Recebido")
-    # AX4B - CPTM - CONTRATO MEDIÇÃO 
