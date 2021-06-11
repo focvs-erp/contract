@@ -123,10 +123,10 @@
                                 attrs="{'readonly': [('is_terminated','=',True)]}"
                             />
                             <!-- AX4B - CPTM - CONTRATO REAJUSTE DE PREÇO -->
-                            <!-- <field
+                            <field
                                 name="reajuste_preco"
                                 attrs="{'readonly': [('is_terminated','=',True)]}"
-                            /> -->
+                            />
                             <!-- AX4B - CPTM - CONTRATO REAJUSTE DE PREÇO -->
                             <field
                                 name="payment_term_id"
