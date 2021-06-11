@@ -131,7 +131,7 @@ class ContractContract(models.Model):
         string="Modifications",
     )
     #<!-- AX4B - CPTM - CONTRATO REAJUSTE DE PREÇO -->
-    reajuste_preco = fields.Many2one("purchase.reajuste_preco", string="Reajuste de Preço")
+    reajuste_preco = fields.Many2one(comodel_name="purchase.reajuste_preco", string="Reajuste de Preço")
     #<!-- AX4B - CPTM - CONTRATO REAJUSTE DE PREÇO -->
 
 
