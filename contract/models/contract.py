@@ -716,84 +716,83 @@ class ContractContract(models.Model):
     # AX4B - CPTM - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO
 
     # <!-- AX4B - CPTM - CONTRATO REAJUSTE DE PREÇO -->
-    # def convert_date_string_to_object(self, date_string=None, datetime_string=None):
-    #     date_format = '%m/%d/%Y' # Exemplo '06/07/2021'
-    #     datetime_format = '%m/%d/%Y %H:%m:%S' # Exemplo 06/07/2021 15:06:45'
-    #     if date_string:
-    #         return datetime.strftime(date_string,date_format)
-    #     else:
-    #         return datetime.strptime(date_string, datetime_format)
+    def convert_date_string_to_object(self, date_string=None, datetime_string=None):
+        date_format = '%m/%d/%Y' # Exemplo '06/07/2021'
+        datetime_format = '%m/%d/%Y %H:%m:%S' # Exemplo 06/07/2021 15:06:45'
+        if date_string:
+            return datetime.strftime(date_string,date_format)
+        else:
+            return datetime.strptime(date_string, datetime_format)
 
-    # def calcular_novo_preco(self, item, produto):
-    #     # {'compute_price': ['fixed', 'percentage', 'indice']}
-    #     # fixed_price
-    #     if item.compute_price == 'fixed':
-    #         return float(item.fixed_price)
-    #     elif item.compute_price == 'percentage':
-    #         return produto.price_unit + ((produto.price_unit * item.percent_price) / 100)
-    #     elif item.compute_price == 'indice':
-    #         taxa = self.env['res.currency'].search([('id', '=', item.indice.id)]).rate
-    #         return produto.price_unit + ((produto.price_unit * taxa) / 100)
+    def calcular_novo_preco(self, item, produto):
+        # {'compute_price': ['fixed', 'percentage', 'indice']}
+        # fixed_price
+        if item.compute_price == 'fixed':
+            return float(item.fixed_price)
+        elif item.compute_price == 'percentage':
+            return produto.price_unit + ((produto.price_unit * item.percent_price) / 100)
+        elif item.compute_price == 'indice':
+            taxa = self.env['res.currency'].search([('id', '=', item.indice.id)]).rate
+            return produto.price_unit + ((produto.price_unit * taxa) / 100)
 
-    # def aplicar_em_todos_produtos(self, reajuste_item, produtos):
-    #     for produto in produtos:
-    #         produto.price_unit = self.calcular_novo_preco(reajuste_item, produto)
+    def aplicar_em_todos_produtos(self, reajuste_item, produtos):
+        for produto in produtos:
+            produto.price_unit = self.calcular_novo_preco(reajuste_item, produto)
 
-    # def aplicar_em_um_produto(self, reajuste_item, produtos):
+    def aplicar_em_um_produto(self, reajuste_item, produtos):
 
-    #     DATA_ATUAL = datetime.now().date()
-    #     # APLICAR UM FILTER NOS PRODUTOS DO SELF PRA OBTER O PRODUTO SOLICITADO
-    #     for item in produtos:
-    #         # raise ValidationError(f'{item.product_id} {produto.id}')
-    #         # produto=item.product_id
+        DATA_ATUAL = datetime.now().date()
+        # APLICAR UM FILTER NOS PRODUTOS DO SELF PRA OBTER O PRODUTO SOLICITADO
+        for item in produtos:
+            # raise ValidationError(f'{item.product_id} {produto.id}')
+            # produto=item.product_id
 
-    #         if item.product_id.id == reajuste_item.product_id.id:
-    #             if (item.date_start <= DATA_ATUAL and item.date_end >= DATA_ATUAL):
-    #                 item.price_unit = self.calcular_novo_preco(reajuste_item, item)
+            if item.product_id.id == reajuste_item.product_id.id:
+                if (item.date_start <= DATA_ATUAL and item.date_end >= DATA_ATUAL):
+                    item.price_unit = self.calcular_novo_preco(reajuste_item, item)
 
-    # def calcular_data_validacao_contrato(self, date_start, date_end):
-    #     '''REALIZA O CALCULO DE DATAS PARA VALIDAR SE ESTA DENTRO DO PRAZO'''
-    #     DATA_ATUAL = datetime.now().date()
+    def calcular_data_validacao_contrato(self, date_start, date_end):
+        '''REALIZA O CALCULO DE DATAS PARA VALIDAR SE ESTA DENTRO DO PRAZO'''
+        DATA_ATUAL = datetime.now().date()
 
-    #     data_inicial = getattr(self, date_start)
-    #     data_final = getattr(self, date_end)
+        data_inicial = getattr(self, date_start)
+        data_final = getattr(self, date_end)
 
 
-    #     if not data_final or not data_final:
-    #         raise ValidationError('Data inicial e final devem ser preenchidas')
+        if not data_final or not data_final:
+            raise ValidationError('Data inicial e final devem ser preenchidas')
 
-    #     # data inicial e final no contrato tem que estar preenchido
-    #     elif not (data_inicial <= DATA_ATUAL and data_final >= DATA_ATUAL):
-    #         raise ValidationError('Contrato fora de validade')
+        # data inicial e final no contrato tem que estar preenchido
+        elif not (data_inicial <= DATA_ATUAL and data_final >= DATA_ATUAL):
+            raise ValidationError('Contrato fora de validade')
 
-    # def action_atualizar_preco(self):
+    def action_atualizar_preco(self):
 
-    #     DATA_ATUAL = datetime.now().date()
+        DATA_ATUAL = datetime.now().date()
 
-    #     self.calcular_data_validacao_contrato(
-    #         date_start='date_start',
-    #         date_end='date_end',
-    #         )
+        self.calcular_data_validacao_contrato(
+            date_start='date_start',
+            date_end='date_end',
+            )
 
-    #     reajuste_preco_items = self.env['purchase.reajuste_preco_item'].search([('reajuste_preco', '=', self.reajuste_preco.id)])
+        reajuste_preco_items = self.env['purchase.reajuste_preco_item'].search([('reajuste_preco', '=', self.reajuste_preco.id)])
 
-    #     STATE_TODOS_OS_PRODUTOS = False # Muda o estado para parar o loop e impedir que altere para outros produtos
+        STATE_TODOS_OS_PRODUTOS = False # Muda o estado para parar o loop e impedir que altere para outros produtos
 
-    #     for item in reajuste_preco_items:
-    #         if item.data_inicio <= DATA_ATUAL and item.data_final >= DATA_ATUAL:
-    #             if item.aplicado_em == '1': # todos os produtos
-    #                 self.aplicar_em_todos_produtos(item, self.contract_line_ids)
-    #                 STATE_TODOS_OS_PRODUTOS = True
+        for item in reajuste_preco_items:
+            if item.data_inicio <= DATA_ATUAL and item.data_final >= DATA_ATUAL:
+                if item.aplicado_em == '1': # todos os produtos
+                    self.aplicar_em_todos_produtos(item, self.contract_line_ids)
+                    STATE_TODOS_OS_PRODUTOS = True
 
-    #             elif item.aplicado_em == '2': # apenas um produto.
+                elif item.aplicado_em == '2': # apenas um produto.
 
-    #                 self.aplicar_em_um_produto(reajuste_item=item, produtos=self.contract_line_ids)
+                    self.aplicar_em_um_produto(reajuste_item=item, produtos=self.contract_line_ids)
 
-    #         if STATE_TODOS_OS_PRODUTOS:
-    #             break
+            if STATE_TODOS_OS_PRODUTOS:
+                break
 
-    #     self.message_post(body='Efetuado reajuste de preço.')
-
+        self.message_post(body='Efetuado reajuste de preço.')
     # <!-- AX4B - CPTM - CONTRATO REAJUSTE DE PREÇO -->
 
     # AX4B - CPTM ADICIONANDO FIELD SELECTION DE TIPO DE CONTRATO
