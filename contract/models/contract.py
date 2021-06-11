@@ -654,7 +654,7 @@ class ContractContract(models.Model):
                 "terminate_date": False,
             }
         )
-# AX4B - CPTM - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO
+    # AX4B - CPTM - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO
     nota_empenho = fields.Many2one('x_nota_de_empenho', string ="Nota de Empenho")
     nota_reserva = fields.Many2one(related='nota_empenho.x_studio_many2one_field_6ECHp', string="Nota de Reserva")
     ano_orcamento = fields.Char(related='nota_empenho.x_studio_ano_empenho', string="Exercício")
@@ -798,3 +798,60 @@ class ContractContract(models.Model):
     # AX4B - CPTM ADICIONANDO FIELD SELECTION DE TIPO DE CONTRATO
     tipo = fields.Selection([('normal', 'Normal'),('price_record', 'Registro de Preço')], string="Tipo")
     # AX4B - CPTM ADICIONANDO FIELD SELECTION DE TIPO DE CONTRATO
+
+
+    # AX4B - CPTM - CONTRATO MEDIÇÃO
+    state = fields.Selection([('rascunho', 'Rascunho'), ('confirmado', 'Confirmado')], default ="rascunho")
+        
+    def action_confirmar_receber_fatura(self):
+        self.write({'state': 'confirmado'})
+
+        self._clear_receber_fatura_line_unused()
+        
+        if self._exist_receber_fatura_to_contrato_fornecedor():
+            self._create_receber_fatura_line()
+        else:
+            self._create_receber_fatura()
+            self._create_receber_fatura_line()    
+        
+    def _create_receber_fatura_line(self):
+        exist_receber_fatura = self._exist_receber_fatura_to_contrato_fornecedor()
+        if exist_receber_fatura:
+            for product in self.contract_line_fixed_ids:
+                receber_fatura_line = self.env['account.receber_fatura_line'].search([('products_list', '=', product.id)])
+                if not receber_fatura_line:
+                    vals = {
+                        "receber_fatura": exist_receber_fatura.id,
+                        "products_list": product.id
+                    }
+                    self.env["account.receber_fatura_line"].create(vals)
+                    self.env.cr.commit()
+        
+    def _create_receber_fatura(self):
+        vals = {
+            "contract_id": self.id,
+            "partner_id": self.partner_id.id
+        }
+
+        self.env["account.receber_fatura"].create(vals)
+        self.env.cr.commit()
+        
+    def _exist_receber_fatura_to_contrato_fornecedor(self):
+        exist_receber_fatura = self.env['account.receber_fatura'].search([('contract_id', '=', self.id)])
+        return exist_receber_fatura
+        
+    def _clear_receber_fatura_line_unused(self):
+        delete_receber_faturas_unused = self.env["account.receber_fatura_line"].search([('products_list', '=', False)])
+        delete_receber_faturas_unused.unlink()
+        
+    def action_receber_fatura(self):
+        self.action_confirmar_receber_fatura()
+        exist_receber_fatura = self._exist_receber_fatura_to_contrato_fornecedor()
+        return {
+            'type': 'ir.actions.act_window',
+            'view_mode': 'form',
+            'res_model': 'account.receber_fatura',
+            'res_id': exist_receber_fatura.id,
+            'target': 'new'
+        }
+    # AX4B - CPTM - CONTRATO MEDIÇÃO

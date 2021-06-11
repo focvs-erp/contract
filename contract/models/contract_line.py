@@ -1101,7 +1101,7 @@ class ContractLine(models.Model):
         self.ensure_one()
         return self.quantity if not self.display_type else 0.0
 
-# AX4B - CPTM - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO
+    # AX4B - CPTM - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO
     nota_empenho = fields.Many2one('x_nota_de_empenho', string ="Nota de Empenho")
     nota_reserva = fields.Many2one(related='nota_empenho.x_studio_many2one_field_6ECHp', string="Nota de Reserva")
     ano_orcamento = fields.Char(related='nota_empenho.x_studio_ano_empenho', string="Exercicio")
@@ -1134,4 +1134,7 @@ class ContractLine(models.Model):
     cod_ptres = fields.Char(related='nota_empenho.x_studio_cod_ptres_empenho', string='PTRES')
     programa_trabalho = fields.Char(related='nota_empenho.x_studio_programa_trabalho_empenho', string='Programa de Trabalho')
     cod_processo = fields.Char(related='nota_empenho.x_studio_cod_processo_empenho', string='Processo')
-# AX4B - CPTM - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO
+    # AX4B - CPTM - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO
+    # AX4B - CPTM - CONTRATO MEDIÇÃO 
+    cd_recebido = fields.Integer(string="Recebido")
+    # AX4B - CPTM - CONTRATO MEDIÇÃO 
