@@ -131,9 +131,9 @@ class ContractContract(models.Model):
         string="Modifications",
     )
     #<!-- AX4B - CPTM - CONTRATO REAJUSTE DE PREÇO -->
-    reajuste_preco = fields.Many2one("purchase.reajuste_preco", string="Reajuste de Preço")
+    # reajuste_preco = fields.Many2one("purchase.reajuste_preco", string="Reajuste de Preço")
     #<!-- AX4B - CPTM - CONTRATO REAJUSTE DE PREÇO -->
-    
+
 
     def get_formview_id(self, access_uid=None):
         if self.contract_type == "sale":
@@ -716,83 +716,83 @@ class ContractContract(models.Model):
     # AX4B - CPTM - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO
 
     # <!-- AX4B - CPTM - CONTRATO REAJUSTE DE PREÇO -->
-    def convert_date_string_to_object(self, date_string=None, datetime_string=None):
-        date_format = '%m/%d/%Y' # Exemplo '06/07/2021'
-        datetime_format = '%m/%d/%Y %H:%m:%S' # Exemplo 06/07/2021 15:06:45'
-        if date_string:
-            return datetime.strftime(date_string,date_format)
-        else:
-            return datetime.strptime(date_string, datetime_format)
+    # def convert_date_string_to_object(self, date_string=None, datetime_string=None):
+    #     date_format = '%m/%d/%Y' # Exemplo '06/07/2021'
+    #     datetime_format = '%m/%d/%Y %H:%m:%S' # Exemplo 06/07/2021 15:06:45'
+    #     if date_string:
+    #         return datetime.strftime(date_string,date_format)
+    #     else:
+    #         return datetime.strptime(date_string, datetime_format)
 
-    def calcular_novo_preco(self, item, produto):
-        # {'compute_price': ['fixed', 'percentage', 'indice']}
-        # fixed_price
-        if item.compute_price == 'fixed':
-            return float(item.fixed_price)
-        elif item.compute_price == 'percentage':
-            return produto.price_unit + ((produto.price_unit * item.percent_price) / 100)
-        elif item.compute_price == 'indice':
-            taxa = self.env['res.currency'].search([('id', '=', item.indice.id)]).rate
-            return produto.price_unit + ((produto.price_unit * taxa) / 100)
+    # def calcular_novo_preco(self, item, produto):
+    #     # {'compute_price': ['fixed', 'percentage', 'indice']}
+    #     # fixed_price
+    #     if item.compute_price == 'fixed':
+    #         return float(item.fixed_price)
+    #     elif item.compute_price == 'percentage':
+    #         return produto.price_unit + ((produto.price_unit * item.percent_price) / 100)
+    #     elif item.compute_price == 'indice':
+    #         taxa = self.env['res.currency'].search([('id', '=', item.indice.id)]).rate
+    #         return produto.price_unit + ((produto.price_unit * taxa) / 100)
 
-    def aplicar_em_todos_produtos(self, reajuste_item, produtos):
-        for produto in produtos:
-            produto.price_unit = self.calcular_novo_preco(reajuste_item, produto)
+    # def aplicar_em_todos_produtos(self, reajuste_item, produtos):
+    #     for produto in produtos:
+    #         produto.price_unit = self.calcular_novo_preco(reajuste_item, produto)
 
-    def aplicar_em_um_produto(self, reajuste_item, produtos):
+    # def aplicar_em_um_produto(self, reajuste_item, produtos):
 
-        DATA_ATUAL = datetime.now().date()
-        # APLICAR UM FILTER NOS PRODUTOS DO SELF PRA OBTER O PRODUTO SOLICITADO
-        for item in produtos:
-            # raise ValidationError(f'{item.product_id} {produto.id}')
-            # produto=item.product_id
-            
-            if item.product_id.id == reajuste_item.product_id.id:
-                if (item.date_start <= DATA_ATUAL and item.date_end >= DATA_ATUAL):
-                    item.price_unit = self.calcular_novo_preco(reajuste_item, item)
+    #     DATA_ATUAL = datetime.now().date()
+    #     # APLICAR UM FILTER NOS PRODUTOS DO SELF PRA OBTER O PRODUTO SOLICITADO
+    #     for item in produtos:
+    #         # raise ValidationError(f'{item.product_id} {produto.id}')
+    #         # produto=item.product_id
 
-    def calcular_data_validacao_contrato(self, date_start, date_end):
-        '''REALIZA O CALCULO DE DATAS PARA VALIDAR SE ESTA DENTRO DO PRAZO'''
-        DATA_ATUAL = datetime.now().date()
+    #         if item.product_id.id == reajuste_item.product_id.id:
+    #             if (item.date_start <= DATA_ATUAL and item.date_end >= DATA_ATUAL):
+    #                 item.price_unit = self.calcular_novo_preco(reajuste_item, item)
 
-        data_inicial = getattr(self, date_start)
-        data_final = getattr(self, date_end)
+    # def calcular_data_validacao_contrato(self, date_start, date_end):
+    #     '''REALIZA O CALCULO DE DATAS PARA VALIDAR SE ESTA DENTRO DO PRAZO'''
+    #     DATA_ATUAL = datetime.now().date()
+
+    #     data_inicial = getattr(self, date_start)
+    #     data_final = getattr(self, date_end)
 
 
-        if not data_final or not data_final:
-            raise ValidationError('Data inicial e final devem ser preenchidas')
-        
-        # data inicial e final no contrato tem que estar preenchido
-        elif not (data_inicial <= DATA_ATUAL and data_final >= DATA_ATUAL):
-            raise ValidationError('Contrato fora de validade')
+    #     if not data_final or not data_final:
+    #         raise ValidationError('Data inicial e final devem ser preenchidas')
 
-    def action_atualizar_preco(self):
+    #     # data inicial e final no contrato tem que estar preenchido
+    #     elif not (data_inicial <= DATA_ATUAL and data_final >= DATA_ATUAL):
+    #         raise ValidationError('Contrato fora de validade')
 
-        DATA_ATUAL = datetime.now().date()
+    # def action_atualizar_preco(self):
 
-        self.calcular_data_validacao_contrato(
-            date_start='date_start',
-            date_end='date_end',
-            )
+    #     DATA_ATUAL = datetime.now().date()
 
-        reajuste_preco_items = self.env['purchase.reajuste_preco_item'].search([('reajuste_preco', '=', self.reajuste_preco.id)])
+    #     self.calcular_data_validacao_contrato(
+    #         date_start='date_start',
+    #         date_end='date_end',
+    #         )
 
-        STATE_TODOS_OS_PRODUTOS = False # Muda o estado para parar o loop e impedir que altere para outros produtos
+    #     reajuste_preco_items = self.env['purchase.reajuste_preco_item'].search([('reajuste_preco', '=', self.reajuste_preco.id)])
 
-        for item in reajuste_preco_items:
-            if item.data_inicio <= DATA_ATUAL and item.data_final >= DATA_ATUAL:
-                if item.aplicado_em == '1': # todos os produtos
-                    self.aplicar_em_todos_produtos(item, self.contract_line_ids)
-                    STATE_TODOS_OS_PRODUTOS = True
+    #     STATE_TODOS_OS_PRODUTOS = False # Muda o estado para parar o loop e impedir que altere para outros produtos
 
-                elif item.aplicado_em == '2': # apenas um produto.
+    #     for item in reajuste_preco_items:
+    #         if item.data_inicio <= DATA_ATUAL and item.data_final >= DATA_ATUAL:
+    #             if item.aplicado_em == '1': # todos os produtos
+    #                 self.aplicar_em_todos_produtos(item, self.contract_line_ids)
+    #                 STATE_TODOS_OS_PRODUTOS = True
 
-                    self.aplicar_em_um_produto(reajuste_item=item, produtos=self.contract_line_ids)
+    #             elif item.aplicado_em == '2': # apenas um produto.
 
-            if STATE_TODOS_OS_PRODUTOS:
-                break
-            
-        self.message_post(body='Efetuado reajuste de preço.')
+    #                 self.aplicar_em_um_produto(reajuste_item=item, produtos=self.contract_line_ids)
+
+    #         if STATE_TODOS_OS_PRODUTOS:
+    #             break
+
+    #     self.message_post(body='Efetuado reajuste de preço.')
 
     # <!-- AX4B - CPTM - CONTRATO REAJUSTE DE PREÇO -->
 
@@ -803,18 +803,18 @@ class ContractContract(models.Model):
 
     # AX4B - CPTM - CONTRATO MEDIÇÃO
     state = fields.Selection([('rascunho', 'Rascunho'), ('confirmado', 'Confirmado')], default ="rascunho")
-        
+
     def action_confirmar_receber_fatura(self):
         self.write({'state': 'confirmado'})
 
         self._clear_receber_fatura_line_unused()
-        
+
         if self._exist_receber_fatura_to_contrato_fornecedor():
             self._create_receber_fatura_line()
         else:
             self._create_receber_fatura()
-            self._create_receber_fatura_line()    
-        
+            self._create_receber_fatura_line()
+
     def _create_receber_fatura_line(self):
         exist_receber_fatura = self._exist_receber_fatura_to_contrato_fornecedor()
         if exist_receber_fatura:
@@ -827,7 +827,7 @@ class ContractContract(models.Model):
                     }
                     self.env["account.receber_fatura_line"].create(vals)
                     self.env.cr.commit()
-        
+
     def _create_receber_fatura(self):
         vals = {
             "contract_id": self.id,
@@ -836,15 +836,15 @@ class ContractContract(models.Model):
 
         self.env["account.receber_fatura"].create(vals)
         self.env.cr.commit()
-        
+
     def _exist_receber_fatura_to_contrato_fornecedor(self):
         exist_receber_fatura = self.env['account.receber_fatura'].search([('contract_id', '=', self.id)])
         return exist_receber_fatura
-        
+
     def _clear_receber_fatura_line_unused(self):
         delete_receber_faturas_unused = self.env["account.receber_fatura_line"].search([('products_list', '=', False)])
         delete_receber_faturas_unused.unlink()
-        
+
     def action_receber_fatura(self):
         self.action_confirmar_receber_fatura()
         exist_receber_fatura = self._exist_receber_fatura_to_contrato_fornecedor()
