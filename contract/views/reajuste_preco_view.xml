@@ -1,0 +1,55 @@
+<odoo>
+	<data>
+		<!-- FORM -->
+		<record id="view_reajuste_preco_form" model="ir.ui.view">
+			<field name="name">Reajuste de Preço</field>
+			<field name="model">contract.reajuste_preco</field>
+			<field name="arch" type="xml">
+				<form string="Reajuste de Preço">
+					<sheet>
+						<div class="oe_title">
+							<span class="o_form_label">Reajuste de Preço</span>
+							<h1>
+								<field name="name" placeholder="Código..." required="1"/>
+							</h1>
+						</div>
+						<group>
+							<group name="left_main_group">
+								<field name="moeda" />
+								<field name="empresa" />
+							</group>
+						</group>
+                        <notebook>
+                          <page string="Itens" name="Itens">
+                            <field name="items"/>
+                          </page>
+                        </notebook>
+
+					</sheet>
+				</form>
+			</field>
+		</record>
+		<!-- LISTA -->
+		<record id="view_reajuste_preco_tree" model="ir.ui.view">
+			<field name="model">contract.reajuste_preco</field>
+			<field name="arch" type="xml">
+				<tree string="Reajuste de preço">
+					<field name="name" />
+					<field name="moeda" />
+					<field name="empresa" />
+				</tree>
+			</field>
+		</record>
+		<record model="ir.actions.act_window" id="action_reajuste_preco_window">
+			<field name="name">Lista Reajuste Preço</field>
+			<field name="res_model">contract.reajuste_preco</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="view_id" ref="view_reajuste_preco_tree" />
+		</record>
+
+       <menuitem
+           action="action_reajuste_preco_window" id="menu_reajuste_preco_purchase"
+           parent="purchase.menu_purchase_config" sequence="1"/>
+
+	</data>
+</odoo>
