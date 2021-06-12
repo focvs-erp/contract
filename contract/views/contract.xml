@@ -68,7 +68,7 @@
                     />
                     <button type="object" string="Preview" name="action_preview" />
                     <!-- AX4B - CPTM - CONTRATO REAJUSTE DE PREÇO -->
-                    <!-- <button type="object" string="ATUALIZAR PREÇO" name="action_atualizar_preco" /> -->
+                    <button type="object" string="ATUALIZAR PREÇO" name="action_atualizar_preco" />
                     <!-- AX4B - CPTM - CONTRATO REAJUSTE DE PREÇO -->
 
                     <!-- AX4B - CPTM - CONTRATO MEDIÇÃO -->
