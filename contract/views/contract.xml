@@ -232,7 +232,7 @@
                                     />
                                     <field name="quantity" />
                                     <!-- AX4B - CPTM - CONTRATO MEDIÇÃO  -->
-                                    <!-- <field name="cd_recebido" /> -->
+                                    <field name="cd_recebido" />
                                     <!-- AX4B - CPTM - CONTRATO MEDIÇÃO  -->
                                     <field name="uom_id" />
                                     <field
