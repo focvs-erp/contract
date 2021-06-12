@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<!-- <?xml version="1.0" encoding="utf-8"?>
 <odoo>
         <record id="reajuste_preco_item_form_view" model="ir.ui.view">
             <field name="name">reajuste_preco_item_form</field>
@@ -89,4 +89,4 @@
 
         <menuitem id="menu_procurement_management" name="Item preço"
             parent="menu_reajuste_root" sequence="2" action="action_reajuste_item_preco_window" /> -->
-</odoo>
+</odoo> -->
