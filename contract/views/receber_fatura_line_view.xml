@@ -1,0 +1,16 @@
+<odoo>
+    <data>
+        <record id="view_receber_fatura_expense_form" model="ir.ui.view">
+            <field name="name">Receber Fatura</field>
+            <field name="model">contract.receber_fatura_line</field>
+            <field name="arch" type="xml">
+                <tree string="Operações" multi_edit="1" editable="top">
+                    <field name="products_list" readonly="1"/>
+                    <field name="demanda" readonly="1"/>
+                    <field name="concluido"/>
+                    <field name="unidade" readonly="1"/>
+                </tree>
+            </field>
+        </record>
+    </data>
+</odoo>

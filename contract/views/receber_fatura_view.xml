@@ -1,0 +1,57 @@
+<odoo>
+    <data>
+        <record id="receber_fatura_line_form_view" model="ir.ui.view">
+            <field name="name">Receber Fatura</field>
+            <field name="model">contract.receber_fatura</field>
+            <field name="arch" type="xml">
+                <form string="Receber Fatura">
+                    <header position="inside">
+<!--                         <button type="object" string="VALIDAR" name="btn_validar_concluido" /> -->
+                    </header>
+                    <h1>
+                        <field name="name" readonly="1"/>
+                    </h1>
+                    <group>
+                        <group>
+                            <field name="partner_id" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="scheduled_date" readonly="1" />
+                            <field name="origin" readonly="1"/>
+                        </group>
+                    </group>
+                     <notebook>
+                        <page string="Operações" name="operations">
+                            <field name="receber_fatura_line" />
+                        </page>
+                    </notebook>
+                    <footer>
+                        <button type="object" string="VALIDAR" name="btn_validar_concluido" default_focus="1" class="oe_highlight"/>
+                        <button name="action_close" string="Cancelar" type="object" default_focus="1" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <!--TREE view-->
+        <record id="receber_fatura_tree_view" model="ir.ui.view">
+            <field name="name">Receber Fatura</field>
+            <field name="model">contract.receber_fatura</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="partner_id" />
+                    <field name="scheduled_date" />
+                    <field name="origin" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="sequence_id" model="ir.sequence">
+          <field name="name">Receber Fatura</field>
+          <field name="code">receber_fatura_sequence</field>
+          <field name="padding">9</field>
+          <field name="prefix"></field>
+          <field name="suffix"></field>
+        </record>
+
+    </data>
+</odoo>
