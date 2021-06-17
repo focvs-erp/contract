@@ -594,6 +594,8 @@
                 <field name="partner_id" />
                 <field name="active" invisible="1" />
                 <field name="company_id" groups="base.group_multi_company" />
+                <!-- AX4B - CPTM ADICIONANDO FIELD SELECTION DE TIPO DE CONTRATO -->
+                <field name="state"/>
             </tree>
         </field>
     </record>
