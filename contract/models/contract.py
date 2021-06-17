@@ -619,6 +619,7 @@ class ContractContract(models.Model):
     def action_terminate_contract(self):
         self.ensure_one()
         context = {"default_contract_id": self.id}
+        self.write({'state': 'encerrado'}) 
         return {
             "type": "ir.actions.act_window",
             "name": _("Terminate Contract"),
@@ -801,7 +802,9 @@ class ContractContract(models.Model):
 
 
     # AX4B - CPTM - CONTRATO MEDIÇÃO
-    state = fields.Selection([('rascunho', 'Rascunho'), ('confirmado', 'Confirmado')], default ="rascunho")
+    state = fields.Selection([('rascunho', 'Rascunho'), ('confirmado', 'Confirmado'), ('encerrado', 'Encerrado')], default ="rascunho")
+
+     
 
     def action_confirmar_receber_fatura(self):
         self.write({'state': 'confirmado'})
