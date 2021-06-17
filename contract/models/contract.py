@@ -619,6 +619,7 @@ class ContractContract(models.Model):
     def action_terminate_contract(self):
         self.ensure_one()
         context = {"default_contract_id": self.id}
+        #Adicionando write para mudar o status para encerrado
         self.write({'state': 'encerrado'}) 
         return {
             "type": "ir.actions.act_window",
@@ -801,7 +802,7 @@ class ContractContract(models.Model):
     # AX4B - CPTM ADICIONANDO FIELD SELECTION DE TIPO DE CONTRATO
 
 
-    # AX4B - CPTM - CONTRATO MEDIÇÃO
+    # AX4B - CPTM - CONTRATO MEDIÇÃO - Status
     state = fields.Selection([('rascunho', 'Rascunho'), ('confirmado', 'Confirmado'), ('encerrado', 'Encerrado')], default ="rascunho")
 
      
