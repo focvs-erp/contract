@@ -6,6 +6,24 @@
         <field name="model">contract.contract</field>
         <field name="arch" type="xml">
             <form>
+            <!-- AX4B ADITIVAÇÃO CONTRATO -->
+                <div
+                    class="alert alert-danger"
+                    role="alert"
+                    style="margin-bottom:0px;"
+                    attrs="{'invisible': [('state','!=', 'confirmado')]}"
+                >
+                    <p>
+                        <h3>Esse contrato foi <strong>CONFIRMADO!</strong> Qualquer alteração será uma <strong>ADITIVAÇÃO.</strong></h3>
+                        <strong>
+                            <field
+                                name="terminate_reason_id"
+                                options="{'no_open':True}"
+                            />
+                        </strong>
+                    </p>
+                </div>
+            <!-- AX4B ADITIVAÇÃO CONTRATO -->
                 <field name="is_terminated" invisible="1" />
                 <div
                     class="alert alert-danger"
@@ -112,6 +130,18 @@
                     </div>
                     <group name="main">
                         <group>
+                            <!-- AX4B - CPTM - ADITIVAR CONTRATO -->
+                            <field
+                                name="cd_aditivo_n"
+                                readonly="1"
+                                attrs="{'invisible': [('state','!=','confirmado')]}"
+                            />
+                            <field
+                                name="data_aditivacao"
+                                readonly="1"
+                                attrs="{'invisible': [('state','!=','confirmado')]}"
+                            />
+                            <!-- AX4B - CPTM - ADITIVAR CONTRATO -->
                             <field name="commercial_partner_id" invisible="1" />
                             <field
                                 name="partner_id"
