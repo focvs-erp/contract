@@ -174,7 +174,7 @@ class ContractContract(models.Model):
         # AX4B - CPTM - ADITIVAR CONTRATO
         else:
             res = super(ContractContract, self).write(vals)
-        return res
+            return res
 
     @api.model
     def _set_start_contract_modification(self):
