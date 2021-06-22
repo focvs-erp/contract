@@ -159,22 +159,22 @@ class ContractContract(models.Model):
                 ContractContract, self.with_context(bypass_modification_send=True)
             ).write(vals)
             self._modification_mail_send()
-        # AX4B - CPTM - ADITIVAR CONTRATO
-        if self.state == 'confirmado':
-            vals['cd_aditivo_n'] = self.cd_aditivo_n + 1
-            vals['data_aditivacao'] = date.today()
-            alteracoes = ""
-            for rec in vals:
-                alteracoes += _(_("<br> Campo <strong>%s</strong> alterado de %s para %s")
-                % (rec, self[rec], vals[rec]))
+        else: 
+            # AX4B - CPTM - ADITIVAR CONTRATO
+            if self.state == 'confirmado':
+                vals['cd_aditivo_n'] = self.cd_aditivo_n + 1
+                vals['data_aditivacao'] = date.today()
+                alteracoes = ""
+                for rec in vals:
+                    alteracoes += _(_("<br> Campo <strong>%s</strong> alterado de %s para %s")
+                    % (rec, self[rec], vals[rec]))
 
-            self.message_post(body=_(
-                "Contrato ADITIVADO, mudanças:" + alteracoes
-            ))
-        # AX4B - CPTM - ADITIVAR CONTRATO
-        else:
+                self.message_post(body=_(
+                    "Contrato ADITIVADO, mudanças:" + alteracoes
+                ))
+            # AX4B - CPTM - ADITIVAR CONTRATO
             res = super(ContractContract, self).write(vals)
-            return res
+        return res
 
     @api.model
     def _set_start_contract_modification(self):
