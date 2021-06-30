@@ -157,6 +157,10 @@
                         </group>
                         <group>
                          <!-- AX4B - CPTM - ADITIVAR CONTRATO -->
+                            <field 
+                                name ="ativar_consorcio" 
+                                widget="boolean_toggle" 
+                            />
                             <field
                                 name="cd_aditivo_n"
                                 readonly="1"

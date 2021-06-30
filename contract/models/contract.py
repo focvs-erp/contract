@@ -873,7 +873,12 @@ class ContractContract(models.Model):
             'target': 'new'
         }
     # AX4B - CPTM - CONTRATO MEDIÇÃO
+
     # AX4B - CPTM - ADITIVAR CONTRATO
     cd_aditivo_n = fields.Integer(string="Aditivo Nº", default=0)
     data_aditivacao = fields.Date(string="Data de Aditivaçao")
     # AX4B - CPTM - ADITIVAR CONTRATO
+
+    # AX4B - CPTM - RATEIO FORNECEDOR 
+    ativar_consorcio = fields.Boolean(string="Ativar Consórcio")
+    # AX4B - CPTM - RATEIO FORNECEDOR 
