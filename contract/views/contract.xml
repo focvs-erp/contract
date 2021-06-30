@@ -131,6 +131,12 @@
                     <group name="main">
                         <group>
                             <field name="commercial_partner_id" invisible="1" />
+                             <!-- AX4B - CPTM - RATEIO FORNECEDOR  -->
+                            <field 
+                                name="cod_consorcio" 
+                            />
+                             <!-- AX4B - CPTM - RATEIO FORNECEDOR  -->
+
                             <field
                                 name="partner_id"
                                 required="1"
@@ -157,10 +163,13 @@
                         </group>
                         <group>
                          <!-- AX4B - CPTM - ADITIVAR CONTRATO -->
+                         
+                         <!-- AX4B - CPTM - RATEIO FORNECEDOR  -->
                             <field 
                                 name ="ativar_consorcio" 
                                 widget="boolean_toggle" 
                             />
+                         <!-- AX4B - CPTM - RATEIO FORNECEDOR  -->
                             <field
                                 name="cd_aditivo_n"
                                 readonly="1"
