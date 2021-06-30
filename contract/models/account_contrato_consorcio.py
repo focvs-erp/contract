@@ -28,7 +28,7 @@ class ContratoConsorcio(models.Model):
 
     @api.constrains('contratos')
     def _check_exist_contract_in_line(self):
-        contratos = self.contratos.search([])
+        contratos = self.contratos.search([('contrato_id', '=', self.id)])
         data = [item.cd_fornecedores.id for item in contratos]
 
         duplicates = [item for item, count in collections.Counter(
