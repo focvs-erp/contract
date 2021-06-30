@@ -26,6 +26,8 @@ class ContractContract(models.Model):
         "portal.mixin",
     ]
 
+    fatura_consorcio = fields.One2many("contract.fatura_consorcio", "contract.contract", "Fatura consorcio")
+
     active = fields.Boolean(
         default=True,
     )
@@ -880,6 +882,6 @@ class ContractContract(models.Model):
     # AX4B - CPTM - ADITIVAR CONTRATO
 
     # AX4B - CPTM - RATEIO FORNECEDOR 
-    # cod_consorcio = fields.Many2one('contract.contrato_consorcio', string="Consórcio")
-    # ativar_consorcio = fields.Boolean(default=False, string="Ativar Consórcio")
+    cod_consorcio = fields.Many2one('contract.contrato_consorcio', string="Consórcio")
+    ativar_consorcio = fields.Boolean(default=False, string="Ativar Consórcio")
     # AX4B - CPTM - RATEIO FORNECEDOR 

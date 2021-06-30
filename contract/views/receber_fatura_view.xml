@@ -25,9 +25,6 @@
                         <page string="Operações" name="operations">
                             <field name="receber_fatura_line" />
                         </page>
-                        <!-- AX4B - CPTM - RATEIO FORNECEDOR  -->
-                        <page string="Receber Faturas do Consórcio" name="fatura_consorcio">
-                        </page>
                     </notebook>
                     <footer>
                         <button type="object" string="VALIDAR" name="btn_validar_concluido" default_focus="1" class="oe_highlight"/>
