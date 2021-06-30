@@ -10,3 +10,6 @@ class FaturaConsorcio(models.Model):
     data_recebimento = fields.Date(string="Data Recebimento") 
     cd_unidade_medida = fields.Many2one('uom.uom',string="Unidade de medida")
     cd_contrato = fields.Many2one('contract.contract', string="Contrato do Fornecedor")
+
+
+    contrato = fields.Many2one('contract.contract', string="Contrato do Fornecedor", invisble=True)#res
