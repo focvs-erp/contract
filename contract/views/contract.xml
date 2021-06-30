@@ -570,6 +570,12 @@
                             </group>
                         </page>
                         <page name="Receber Faturas do Consórcio" string="Receber Faturas do Consórcio">
+                        <field name="cd_fornecedor" />
+                        <field name="total_concluido" />
+                        <field name="valor_disponivel_concluir" />
+                        <field name="data_recebimento" />
+                        <field name="cd_unidade_medida" />
+                        <field name="cd_contrato" />
                         </page>
                         <!-- AX4B - CPTM - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO -->
                     </notebook>
