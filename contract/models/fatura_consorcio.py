@@ -9,4 +9,4 @@ class FaturaConsorcio(models.Model):
     valor_disponivel_concluir = fields.Integer(string="Total Disponível a Concluir")
     data_recebimento = fields.Date(string="Data Recebimento") 
     cd_unidade_medida = fields.Many2one('uom.uom',string="Unidade de medida")
-    # cd_contrato = fields.Many2one('contract.contract', string="Contrato do Fornecedor")
+    cd_contrato = fields.Many2one('contract.contract', string="Contrato do Fornecedor")

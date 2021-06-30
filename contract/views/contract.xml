@@ -570,7 +570,7 @@
                             </group>
                         </page>
                         <page name="faturas_do_consorcio" string="Receber Faturas do Consórcio">
-                            <!-- <field name="fatura_consorcio" />    -->
+                            <field name="fatura_consorcio" />   
                         </page>
                         <!-- AX4B - CPTM - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO -->
                     </notebook>
