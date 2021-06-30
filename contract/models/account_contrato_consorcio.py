@@ -39,4 +39,4 @@ class ContratoConsorcio(models.Model):
                 lambda item: item.cd_fornecedores.id == n)
             if sum([item.cd_participacao for item in cts]) > 100:
                 raise ValidationError(
-                    'A soma participação "%" para cada fornecedor deverá ser melhor que 100')
+                    'A soma participação "%" para cada fornecedor deverá ser menor que 100')
