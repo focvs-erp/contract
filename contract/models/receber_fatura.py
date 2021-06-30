@@ -10,6 +10,8 @@ class ReceberFatura(models.Model):
     name = fields.Char(readonly=True)
     contract_id = fields.Many2one("contract.contract", invisible=True)
 
+    porcentagem = fields.Float(string="Porcentagem")
+
     partner_id = fields.Many2one("res.partner", string="Receber De")
     scheduled_date = fields.Date(string="Data Agendada", default=datetime.today())
     origin = fields.Char(related="contract_id.name", string="Documento de Origem")
