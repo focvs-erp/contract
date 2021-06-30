@@ -880,6 +880,6 @@ class ContractContract(models.Model):
     # AX4B - CPTM - ADITIVAR CONTRATO
 
     # AX4B - CPTM - RATEIO FORNECEDOR 
-    cod_consorcio = fields.Many2one('contract.contrato_consorcio', string ="Consórcio")
-    ativar_consorcio = fields.Boolean(string="Ativar Consórcio")
+    # cod_consorcio = fields.Many2one('contract.contrato_consorcio', string ="Consórcio")
+    ativar_consorcio = fields.Boolean(default=False, string="Ativar Consórcio")
     # AX4B - CPTM - RATEIO FORNECEDOR 
