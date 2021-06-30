@@ -26,7 +26,7 @@ class ContractContract(models.Model):
         "portal.mixin",
     ]
 
-    fatura_consorcio = fields.One2many('contract.fatura_consorcio', 'cd_contrato', 'Fatura consorcio')
+    # fatura_consorcio = fields.One2many('contract.fatura_consorcio', 'cd_contrato', 'Fatura consorcio')
 
     active = fields.Boolean(
         default=True,

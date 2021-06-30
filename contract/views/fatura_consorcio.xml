@@ -8,7 +8,7 @@
             <field name="valor_disponivel_concluir" />
             <field name="data_recebimento" />
             <field name="cd_unidade_medida" />
-            <field name="cd_contrato" />"
+            <!-- <field name="cd_contrato" />" -->
       </form>
    </field>
   </record>
@@ -21,7 +21,7 @@
             <field name="valor_disponivel_concluir" />
             <field name="data_recebimento" />
             <field name="cd_unidade_medida" />
-            <field name="cd_contrato" />"
+            <!-- <field name="cd_contrato" />" -->
         </tree>
       </field>
     </record> 
