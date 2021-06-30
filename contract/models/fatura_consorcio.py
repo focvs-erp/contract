@@ -1,6 +1,5 @@
 from odoo import fields, api, models
 
-
 class FaturaConsorcio(models.Model):
     _name = 'contract.fatura_consorcio'
     _description = 'Recebimentos de Faturas do Consórcio'
