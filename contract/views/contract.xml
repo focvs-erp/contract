@@ -569,6 +569,8 @@
                                 </group>
                             </group>
                         </page>
+                        <page name="Receber Faturas do Consórcio" string="Receber Faturas do Consórcio">
+                        </page>
                         <!-- AX4B - CPTM - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO -->
                     </notebook>
                 </sheet>

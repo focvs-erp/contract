@@ -37,6 +37,8 @@ class ContratoConsorcio(models.Model):
         for n in duplicates:
             cts = contratos.filtered(
                 lambda item: item.cd_fornecedores.id == n)
-            if sum([item.cd_participacao for item in cts]) > 100:
-                raise ValidationError(
-                    'A porcentagem de participação por fornecedor, deve ser menor que 100')
+            if len(cts) > 0:
+                raise ValidationError('Não é permitido selecionar um fornecedor já existente')
+            # if sum([item.cd_participacao for item in cts]) > 100:
+            #     raise ValidationError(
+            #         'A porcentagem de participação por fornecedor, deve ser menor que 100')
