@@ -16,7 +16,7 @@
     <record id="view_fatura_consorcio_tree" model="ir.ui.view">
       <field name="model">contract.fatura_consorcio</field>
       <field name="arch" type="xml">
-        <tree string="CFatura Consorcio">
+        <tree string="Fatura Consorcio">
             <field name="total_concluido" />
             <field name="valor_disponivel_concluir" />
             <field name="data_recebimento" />
