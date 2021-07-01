@@ -19,9 +19,9 @@
     "depends": ["base", "account", "product", "portal", "purchase"],
     "external_dependencies": {"python": ["dateutil"]},
     "data": [
+        "security/ir.model.access.csv",
         "security/groups.xml",
         "security/contract_tag.xml",
-        "security/ir.model.access.csv",
         "security/contract_security.xml",
         "security/contract_terminate_reason.xml",
         "report/report_contract.xml",
@@ -49,6 +49,7 @@
         "views/reajuste_preco_view.xml",
         "views/receber_fatura_line_view.xml",
         "views/receber_fatura_view.xml",
+        "views/fatura_consorcio_view.xml",
         "views/contract_contrato_consorcio.xml",
         "views/contract_contrato_consorcio_linha.xml",
 

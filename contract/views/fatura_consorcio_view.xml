@@ -1,0 +1,35 @@
+<odoo>
+     <record id="view_fatura_consorcio" model="ir.ui.view">
+      <field name="name">Fatura Consorcio</field>
+      <field name="model">contract.fatura_consorcio</field>
+      <field name="arch" type="xml">
+        <form string="fatura_consorcio">
+            <field name="total_concluido" />
+            <field name="valor_disponivel_concluir" />
+            <field name="data_recebimento" />
+            <field name="cd_unidade_medida" />
+            <field name="cd_contrato" />"
+      </form>
+   </field>
+  </record>
+       
+    <record id="view_fatura_consorcio_tree" model="ir.ui.view">
+      <field name="model">contract.fatura_consorcio</field>
+      <field name="arch" type="xml">
+        <tree string="Fatura Consorcio">
+            <field name="total_concluido" />
+            <field name="valor_disponivel_concluir" />
+            <field name="data_recebimento" />
+            <field name="cd_unidade_medida" />
+            <field name="cd_contrato" />
+        </tree>
+      </field>
+    </record> 
+       
+    <record id="account_fatura_consorcio_window" model="ir.actions.act_window">
+      <field name="name">Fatura Consorcio</field>
+      <field name="res_model">contract.fatura_consorcio</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="view_id" ref="view_fatura_consorcio_tree"/>
+    </record>
+</odoo>

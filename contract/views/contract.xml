@@ -131,6 +131,13 @@
                     <group name="main">
                         <group>
                             <field name="commercial_partner_id" invisible="1" />
+                             <!-- AX4B - CPTM - RATEIO FORNECEDOR  -->
+                            <field 
+                                name="cod_consorcio"
+                                attrs="{'invisible': [('ativar_consorcio','=', False)]}"
+                            />
+                             <!-- AX4B - CPTM - RATEIO FORNECEDOR  -->
+
                             <field
                                 name="partner_id"
                                 required="1"
@@ -157,6 +164,13 @@
                         </group>
                         <group>
                          <!-- AX4B - CPTM - ADITIVAR CONTRATO -->
+
+                         <!-- AX4B - CPTM - RATEIO FORNECEDOR  -->
+                            <field 
+                                name ="ativar_consorcio" 
+                                widget="boolean_toggle" 
+                            />                      
+                         <!-- AX4B - CPTM - RATEIO FORNECEDOR  -->
                             <field
                                 name="cd_aditivo_n"
                                 readonly="1"
@@ -555,6 +569,10 @@
                                     <field name= "cod_projeto_atividade" />
                                 </group>
                             </group>
+                        </page>
+                        <page name="faturas_do_consorcio" string="Receber Faturas do Consórcio" 
+                        attrs="{'invisible': [('ativar_consorcio','=', False)]}"> 
+                            <field name="fatura_consorcio" />   
                         </page>
                         <!-- AX4B - CPTM - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO -->
                     </notebook>

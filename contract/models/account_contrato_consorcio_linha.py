@@ -16,7 +16,7 @@ class ContratoConsorcioLinha(models.Model):
     cd_contato = fields.Many2one('res.partner', string="Contato") 
     cd_email = fields.Char(related='cd_contato.email', string="Email") 
     cd_telefone = fields.Char(related='cd_contato.phone', string="Telefone")
-    cd_participacao = fields.Integer(string="Participação %")
+    cd_participacao = fields.Float(string="Participação %")
     cd_ativo = fields.Boolean(default=False, string="Ativo")
 
     contrato_id = fields.Many2one('contract.contrato_consorcio', string="Contrato")
