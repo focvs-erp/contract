@@ -11,6 +11,9 @@ class ReceberFatura(models.Model):
     contract_id = fields.Many2one("contract.contract", invisible=True)
 
     # AX4B - CPTM - RATEIO FORNECEDOR 
+    ativar_consorcio = fields.Boolean(related="contract_id.ativar_consorcio", string="Ativar consorcio")
+
+    # AX4B - CPTM - RATEIO FORNECEDOR 
     porcentagem = fields.Float(string="Porcentagem")
 
     partner_id = fields.Many2one("res.partner", string="Receber De")
