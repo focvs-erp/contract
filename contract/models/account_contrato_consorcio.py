@@ -38,7 +38,7 @@ class ContratoConsorcio(models.Model):
                 lambda item: item.cd_fornecedores.id == n)
 
             if len(cts) > 0:
-                raise ValidationError('Somente um fornecedor')
+                raise ValidationError('Não é possível repetir um fornecedor no mesmo contrato de consórcio')
 
         if sum([item.cd_participacao for item in contratos]) > 100:
             raise ValidationError(
