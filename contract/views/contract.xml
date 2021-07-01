@@ -133,7 +133,8 @@
                             <field name="commercial_partner_id" invisible="1" />
                              <!-- AX4B - CPTM - RATEIO FORNECEDOR  -->
                             <field 
-                                name="cod_consorcio" 
+                                name="cod_consorcio"
+                                attrs="{'invisible': [('ativar_consorcio','=', 'True')]}"
                             />
                              <!-- AX4B - CPTM - RATEIO FORNECEDOR  -->
 
@@ -569,7 +570,8 @@
                                 </group>
                             </group>
                         </page>
-                        <page name="faturas_do_consorcio" string="Receber Faturas do Consórcio">
+                        <page name="faturas_do_consorcio" string="Receber Faturas do Consórcio" 
+                        attrs="{'invisible': [('ativar_consorcio','=', 'True')]}"> 
                             <field name="fatura_consorcio" />   
                         </page>
                         <!-- AX4B - CPTM - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO -->
