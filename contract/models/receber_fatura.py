@@ -6,9 +6,11 @@ class ReceberFatura(models.TransientModel):
     _name = "contract.receber_fatura"
     _description = "Receber Fatura"
 
-
     name = fields.Char(readonly=True)
     contract_id = fields.Many2one("contract.contract", invisible=True)
+
+    # AX4B - CPTM - RATEIO FORNECEDOR 
+    ativar_consorcio = fields.Boolean( string="Ativar consorcio")
 
     # AX4B - CPTM - RATEIO FORNECEDOR 
     porcentagem = fields.Float(string="Porcentagem")

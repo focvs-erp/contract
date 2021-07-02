@@ -850,7 +850,8 @@ class ContractContract(models.Model):
     def _create_receber_fatura(self):
         vals = {
             "contract_id": self.id,
-            "partner_id": self.partner_id.id
+            "partner_id": self.partner_id.id,
+            "ativar_consorcio": True
         }
 
         self.env["contract.receber_fatura"].create(vals)
@@ -872,6 +873,7 @@ class ContractContract(models.Model):
             'view_mode': 'form',
             'res_model': 'contract.receber_fatura',
             'res_id': exist_receber_fatura.id,
+            'context': self.env.context,
             'target': 'new'
         }
     # AX4B - CPTM - CONTRATO MEDIÇÃO
