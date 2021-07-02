@@ -2,7 +2,7 @@ from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError, UserError
 from datetime import datetime
 
-class ReceberFatura(models.Model):
+class ReceberFatura(models.TransientModel):
     _name = "contract.receber_fatura"
     _description = "Receber Fatura"
 
