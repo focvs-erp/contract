@@ -161,7 +161,7 @@ class ContractContract(models.Model):
                 ContractContract, self.with_context(bypass_modification_send=True)
             ).write(vals)
             self._modification_mail_send()
-        else: 
+        else:
             # AX4B - CPTM - ADITIVAR CONTRATO
             if self.state == 'confirmado':
                 vals['cd_aditivo_n'] = self.cd_aditivo_n + 1
@@ -636,7 +636,7 @@ class ContractContract(models.Model):
         self.ensure_one()
         context = {"default_contract_id": self.id}
         #Adicionando write para mudar o status para encerrado
-        self.write({'state': 'encerrado'}) 
+        self.write({'state': 'encerrado'})
         return {
             "type": "ir.actions.act_window",
             "name": _("Terminate Contract"),
@@ -821,7 +821,7 @@ class ContractContract(models.Model):
     # AX4B - CPTM - CONTRATO MEDIÇÃO - Status
     state = fields.Selection([('rascunho', 'Rascunho'), ('confirmado', 'Confirmado'), ('encerrado', 'Encerrado')], default ="rascunho")
 
-     
+
 
     def action_confirmar_receber_fatura(self):
         self.write({'state': 'confirmado'})
@@ -851,17 +851,17 @@ class ContractContract(models.Model):
         vals = {
             "contract_id": self.id,
             "partner_id": self.partner_id.id,
-            
+
         }
 
         self.env.context = dict (self.env.context)
         self.env.context.update ({
         'ativar_consorcio_fatura': self.ativar_consorcio,
         })
-        
+
         self.env["contract.receber_fatura"].create(vals)
         self.env.cr.commit()
-        
+
 
     def _exist_receber_fatura_to_contrato_fornecedor(self):
         exist_receber_fatura = self.env['contract.receber_fatura'].search([('contract_id', '=', self.id)])
@@ -889,13 +889,14 @@ class ContractContract(models.Model):
     data_aditivacao = fields.Date(string="Data de Aditivaçao")
     # AX4B - CPTM - ADITIVAR CONTRATO
 
-    # AX4B - CPTM - RATEIO FORNECEDOR 
+    # AX4B - CPTM - RATEIO FORNECEDOR
     cod_consorcio = fields.Many2one('contract.contrato_consorcio', string="Consórcio")
     ativar_consorcio = fields.Boolean(default=False, string="Ativar Consórcio")
-    # AX4B - CPTM - RATEIO FORNECEDOR 
+    # AX4B - CPTM - RATEIO FORNECEDOR
 
     #AX4B - CPTM - RESERVA DE GARANTIA
-    # cod_reserva_garantia = fields.Selection([('10', '10%'),('20', '20%'),('30', '30%')],
-    #                                     string=" Reserva de Garantia")
-    # bt_reserva_garantia = fields.Boolean(default=False, string="Reserva de Garantia")
-    # cod_conta_contabil = fields.Many2one('account.account', 'Conta')
+    cod_reserva_garantia = fields.Selection([('10', '10%'),('20', '20%'),('30', '30%')],
+                                        string=" Reserva de Garantia")
+    bt_reserva_garantia = fields.Boolean(default=False, string="Reserva de Garantia")
+    cod_conta_contabil = fields.Many2one('account.account', 'Conta')
+    #AX4B - CPTM - RESERVA DE GARANTIA
