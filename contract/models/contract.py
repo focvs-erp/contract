@@ -872,6 +872,7 @@ class ContractContract(models.Model):
             'view_mode': 'form',
             'res_model': 'contract.receber_fatura',
             'res_id': exist_receber_fatura.id,
+            'context': self.env.context,
             'target': 'new'
         }
     # AX4B - CPTM - CONTRATO MEDIÇÃO

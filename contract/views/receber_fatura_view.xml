@@ -4,7 +4,7 @@
             <field name="name">Receber Fatura</field>
             <field name="model">contract.receber_fatura</field>
             <field name="arch" type="xml">
-                <form string="Receber Fatura">
+                <form string="Receber Fatura"> 
                     <header position="inside">
 <!--                         <button type="object" string="VALIDAR" name="btn_validar_concluido" /> -->
                     </header>
@@ -14,7 +14,7 @@
                     <group>
                         <group>
                             <field name="partner_id" readonly="1"/>
-                            <field name="porcentagem" attrs="{'invisible': [('ativar_consorcio','=', False)]}"/>
+                            <field name="porcentagem" invisible="context.get('ativar_consorcio',False)"/>
                         </group>
                         <group>
                             <field name="scheduled_date" readonly="1" />

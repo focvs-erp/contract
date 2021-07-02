@@ -6,7 +6,6 @@ class ReceberFatura(models.Model):
     _name = "contract.receber_fatura"
     _description = "Receber Fatura"
 
-
     name = fields.Char(readonly=True)
     contract_id = fields.Many2one("contract.contract", invisible=True)
 
