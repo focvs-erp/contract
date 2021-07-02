@@ -161,6 +161,12 @@
                                 name="user_id"
                                 attrs="{'readonly': [('is_terminated','=',True)]}"
                             />
+                            <!--AX4B - CPTM RESERVA DE GARANTIA-->
+                            <field
+                                name="cod_reserva_garantia" 
+                                required="1" attrs="{'invisible': [('bt_reserva_garantia', '!=', True)]}"/>
+                            />
+                            <!--AX4B -CPTM RESERVA DE GARANTIA-->
                         </group>
                         <group>
                          <!-- AX4B - CPTM - ADITIVAR CONTRATO -->
@@ -181,6 +187,10 @@
                                 readonly="1"
                                 attrs="{'invisible': [('state','!=','confirmado')]}"
                             />
+                            <!--AX4B - CPTM - RESERVA DE GARANTIA-->
+                            <field name="bt_reserva_garantia" 
+                            widget="boolean_toggle" />  
+                            <!--AX4B - CPTM - RESERVA DE GARANTIA-->
                             <!-- AX4B - CPTM - ADITIVAR CONTRATO -->
                             <field
                                 name="contract_template_id"
@@ -227,6 +237,9 @@
                                 name="recurring_invoicing_type"
                                 attrs="{'required': [('line_recurrence', '=', False)]}"
                             />
+                            <!--AX4B - CPTM - RESERVA DE GARANTIA-->
+                            <field name="cod_conta_contabil" attrs="{'invisible': [('bt_reserva_garantia', '!=', True)]}"/>
+                            <!--AX4B - CPTM - RESERVA DE GARANTIA-->
                         </group>
                         <group attrs="{'invisible': [('line_recurrence', '=', True)]}">
                             <field
