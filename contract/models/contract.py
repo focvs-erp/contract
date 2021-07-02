@@ -851,7 +851,7 @@ class ContractContract(models.Model):
         vals = {
             "contract_id": self.id,
             "partner_id": self.partner_id.id,
-            "ativar_consorcio": self.ativar_consorcio
+            "ativar_consorcio_fatura": self.ativar_consorcio
         }
 
         self.env["contract.receber_fatura"].create(vals)
