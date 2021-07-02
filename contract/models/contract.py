@@ -853,13 +853,12 @@ class ContractContract(models.Model):
             "partner_id": self.partner_id.id,
             
         }
-
-        vals2 = {
-            "ativar_consorcio_fatura": self.ativar_consorcio
-        }
-
+        self = self.with_context ({
+            "ativar_consorcio_fatura": self.ativar_consorcio,
+            })
+         
+        raise UserError (self.ativar_consorcio)
         self.env["contract.receber_fatura"].create(vals)
-        self.env["contract.receber_fatura"].write(vals2)
         self.env.cr.commit()
         
 
