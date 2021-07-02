@@ -15,8 +15,8 @@
                         <group>
                             <field name="partner_id" readonly="1"/>
                             <!-- <field name="porcentagem" invisible="context.get('ativar_consorcio',False)"/> -->
-                            <field name="ativar_consorcio"/>
-                            <field name="porcentagem" attrs="{'invisible': [('ativar_consorcio','=', False)]}"/>
+                            <field name="ativar_consorcio_fatura"/>
+                            <field name="porcentagem" attrs="{'invisible': [('ativar_consorcio_fatura','=', False)]}"/>
                         </group>
                         <group>
                             <field name="scheduled_date" readonly="1" />
