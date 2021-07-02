@@ -857,7 +857,6 @@ class ContractContract(models.Model):
             "ativar_consorcio_fatura": self.ativar_consorcio,
             })
          
-        raise UserError (self.ativar_consorcio)
         self.env["contract.receber_fatura"].create(vals)
         self.env.cr.commit()
         
