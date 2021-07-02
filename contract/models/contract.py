@@ -898,5 +898,4 @@ class ContractContract(models.Model):
     cod_reserva_garantia = fields.Selection([('10', '10%'),('20', '20%'),('30', '30%')],
                                         string=" Reserva de Garantia")
     bt_reserva_garantia = fields.Boolean(default=False, string="Reserva de Garantia")
-    cod_conta_contabil = fields.Many2one('account.account', 'Conta', default=lambda 
-                                    self: self.env['account.account'].browse(64))
+    cod_conta_contabil = fields.Many2one('account.account', 'Conta')
