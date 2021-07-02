@@ -851,14 +851,10 @@ class ContractContract(models.Model):
         vals = {
             "contract_id": self.id,
             "partner_id": self.partner_id.id,
+            "ativar_consorcio_fatura": self.ativar_consorcio,
             
         }
-
-        self.env.context = dict (self.env.context)
-        self.env.context.update ({
-        'ativar_consorcio_fatura': self.ativar_consorcio,
-        })
-        
+  
         self.env["contract.receber_fatura"].create(vals)
         self.env.cr.commit()
         
