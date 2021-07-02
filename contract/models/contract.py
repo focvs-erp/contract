@@ -842,8 +842,7 @@ class ContractContract(models.Model):
                 if not receber_fatura_line:
                     vals = {
                         "receber_fatura": exist_receber_fatura.id,
-                        "products_list": product.id,
-                        "ativar_consorcio": True
+                        "products_list": product.id
                     }
                     self.env["contract.receber_fatura_line"].create(vals)
                     self.env.cr.commit()
@@ -851,7 +850,8 @@ class ContractContract(models.Model):
     def _create_receber_fatura(self):
         vals = {
             "contract_id": self.id,
-            "partner_id": self.partner_id.id
+            "partner_id": self.partner_id.id,
+            "ativar_consorcio": True
         }
 
         self.env["contract.receber_fatura"].create(vals)
