@@ -25,9 +25,8 @@ class ContratoConsorcio(models.Model):
 
         return super().create(vals)
 
-
     @api.constrains('contratos')
-    def _check_exist_contract_in_line(self):
+    def _check_exist_product_in_line(self):
         contratos = self.contratos.search([('contrato_id', '=', self.id)])
         data = [item.cd_fornecedores.id for item in contratos]
 
@@ -37,8 +36,10 @@ class ContratoConsorcio(models.Model):
         for n in duplicates:
             cts = contratos.filtered(
                 lambda item: item.cd_fornecedores.id == n)
+
             if len(cts) > 0:
-                raise ValidationError('Não é permitido selecionar um fornecedor já existente')
-            # if sum([item.cd_participacao for item in cts]) > 100:
-            #     raise ValidationError(
-            #         'A porcentagem de participação por fornecedor, deve ser menor que 100')
+                raise ValidationError('Não é possível repetir um fornecedor no mesmo contrato de consórcio')
+
+        if sum([item.cd_participacao for item in contratos]) > 100:
+            raise ValidationError(
+                'A soma das participações "%" das empresas devem ser menor que 100')
