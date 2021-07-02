@@ -162,9 +162,9 @@
                                 attrs="{'readonly': [('is_terminated','=',True)]}"
                             />
                             <!--AX4B - CPTM RESERVA DE GARANTIA-->
-                            <field
+                            <!-- <field
                                 name="cod_reserva_garantia" 
-                                required="1" attrs="{'invisible': [('bt_reserva_garantia', '!=', True)]}"/>
+                                required="1" attrs="{'invisible': [('bt_reserva_garantia', '!=', True)]}"/> -->
                             <!--AX4B -CPTM RESERVA DE GARANTIA-->
                         </group>
                         <group>
@@ -187,8 +187,8 @@
                                 attrs="{'invisible': [('state','!=','confirmado')]}"
                             />
                             <!--AX4B - CPTM - RESERVA DE GARANTIA-->
-                            <field name="bt_reserva_garantia" 
-                            widget="boolean_toggle" />  
+                            <!-- <field name="bt_reserva_garantia" 
+                            widget="boolean_toggle" />   -->
                             <!--AX4B - CPTM - RESERVA DE GARANTIA-->
                             <!-- AX4B - CPTM - ADITIVAR CONTRATO -->
                             <field
@@ -237,7 +237,7 @@
                                 attrs="{'required': [('line_recurrence', '=', False)]}"
                             />
                             <!--AX4B - CPTM - RESERVA DE GARANTIA-->
-                            <field name="cod_conta_contabil" attrs="{'invisible': [('bt_reserva_garantia', '!=', True)]}"/>
+                            <!-- <field name="cod_conta_contabil" attrs="{'invisible': [('bt_reserva_garantia', '!=', True)]}"/> -->
                             <!--AX4B - CPTM - RESERVA DE GARANTIA-->
                         </group>
                         <group attrs="{'invisible': [('line_recurrence', '=', True)]}">
