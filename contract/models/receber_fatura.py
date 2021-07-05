@@ -19,9 +19,9 @@ class ReceberFatura(models.TransientModel):
     origin = fields.Char(related="contract_id.name", string="Documento de Origem")
 
     receber_fatura_line = fields.One2many("contract.receber_fatura_line","receber_fatura",string="Receber Fatura")
-
+    
     def btn_validar_concluido(self):
-        raise UserError (self.ativar_consorcio_fatura)
+        raise UserError(self.env.context.get('ativar_consorcio'))
         for products_line in self.receber_fatura_line:
             for concluido in products_line:
                 if concluido.demanda < concluido.concluido:
