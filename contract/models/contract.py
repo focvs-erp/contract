@@ -857,6 +857,13 @@ class ContractContract(models.Model):
   
         self.env["contract.receber_fatura"].create(vals)
         self.env.cr.commit()
+        return {
+            'type': 'ir.actions.act_window',
+            'view_mode': 'form',
+            'res_model': 'contract.receber_fatura',
+            'context': self.env.context,
+            'target': 'new'
+        }
         
 
     def _exist_receber_fatura_to_contrato_fornecedor(self):
