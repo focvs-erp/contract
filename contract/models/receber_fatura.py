@@ -12,9 +12,22 @@ class ReceberFatura(models.TransientModel):
     # AX4B - CPTM - RATEIO FORNECEDOR 
     ativar_consorcio_fatura = fields.Boolean(compute= "set_ativar_consorcio_fatura")
     porcentagem = fields.Float(string="Porcentagem")
+    
+    def _get_domain_fornecedores(self):
+        fornecedores_ids = []
+        if self.env.context.get('ativar_consorcio'):
+            consorcio = self.env['contract.contrato_consorcio'].search([("id", "=", self.env.context.get("cod_consorcio"))])
+            for i in consorcio:
+                for contract in i.contratos:
+                    if contract.cd_ativo:
+                        fornecedores_ids.append(contract.cd_fornecedores.id)
+        else:
+            fornecedores_ids.append(self.env.context.get('partner_id'))
+        return [('id', 'in', fornecedores_ids)]
+
      # AX4B - CPTM - RATEIO FORNECEDOR 
 
-    partner_id = fields.Many2one("res.partner", string="Receber De")
+    partner_id = fields.Many2one("res.partner", string="Receber De", domain=_get_domain_fornecedores)
     scheduled_date = fields.Date(string="Data Agendada", default=datetime.today())
     origin = fields.Char(related="contract_id.name", string="Documento de Origem")
 
@@ -44,4 +57,5 @@ class ReceberFatura(models.TransientModel):
         
     def set_ativar_consorcio_fatura(self):
         for rec in self:
-            rec.ativar_consorcio_fatura = self.env.context.get('ativar_consorcio') 
+            rec.ativar_consorcio_fatura = self.env.context.get('ativar_consorcio')
+            
