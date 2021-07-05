@@ -10,7 +10,7 @@ class ReceberFatura(models.TransientModel):
     contract_id = fields.Many2one("contract.contract", invisible=True)
 
     # AX4B - CPTM - RATEIO FORNECEDOR 
-    ativar_consorcio_fatura = fields.Boolean( default= lambda self: self.env.context.get('ativar_consorcio'))
+    ativar_consorcio_fatura = fields.Boolean(default= lambda self: self.env.context.get('ativar_consorcio').Search())
     porcentagem = fields.Float(string="Porcentagem")
      # AX4B - CPTM - RATEIO FORNECEDOR 
 
