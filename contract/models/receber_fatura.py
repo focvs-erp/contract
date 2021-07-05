@@ -44,4 +44,4 @@ class ReceberFatura(models.TransientModel):
         
     def set_ativar_consorcio_fatura(self):
         for rec in self:
-            rec.ativar_consorcio_fatura = self.env.context.get('ativar_consorcio')
+            rec.ativar_consorcio_fatura = self.env.context.get('ativar_consorcio') 
