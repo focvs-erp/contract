@@ -826,14 +826,6 @@ class ContractContract(models.Model):
     def action_confirmar_receber_fatura(self):
         self.write({'state': 'confirmado'})
 
-        self._clear_receber_fatura_line_unused()
-
-        if self._exist_receber_fatura_to_contrato_fornecedor():
-            self._create_receber_fatura_line()
-        else:
-            self._create_receber_fatura()
-            self._create_receber_fatura_line()
-
     def _create_receber_fatura_line(self):
         exist_receber_fatura = self._exist_receber_fatura_to_contrato_fornecedor()
         if exist_receber_fatura:
@@ -849,30 +841,27 @@ class ContractContract(models.Model):
 
     def _create_receber_fatura(self):
         vals = {
-            "contract_id": self.id,
-            "partner_id": self.partner_id.id,
-            "ativar_consorcio_fatura": self.ativar_consorcio,
+            "contract_id": self.id
             
         }
-        self.env["contract.receber_fatura"].create(vals)
+        receber_fatura = self.env["contract.receber_fatura"].create(vals)
         self.env.cr.commit()
+        return receber_fatura
 
     def _exist_receber_fatura_to_contrato_fornecedor(self):
         exist_receber_fatura = self.env['contract.receber_fatura'].search([('contract_id', '=', self.id)])
         return exist_receber_fatura
 
-    def _clear_receber_fatura_line_unused(self):
-        delete_receber_faturas_unused = self.env["contract.receber_fatura_line"].search([('products_list', '=', False)])
-        delete_receber_faturas_unused.unlink()
-
     def action_receber_fatura(self):
-        self.action_confirmar_receber_fatura()
-        exist_receber_fatura = self._exist_receber_fatura_to_contrato_fornecedor()
+
+        receber_fatura = self._create_receber_fatura()
+        self._create_receber_fatura_line()
+
         return {
             'type': 'ir.actions.act_window',
             'view_mode': 'form',
             'res_model': 'contract.receber_fatura',
-            'res_id': exist_receber_fatura.id,
+            'res_id': receber_fatura.id,
             'context': self.env.context,
             'target': 'new'
         }
