@@ -899,4 +899,6 @@ class ContractContract(models.Model):
                                         string=" Reserva de Garantia")
     bt_reserva_garantia = fields.Boolean(default=False, string="Reserva de Garantia")
     cod_conta_contabil = fields.Many2one('account.account', 'Conta')
+
+    
     #AX4B - CPTM - RESERVA DE GARANTIA

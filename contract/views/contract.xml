@@ -164,7 +164,9 @@
                             <!--AX4B - CPTM RESERVA DE GARANTIA-->
                             <field
                                 name="cod_reserva_garantia"
-                                required="1" attrs="{'invisible': [('bt_reserva_garantia', '!=', True)], 'readonly': [('state', '=', 'confirmado')]}"/>
+                                required="1" attrs="{'invisible': [('bt_reserva_garantia', '!=', True)], 'readonly': [('state', '=', 'confirmado')], 'required': [('bt_reserva_garantia', '=', True)]}"/>
+                                <!--AX4B - CPTM - RESERVA DE GARANTIA-->
+                            <field name="cod_conta_contabil" attrs="{'invisible': [('bt_reserva_garantia', '!=', True)], 'readonly': [('state', '=', 'confirmado')], 'required': [('bt_reserva_garantia', '=', True)]}"/>
                             <!--AX4B -CPTM RESERVA DE GARANTIA-->
                         </group>
                         <group>
@@ -236,9 +238,7 @@
                                 name="recurring_invoicing_type"
                                 attrs="{'required': [('line_recurrence', '=', False)]}"
                             />
-                            <!--AX4B - CPTM - RESERVA DE GARANTIA-->
-                            <field name="cod_conta_contabil" required="1" attrs="{'invisible': [('bt_reserva_garantia', '!=', True)], 'readonly': [('state', '=', 'confirmado')]}"/>
-                            <!--AX4B - CPTM - RESERVA DE GARANTIA-->
+                            
                         </group>
                         <group attrs="{'invisible': [('line_recurrence', '=', True)]}">
                             <field
