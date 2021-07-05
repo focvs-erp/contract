@@ -132,7 +132,7 @@
                         <group>
                             <field name="commercial_partner_id" invisible="1" />
                              <!-- AX4B - CPTM - RATEIO FORNECEDOR  -->
-                            <field 
+                            <field
                                 name="cod_consorcio"
                                 attrs="{'invisible': [('ativar_consorcio','=', False)]}"
                             />
@@ -163,7 +163,11 @@
                             />
                             <!--AX4B - CPTM RESERVA DE GARANTIA-->
                             <field
+<<<<<<< HEAD
                                 name="cod_reserva_garantia" 
+=======
+                                name="cod_reserva_garantia"
+>>>>>>> 02bad8fde6b1742ad3717152c664dc3a36b8c013
                                 required="1" attrs="{'invisible': [('bt_reserva_garantia', '!=', True)]}"/>
                             <!--AX4B -CPTM RESERVA DE GARANTIA-->
                         </group>
@@ -171,10 +175,10 @@
                          <!-- AX4B - CPTM - ADITIVAR CONTRATO -->
 
                          <!-- AX4B - CPTM - RATEIO FORNECEDOR  -->
-                            <field 
-                                name ="ativar_consorcio" 
-                                widget="boolean_toggle" 
-                            />                      
+                            <field
+                                name ="ativar_consorcio"
+                                widget="boolean_toggle"
+                            />
                          <!-- AX4B - CPTM - RATEIO FORNECEDOR  -->
                             <field
                                 name="cd_aditivo_n"
@@ -187,7 +191,11 @@
                                 attrs="{'invisible': [('state','!=','confirmado')]}"
                             />
                             <!--AX4B - CPTM - RESERVA DE GARANTIA-->
+<<<<<<< HEAD
                             <field name="bt_reserva_garantia" 
+=======
+                            <field name="bt_reserva_garantia"
+>>>>>>> 02bad8fde6b1742ad3717152c664dc3a36b8c013
                             widget="boolean_toggle" />
                             <!--AX4B - CPTM - RESERVA DE GARANTIA-->
                             <!-- AX4B - CPTM - ADITIVAR CONTRATO -->
@@ -582,9 +590,9 @@
                                 </group>
                             </group>
                         </page>
-                        <page name="faturas_do_consorcio" string="Receber Faturas do Consórcio" 
-                        attrs="{'invisible': [('ativar_consorcio','=', False)]}"> 
-                            <field name="fatura_consorcio" />   
+                        <page name="faturas_do_consorcio" string="Receber Faturas do Consórcio"
+                        attrs="{'invisible': [('ativar_consorcio','=', False)]}">
+                            <field name="fatura_consorcio" />
                         </page>
                         <!-- AX4B - CPTM - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO -->
                     </notebook>
