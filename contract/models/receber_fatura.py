@@ -10,7 +10,7 @@ class ReceberFatura(models.TransientModel):
     contract_id = fields.Many2one("contract.contract", invisible=True)
 
     # AX4B - CPTM - RATEIO FORNECEDOR 
-    ativar_consorcio_fatura = fields.Boolean( string="Ativar consorcio")
+    ativar_consorcio_fatura = fields.Boolean( default= lambda self: self.env.context.get('ativar_consorcio'))
     porcentagem = fields.Float(string="Porcentagem")
      # AX4B - CPTM - RATEIO FORNECEDOR 
 
@@ -21,7 +21,6 @@ class ReceberFatura(models.TransientModel):
     receber_fatura_line = fields.One2many("contract.receber_fatura_line","receber_fatura",string="Receber Fatura")
     
     def btn_validar_concluido(self):
-        raise UserError(self.env.context.get('ativar_consorcio'))
         for products_line in self.receber_fatura_line:
             for concluido in products_line:
                 if concluido.demanda < concluido.concluido:
