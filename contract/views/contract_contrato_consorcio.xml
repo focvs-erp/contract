@@ -3,7 +3,7 @@
 
     <!-- ACTIONS OPENING VIEWS ON MODELS -->
     <record model="ir.actions.act_window" id="contrato_consorcio_action_window">
-      <field name="name">Contrato Consórcio</field>
+      <field name="name">Consórcio</field>
       <field name="res_model">contract.contrato_consorcio</field>
       <field name="view_mode">tree,form</field>
     </record>
@@ -43,7 +43,7 @@
               <field name="cd_ativo" widget="boolean_toggle" />
             </group>
             <notebook>
-              <page string="Contratos">
+              <page string="Fornecedores">
                 <field name="contratos" />
               </page>
             </notebook>

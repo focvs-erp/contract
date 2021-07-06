@@ -134,14 +134,14 @@
                              <!-- AX4B - CPTM - RATEIO FORNECEDOR  -->
                             <field 
                                 name="cod_consorcio"
-                                attrs="{'readonly': [('is_terminated','=',True)],'invisible': [('ativar_consorcio','=', False)]}"
+                                attrs="{'required': [('ativar_consorcio','=', True)],'invisible': [('ativar_consorcio','=', False)]}"
                                 domain= "[('cd_ativo','=',True)]" 
                             />
                              <!-- AX4B - CPTM - RATEIO FORNECEDOR  -->
 
                             <field
                                 name="partner_id"
-                                attrs="{'readonly': [('is_terminated','=',True)], 'invisible': [('ativar_consorcio','=', True)]}" 
+                                attrs="{'required': [('ativar_consorcio','=', False)], 'invisible': [('ativar_consorcio','=', True)]}" 
                             />
                             <field
                                 name="pricelist_id"
@@ -507,7 +507,6 @@
                                 <field
                                     name="invoice_partner_id"
                                     attrs="{'readonly': [('is_terminated','=',True)]}"
-                                    required="1"
                                 />
                             </group>
                             <group
