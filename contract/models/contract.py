@@ -156,25 +156,26 @@ class ContractContract(models.Model):
                 _("A data final foi alterada de %s para: '%s'.")
                 % (self.date_end, vals["date_end"])
             ))
+
+        # AX4B - CPTM - ADITIVAR CONTRATO
+        if self.state == 'confirmado':
+            vals['cd_aditivo_n'] = self.cd_aditivo_n + 1
+            vals['data_aditivacao'] = date.today()
+            alteracoes = ""
+            for rec in vals:
+                alteracoes += _(_("<br> Campo <strong>%s</strong> alterado de %s para %s")
+                % (rec, self[rec], vals[rec]))
+
+            self.message_post(body=_(
+                "Contrato ADITIVADO, mudanças:" + alteracoes
+            ))
+        # AX4B - CPTM - ADITIVAR CONTRATO
         if "modification_ids" in vals:
             res = super(
                 ContractContract, self.with_context(bypass_modification_send=True)
             ).write(vals)
             self._modification_mail_send()
-        else: 
-            # AX4B - CPTM - ADITIVAR CONTRATO
-            if self.state == 'confirmado':
-                vals['cd_aditivo_n'] = self.cd_aditivo_n + 1
-                vals['data_aditivacao'] = date.today()
-                alteracoes = ""
-                for rec in vals:
-                    alteracoes += _(_("<br> Campo <strong>%s</strong> alterado de %s para %s")
-                    % (rec, self[rec], vals[rec]))
-
-                self.message_post(body=_(
-                    "Contrato ADITIVADO, mudanças:" + alteracoes
-                ))
-            # AX4B - CPTM - ADITIVAR CONTRATO
+        else:
             res = super(ContractContract, self).write(vals)
         return res
 
@@ -636,7 +637,7 @@ class ContractContract(models.Model):
         self.ensure_one()
         context = {"default_contract_id": self.id}
         #Adicionando write para mudar o status para encerrado
-        self.write({'state': 'encerrado'}) 
+        self.write({'state': 'encerrado'})
         return {
             "type": "ir.actions.act_window",
             "name": _("Terminate Contract"),
@@ -821,16 +822,12 @@ class ContractContract(models.Model):
     # AX4B - CPTM - CONTRATO MEDIÇÃO - Status
     state = fields.Selection([('rascunho', 'Rascunho'), ('confirmado', 'Confirmado'), ('encerrado', 'Encerrado')], default ="rascunho")
 
-     
-
     def action_confirmar_receber_fatura(self):
         self.write({'state': 'confirmado'})
 
     def _create_receber_fatura_line(self, receber_fatura):
-#         exist_receber_fatura = self._exist_receber_fatura_to_contrato_fornecedor()
+        # AX4B - CPTM - RATEIO FORNECEDOR, CONTRATO MEDIÇÃO
         for product in self.contract_line_fixed_ids:
-#             receber_fatura_line = self.env['contract.receber_fatura_line'].search([('products_list', '=', product.id)])
-#                 if not receber_fatura_line:
             vals = {
                 "receber_fatura": receber_fatura.id,
                 "products_list": product.id,
@@ -838,11 +835,16 @@ class ContractContract(models.Model):
             }
             self.env["contract.receber_fatura_line"].create(vals)
             self.env.cr.commit()
+        # AX4B - CPTM - RATEIO FORNECEDOR, CONTRATO MEDIÇÃO
 
     def _create_receber_fatura(self):
         vals = {
             "contract_id": self.id
         }
+        # AX4B - CPTM - RATEIO FORNECEDOR
+        if not self.ativar_consorcio:
+            vals['partner_id'] = self.partner_id.id
+        # AX4B - CPTM - RATEIO FORNECEDOR
 
         receber_fatura = self.env["contract.receber_fatura"].create(vals)
         self.env.cr.commit()
@@ -851,11 +853,15 @@ class ContractContract(models.Model):
     def _exist_receber_fatura_to_contrato_fornecedor(self):
         exist_receber_fatura = self.env['contract.receber_fatura'].search([('contract_id', '=', self.id)])
         return exist_receber_fatura
-    
+
     def action_receber_fatura(self):
+        # AX4B - CPTM - RATEIO FORNECEDOR
+        if self.ativar_consorcio and not self.cod_consorcio :
+            raise ValidationError("Necessário selecionar um consórcio para este contrato")
 
         receber_fatura = self._create_receber_fatura()
         self._create_receber_fatura_line(receber_fatura)
+        # AX4B - CPTM - RATEIO FORNECEDOR
 
         return {
             'type': 'ir.actions.act_window',
@@ -872,7 +878,15 @@ class ContractContract(models.Model):
     data_aditivacao = fields.Date(string="Data de Aditivaçao")
     # AX4B - CPTM - ADITIVAR CONTRATO
 
-    # AX4B - CPTM - RATEIO FORNECEDOR 
+    # AX4B - CPTM - RATEIO FORNECEDOR
     cod_consorcio = fields.Many2one('contract.contrato_consorcio', string="Consórcio")
     ativar_consorcio = fields.Boolean(default=False, string="Ativar Consórcio")
-    # AX4B - CPTM - RATEIO FORNECEDOR 
+
+    @api.onchange("ativar_consorcio")
+    def limpar_fornecedor_consorcio(self):
+        if self.ativar_consorcio:
+            self.partner_id = False
+        else:
+            self.cod_consorcio = False
+
+    # AX4B - CPTM - RATEIO FORNECEDOR

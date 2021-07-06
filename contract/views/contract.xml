@@ -55,13 +55,23 @@
                         attrs="{'invisible': [('is_terminated','=',True)]}"
                         groups="base.group_user"
                     />
+                    <!-- AX4B - CPTM - RATEIO FORNECEDOR
                     <button
                         name="recurring_create_invoice"
                         type="object"
                         attrs="{'invisible': [('create_invoice_visibility', '=', False)]}"
                         string="Create invoices"
                         groups="base.group_no_one"
+                    /> -->
+                    <button
+                        name="recurring_create_invoice"
+                        type="object"
+                        invisible= "True"
+                        string="Create invoices"
+                        groups="base.group_no_one"
                     />
+
+                    <!-- AX4B - CPTM - RATEIO FORNECEDOR -->
                     <button
                         name="action_terminate_contract"
                         type="object"
@@ -132,16 +142,16 @@
                         <group>
                             <field name="commercial_partner_id" invisible="1" />
                              <!-- AX4B - CPTM - RATEIO FORNECEDOR  -->
-                            <field 
+                            <field
                                 name="cod_consorcio"
                                 attrs="{'required': [('ativar_consorcio','=', True)],'invisible': [('ativar_consorcio','=', False)]}"
-                                domain= "[('cd_ativo','=',True)]" 
+                                domain= "[('cd_ativo','=',True)]"
                             />
                              <!-- AX4B - CPTM - RATEIO FORNECEDOR  -->
 
                             <field
                                 name="partner_id"
-                                attrs="{'required': [('ativar_consorcio','=', False)], 'invisible': [('ativar_consorcio','=', True)]}" 
+                                attrs="{'required': [('ativar_consorcio','=', False)], 'invisible': [('ativar_consorcio','=', True)]}"
                             />
                             <field
                                 name="pricelist_id"
@@ -166,10 +176,10 @@
                          <!-- AX4B - CPTM - ADITIVAR CONTRATO -->
 
                          <!-- AX4B - CPTM - RATEIO FORNECEDOR  -->
-                            <field 
-                                name ="ativar_consorcio" 
-                                widget="boolean_toggle" 
-                            />                      
+                            <field
+                                name ="ativar_consorcio"
+                                widget="boolean_toggle"
+                            />
                          <!-- AX4B - CPTM - RATEIO FORNECEDOR  -->
                             <field
                                 name="cd_aditivo_n"
@@ -569,10 +579,13 @@
                                 </group>
                             </group>
                         </page>
-                        <page name="faturas_do_consorcio" string="Receber Faturas do Consórcio" 
-                        attrs="{'invisible': [('ativar_consorcio','=', False)]}"> 
-                            <field name="fatura_consorcio" />   
+                        <!-- AX4B - CPTM - RATEIO FORNECEDOR -->
+                        <page name="faturas_do_consorcio" string="Receber Faturas do Consórcio"
+                        attrs="{'invisible': [('ativar_consorcio','=', False)]}">
+                            <field name="fatura_consorcio" />
                         </page>
+                        <!-- AX4B - CPTM - RATEIO FORNECEDOR -->
+
                         <!-- AX4B - CPTM - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO -->
                     </notebook>
                 </sheet>
