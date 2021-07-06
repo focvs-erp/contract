@@ -31,16 +31,23 @@ class ReceberFatura(models.TransientModel):
             contract = self.contract_id
             # contract_lines = contract.contract_line_fixed_ids
             fatura = self.env['account.move'].create({
-                'cd_empresa': contract.company_id.id,
-                'contract_garantia_id': contract.id
+                'cd_empresa': self.env.user.company_id.id,
+                'contract_garantia_id': contract.id,
+                'invoice_origin': contract.name,
             })
-
+            
             for item in fatura_line:
+                # self.env['account.move.line'].create({
+                #     'move_id': fatura.id,
+                #     'account_id': contract.cod_conta_contabil.id,
+                #     'partner_id': contract.partner_id.id,
+                #     # 'debit': (item.products_list.price_unit * (int(contract.cod_reserva_garantia) / 100)) * item.concluido,
+                # })
                 fatura.line_ids.create({
+                    'move_id': fatura.id,
+                    'account_id': contract.cod_conta_contabil.id,
                     'partner_id': contract.partner_id.id,
-                    'cd_empresa': self.env.user.company_id.id,
                     'debit': (item.products_list.price_unit * (int(contract.cod_reserva_garantia) / 100)) * item.concluido,
-                    'account_id': contract.cod_conta_contabil.id
                 })
 
     def btn_validar_concluido(self):
