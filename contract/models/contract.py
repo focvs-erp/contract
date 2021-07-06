@@ -94,7 +94,7 @@ class ContractContract(models.Model):
         ondelete="restrict",
     )
     partner_id = fields.Many2one(
-        comodel_name="res.partner", inverse="_inverse_partner_id", required=True
+        comodel_name="res.partner", inverse="_inverse_partner_id"
     )
 
     commercial_partner_id = fields.Many2one(
@@ -826,18 +826,18 @@ class ContractContract(models.Model):
     def action_confirmar_receber_fatura(self):
         self.write({'state': 'confirmado'})
 
-    def _create_receber_fatura_line(self):
-        exist_receber_fatura = self._exist_receber_fatura_to_contrato_fornecedor()
-        if exist_receber_fatura:
-            for product in self.contract_line_fixed_ids:
-                receber_fatura_line = self.env['contract.receber_fatura_line'].search([('products_list', '=', product.id)])
-                if not receber_fatura_line:
-                    vals = {
-                        "receber_fatura": exist_receber_fatura.id,
-                        "products_list": product.id
-                    }
-                    self.env["contract.receber_fatura_line"].create(vals)
-                    self.env.cr.commit()
+    def _create_receber_fatura_line(self, receber_fatura):
+#         exist_receber_fatura = self._exist_receber_fatura_to_contrato_fornecedor()
+        for product in self.contract_line_fixed_ids:
+#             receber_fatura_line = self.env['contract.receber_fatura_line'].search([('products_list', '=', product.id)])
+#                 if not receber_fatura_line:
+            vals = {
+                "receber_fatura": receber_fatura.id,
+                "products_list": product.id,
+                "concluido": product.cd_recebido
+            }
+            self.env["contract.receber_fatura_line"].create(vals)
+            self.env.cr.commit()
 
     def _create_receber_fatura(self):
         vals = {
@@ -855,7 +855,7 @@ class ContractContract(models.Model):
     def action_receber_fatura(self):
 
         receber_fatura = self._create_receber_fatura()
-        self._create_receber_fatura_line()
+        self._create_receber_fatura_line(receber_fatura)
 
         return {
             'type': 'ir.actions.act_window',
