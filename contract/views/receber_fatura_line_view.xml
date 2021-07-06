@@ -9,6 +9,7 @@
                     <field name="demanda" readonly="1"/>
                     <field name="concluido"/>
                     <field name="unidade" readonly="1"/>
+                    <field name="recebido" readonly="1"/>
                 </tree>
             </field>
         </record>

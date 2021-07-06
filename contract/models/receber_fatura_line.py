@@ -9,7 +9,8 @@ class ReceberFaturaLine(models.TransientModel):
 
     receber_fatura = fields.Many2one("contract.receber_fatura", invisible=True)
 
-    products_list = fields.Many2one("contract.line")
+    products_list = fields.Many2one("contract.line", string="Lista de Produtos") 
     demanda = fields.Float(related="products_list.quantity", string="Demanda")
     concluido = fields.Float(string="Concluído")
     unidade = fields.Many2one(related="products_list.uom_id")
+    recebido = fields.Float(string="Recebido")
