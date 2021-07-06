@@ -842,8 +842,8 @@ class ContractContract(models.Model):
     def _create_receber_fatura(self):
         vals = {
             "contract_id": self.id
-            
         }
+
         receber_fatura = self.env["contract.receber_fatura"].create(vals)
         self.env.cr.commit()
         return receber_fatura
@@ -851,7 +851,7 @@ class ContractContract(models.Model):
     def _exist_receber_fatura_to_contrato_fornecedor(self):
         exist_receber_fatura = self.env['contract.receber_fatura'].search([('contract_id', '=', self.id)])
         return exist_receber_fatura
-
+    
     def action_receber_fatura(self):
 
         receber_fatura = self._create_receber_fatura()

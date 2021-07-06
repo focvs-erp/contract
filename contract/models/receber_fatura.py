@@ -54,6 +54,7 @@ class ReceberFatura(models.TransientModel):
         obj = super(ReceberFatura, self).create(vals)
         sequence = self.env['ir.sequence'].get('receber_fatura_sequence')
         obj.write({'name': sequence})
+        return obj
         
     def set_ativar_consorcio_fatura(self):
         for rec in self:
