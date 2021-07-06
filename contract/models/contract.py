@@ -83,6 +83,7 @@ class ContractContract(models.Model):
         comodel_name="account.payment.term", string="Payment Terms", index=True
     )
     invoice_count = fields.Integer(compute="_compute_invoice_count")
+    fatura_count = fields.Integer(compute="_compute_fatura_count")
     fiscal_position_id = fields.Many2one(
         comodel_name="account.fiscal.position",
         string="Fiscal Position",
@@ -297,6 +298,12 @@ class ContractContract(models.Model):
     def _compute_invoice_count(self):
         for rec in self:
             rec.invoice_count = len(rec._get_related_invoices())
+
+    # Contagem de fatura para contrato
+    def _compute_fatura_count(self):
+        for rec in self:
+            rec.fatura_count = len([u for u in self.env['account.move'].search([]) \
+                if u.contract_garantia_id.id == self.id ])
 
     def action_show_invoices(self):
         self.ensure_one()

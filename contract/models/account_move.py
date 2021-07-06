@@ -12,6 +12,9 @@ class AccountMove(models.Model):
     # We keep this field for migration purpose
     old_contract_id = fields.Many2one("contract.contract")
 
+    # Reserva de Garantia
+    contract_garantia_id = fields.Many2one("contract.contract")
+
 
 class AccountMoveLine(models.Model):
     _inherit = "account.move.line"

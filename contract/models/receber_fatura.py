@@ -21,6 +21,35 @@ class ReceberFatura(models.TransientModel):
 
     receber_fatura_line = fields.One2many("contract.receber_fatura_line","receber_fatura",string="Receber Fatura")
 
+    def btn_receber_fatura(self):
+        # Contrato <-- -->
+        
+        if self.contract_id.bt_reserva_garantia:
+
+            fatura_line = self.receber_fatura_line # Transition Model
+
+            contract = self.contract_id
+            # contract_lines = contract.contract_line_fixed_ids
+            fatura = self.env['account.move'].create({
+                'cd_empresa': self.env.user.company_id.id,
+                'contract_garantia_id': contract.id,
+                'invoice_origin': contract.name,
+            })
+            
+            for item in fatura_line:
+                # self.env['account.move.line'].create({
+                #     'move_id': fatura.id,
+                #     'account_id': contract.cod_conta_contabil.id,
+                #     'partner_id': contract.partner_id.id,
+                #     # 'debit': (item.products_list.price_unit * (int(contract.cod_reserva_garantia) / 100)) * item.concluido,
+                # })
+                fatura.line_ids.create({
+                    'move_id': fatura.id,
+                    'account_id': contract.cod_conta_contabil.id,
+                    'partner_id': contract.partner_id.id,
+                    'debit': (item.products_list.price_unit * (int(contract.cod_reserva_garantia) / 100)) * item.concluido,
+                })
+
     def btn_validar_concluido(self):
 
         for products_line in self.receber_fatura_line:
@@ -33,6 +62,8 @@ class ReceberFatura(models.TransientModel):
                                     'concluido': concluido.concluido
 
                                 })
+
+        self.btn_receber_fatura()
 
     def action_close(self):
         return {'type': 'ir.actions.act_window_close'}

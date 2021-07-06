@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <!--Main FORM view-->
     <record id="contract_contract_form_view" model="ir.ui.view">
@@ -6,38 +6,27 @@
         <field name="model">contract.contract</field>
         <field name="arch" type="xml">
             <form>
-            <!-- AX4B ADITIVAÇÃO CONTRATO -->
-                <div
-                    class="alert alert-danger"
-                    role="alert"
-                    style="margin-bottom:0px;"
-                    attrs="{'invisible': [('state','!=', 'confirmado')]}"
-                >
+                <!-- AX4B ADITIVAÇÃO CONTRATO -->
+                <div class="alert alert-danger" role="alert" style="margin-bottom:0px;" attrs="{'invisible': [('state','!=', 'confirmado')]}">
                     <p>
-                        <h3>Esse contrato foi <strong>CONFIRMADO!</strong> Qualquer alteração será uma <strong>ADITIVAÇÃO.</strong></h3>
+                        <h3>
+                            Esse contrato foi
+                            <strong>CONFIRMADO!</strong>
+                            Qualquer alteração será uma
+                            <strong>ADITIVAÇÃO.</strong>
+                        </h3>
                         <strong>
-                            <field
-                                name="terminate_reason_id"
-                                options="{'no_open':True}"
-                            />
+                            <field name="terminate_reason_id" options="{'no_open':True}" />
                         </strong>
                     </p>
                 </div>
-            <!-- AX4B ADITIVAÇÃO CONTRATO -->
+                <!-- AX4B ADITIVAÇÃO CONTRATO -->
                 <field name="is_terminated" invisible="1" />
-                <div
-                    class="alert alert-danger"
-                    role="alert"
-                    style="margin-bottom:0px;"
-                    attrs="{'invisible': [('is_terminated','=',False)]}"
-                >
+                <div class="alert alert-danger" role="alert" style="margin-bottom:0px;" attrs="{'invisible': [('is_terminated','=',False)]}">
                     <p>
                         This contract was terminated for the reason
                         <strong>
-                            <field
-                                name="terminate_reason_id"
-                                options="{'no_open':True}"
-                            />
+                            <field name="terminate_reason_id" options="{'no_open':True}" />
                         </strong>
                         on
                         <field name="terminate_date" />
@@ -48,170 +37,86 @@
                     </p>
                 </div>
                 <header>
-                    <button
-                        name="action_contract_send"
-                        type="object"
-                        string="Send by Email"
-                        attrs="{'invisible': [('is_terminated','=',True)]}"
-                        groups="base.group_user"
-                    />
-                    <button
-                        name="recurring_create_invoice"
-                        type="object"
-                        attrs="{'invisible': [('create_invoice_visibility', '=', False)]}"
-                        string="Create invoices"
-                        groups="base.group_no_one"
-                    />
-                    <button
-                        name="action_terminate_contract"
-                        type="object"
-                        string="Terminate Contract"
-                        attrs="{'invisible': [('is_terminated','=',True)]}"
-                        groups="contract.can_terminate_contract"
-                    />
-                    <button
-                        name="action_terminate_contract"
-                        type="object"
-                        string="Update Termination Details"
-                        attrs="{'invisible': [('is_terminated','=',False)]}"
-                        groups="contract.can_terminate_contract"
-                    />
-                    <button
-                        name="action_cancel_contract_termination"
-                        type="object"
-                        confirm="Are you sure you want to re-activate this contract?"
-                        string="Cancel Contract Termination"
-                        attrs="{'invisible': [('is_terminated','=',False)]}"
-                        groups="contract.can_terminate_contract"
-                    />
+                    <button name="action_contract_send" type="object" string="Send by Email" attrs="{'invisible': [('is_terminated','=',True)]}" groups="base.group_user" />
+                    <button name="recurring_create_invoice" type="object" attrs="{'invisible': [('create_invoice_visibility', '=', False)]}" string="Create invoices" groups="base.group_no_one" />
+                    <button name="action_terminate_contract" type="object" string="Terminate Contract" attrs="{'invisible': [('is_terminated','=',True)]}" groups="contract.can_terminate_contract" />
+                    <button name="action_terminate_contract" type="object" string="Update Termination Details" attrs="{'invisible': [('is_terminated','=',False)]}" groups="contract.can_terminate_contract" />
+                    <button name="action_cancel_contract_termination" type="object" confirm="Are you sure you want to re-activate this contract?" string="Cancel Contract Termination" attrs="{'invisible': [('is_terminated','=',False)]}" groups="contract.can_terminate_contract" />
                     <button type="object" string="Preview" name="action_preview" />
                     <!-- AX4B - CPTM - CONTRATO REAJUSTE DE PREÇO -->
                     <button type="object" string="ATUALIZAR PREÇO" name="action_atualizar_preco" />
                     <!-- AX4B - CPTM - CONTRATO REAJUSTE DE PREÇO -->
 
                     <!-- AX4B - CPTM - CONTRATO MEDIÇÃO -->
-                    <button type="object" string="CONFIRMAR" name="action_confirmar_receber_fatura" attrs="{'invisible': ['|',('state','=','confirmado'), ('create_invoice_visibility', '=', False)]}"/>
-                    <button type="object" string="RECEBER FATURA" name="action_receber_fatura" attrs="{'invisible': ['|',('state','!=','confirmado'), ('create_invoice_visibility', '=', False)]}" context="{'ativar_consorcio': ativar_consorcio}"/>
-                    <field name="state" widget="statusbar"/>
+                    <button type="object" string="CONFIRMAR" name="action_confirmar_receber_fatura" attrs="{'invisible': ['|',('state','=','confirmado'), ('create_invoice_visibility', '=', False)]}" />
+                    <button type="object" string="RECEBER FATURA" name="action_receber_fatura" attrs="{'invisible': ['|',('state','!=','confirmado'), ('create_invoice_visibility', '=', False)]}" context="{'ativar_consorcio': ativar_consorcio}" />
+                    <field name="state" widget="statusbar" />
                     <!-- AX4B - CPTM - CONTRATO MEDIÇÃO -->
                 </header>
                 <sheet string="Contract">
                     <field name="active" invisible="1" />
-                    <widget
-                        name="web_ribbon"
-                        text="Archived"
-                        bg_color="bg-danger"
-                        attrs="{'invisible': [('active', '=', True)]}"
-                    />
+                    <widget name="web_ribbon" text="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}" />
                     <div class="oe_button_box" name="button_box">
-                        <button
-                            name="action_show_invoices"
-                            type="object"
-                            icon="fa-list"
-                            class="oe_stat_button"
-                        >
-                            <field
-                                string="Invoices"
-                                name="invoice_count"
-                                widget="statinfo"
-                            />
+                        <button name="action_show_invoices" type="object" icon="fa-list" class="oe_stat_button">
+                            <field string="Reserva Garantia" name="fatura_count" widget="statinfo" />
+                        </button>
+                        <button name="action_show_invoices" type="object" icon="fa-list" class="oe_stat_button">
+                            <field string="Invoices" name="invoice_count" widget="statinfo" />
                         </button>
                     </div>
                     <div class="oe_title">
                         <label for="name" string="Contract Name" class="oe_edit_only" />
                         <h3>
-                            <field
-                                name="name"
-                                class="oe_inline"
-                                attrs="{'readonly': [('is_terminated','=',True)]}"
-                                placeholder="e.g. Contract XYZ"
-                            />
+                            <field name="name" class="oe_inline" attrs="{'readonly': [('is_terminated','=',True)]}" placeholder="e.g. Contract XYZ" />
                         </h3>
                     </div>
                     <group name="main">
                         <group>
                             <field name="commercial_partner_id" invisible="1" />
-                             <!-- AX4B - CPTM - RATEIO FORNECEDOR  -->
-                            <field
-                                name="cod_consorcio"
-                                attrs="{'invisible': [('ativar_consorcio','=', False)]}"
-                            />
-                             <!-- AX4B - CPTM - RATEIO FORNECEDOR  -->
+                            <!-- AX4B - CPTM - RATEIO FORNECEDOR  -->
+                            <field name="cod_consorcio" attrs="{'invisible': [('ativar_consorcio','=', False)]}" />
+                            <!-- AX4B - CPTM - RATEIO FORNECEDOR  -->
 
-                            <field
-                                name="partner_id"
-                                required="1"
-                                attrs="{'readonly': [('is_terminated','=',True)]}"
-                            />
-                            <field
-                                name="pricelist_id"
-                                attrs="{'readonly': [('is_terminated','=',True)]}"
-                            />
+                            <field name="partner_id" required="1" attrs="{'readonly': [('is_terminated','=',True)]}" />
+                            <field name="pricelist_id" attrs="{'readonly': [('is_terminated','=',True)]}" />
                             <!-- AX4B - CPTM - CONTRATO REAJUSTE DE PREÇO -->
-                            <field
-                                name="reajuste_preco"
-                                attrs="{'readonly': [('is_terminated','=',True)]}"
-                            />
+                            <field name="reajuste_preco" attrs="{'readonly': [('is_terminated','=',True)]}" />
                             <!-- AX4B - CPTM - CONTRATO REAJUSTE DE PREÇO -->
-                            <field
-                                name="payment_term_id"
-                                attrs="{'readonly': [('is_terminated','=',True)]}"
-                            />
-                            <field
-                                name="user_id"
-                                attrs="{'readonly': [('is_terminated','=',True)]}"
-                            />
+                            <field name="payment_term_id" attrs="{'readonly': [('is_terminated','=',True)]}" />
+                            <field name="user_id" attrs="{'readonly': [('is_terminated','=',True)]}" />
                             <!--AX4B - CPTM RESERVA DE GARANTIA-->
+<<<<<<< HEAD
                             <field
                                 name="cod_reserva_garantia"
                                 required="1" attrs="{'invisible': [('bt_reserva_garantia', '!=', True)], 'readonly': [('state', '=', 'confirmado')], 'required': [('bt_reserva_garantia', '!=', False)]}"/>
                                 <!--AX4B - CPTM - RESERVA DE GARANTIA-->
                             <field name="cod_conta_contabil" required="" attrs="{'invisible': [('bt_reserva_garantia', '!=', True)], 'readonly': [('state', '=', 'confirmado')], 'required': [('bt_reserva_garantia', '!=', False)]}"/>
+=======
+                            <field name="cod_reserva_garantia" attrs="{'invisible': [('bt_reserva_garantia', '!=', True)], 'readonly': [('state', '=', 'confirmado')], 'required': [('bt_reserva_garantia', '=', True)]}" />
+                            <!--AX4B - CPTM - RESERVA DE GARANTIA-->
+                            <field name="cod_conta_contabil" attrs="{'invisible': [('bt_reserva_garantia', '!=', True)], 'readonly': [('state', '=', 'confirmado')], 'required': [('bt_reserva_garantia', '=', True)]}" />
+>>>>>>> 9dc1a70d4d927d96be0a1d743b3a88c4f898d34f
                             <!--AX4B -CPTM RESERVA DE GARANTIA-->
                         </group>
                         <group>
-                         <!-- AX4B - CPTM - ADITIVAR CONTRATO -->
+                            <!-- AX4B - CPTM - ADITIVAR CONTRATO -->
 
-                         <!-- AX4B - CPTM - RATEIO FORNECEDOR  -->
-                            <field
-                                name ="ativar_consorcio"
-                                widget="boolean_toggle"
-                            />
-                         <!-- AX4B - CPTM - RATEIO FORNECEDOR  -->
-                            <field
-                                name="cd_aditivo_n"
-                                readonly="1"
-                                attrs="{'invisible': [('state','!=','confirmado')]}"
-                            />
-                            <field
-                                name="data_aditivacao"
-                                readonly="1"
-                                attrs="{'invisible': [('state','!=','confirmado')]}"
-                            />
+                            <!-- AX4B - CPTM - RATEIO FORNECEDOR  -->
+                            <field name="ativar_consorcio" widget="boolean_toggle" />
+                            <!-- AX4B - CPTM - RATEIO FORNECEDOR  -->
+                            <field name="cd_aditivo_n" readonly="1" attrs="{'invisible': [('state','!=','confirmado')]}" />
+                            <field name="data_aditivacao" readonly="1" attrs="{'invisible': [('state','!=','confirmado')]}" />
                             <!--AX4B - CPTM - RESERVA DE GARANTIA-->
-                            <field name="bt_reserva_garantia"
-                            widget="boolean_toggle" />
+                            <field name="bt_reserva_garantia" widget="boolean_toggle" />
                             <!--AX4B - CPTM - RESERVA DE GARANTIA-->
                             <!-- AX4B - CPTM - ADITIVAR CONTRATO -->
-                            <field
-                                name="contract_template_id"
-                                attrs="{'readonly': [('is_terminated','=',True)]}"
-                                domain="['|', ('contract_type', '=', contract_type), ('contract_type', '=', False)]"
-                                context="{'default_contract_type': contract_type}"
-                            />
+                            <field name="contract_template_id" attrs="{'readonly': [('is_terminated','=',True)]}" domain="['|', ('contract_type', '=', contract_type), ('contract_type', '=', False)]" context="{'default_contract_type': contract_type}" />
                             <field name="contract_type" invisible="1" required="1" />
-                            <field
-                                name="fiscal_position_id"
-                                attrs="{'readonly': [('is_terminated','=',True)]}"
-                            />
+                            <field name="fiscal_position_id" attrs="{'readonly': [('is_terminated','=',True)]}" />
                             <!-- AX4B_CPTM CAMPO TIPO DE CONTRATO -->
                             <field name="tipo" required="1" />
                             <!-- AX4B_CPTM CAMPO TIPO DE CONTRATO-->
-                            <field
-                                name="journal_id"
-                                required="1"
-                                attrs="{'readonly': [('is_terminated','=',True)]}"
-                            />
+                            <field name="journal_id" required="1" attrs="{'readonly': [('is_terminated','=',True)]}" />
                             <field name="tag_ids" widget="many2many_tags" />
                         </group>
                     </group>
@@ -221,273 +126,109 @@
                         <group attrs="{'invisible': [('line_recurrence', '=', True)]}">
                             <label for="recurring_interval" />
                             <div class="o_row">
-                                <field
-                                    name="recurring_interval"
-                                    attrs="{'required': [('line_recurrence', '=', False)]}"
-                                    class="oe_inline"
-                                    nolabel="1"
-                                />
-                                <field
-                                    name="recurring_rule_type"
-                                    attrs="{'required': [('line_recurrence', '=', False)]}"
-                                    class="oe_inline"
-                                    nolabel="1"
-                                />
+                                <field name="recurring_interval" attrs="{'required': [('line_recurrence', '=', False)]}" class="oe_inline" nolabel="1" />
+                                <field name="recurring_rule_type" attrs="{'required': [('line_recurrence', '=', False)]}" class="oe_inline" nolabel="1" />
                             </div>
-                            <field
-                                name="recurring_invoicing_type"
-                                attrs="{'required': [('line_recurrence', '=', False)]}"
-                            />
-                            
+                            <field name="recurring_invoicing_type" attrs="{'required': [('line_recurrence', '=', False)]}" />
+
                         </group>
                         <group attrs="{'invisible': [('line_recurrence', '=', True)]}">
-                            <field
-                                name="date_start"
-                                attrs="{'required': [('line_recurrence', '=', False)]}"
-                            />
+                            <field name="date_start" attrs="{'required': [('line_recurrence', '=', False)]}" />
                             <field name="date_end" />
                             <field name="recurring_next_date" />
                         </group>
                     </group>
                     <notebook>
                         <page name="recurring_invoice_line" string="Recurring Invoices">
-                            <field
-                                name="contract_line_fixed_ids"
-                                attrs="{'readonly': [('is_terminated','=',True)], 'invisible': [('line_recurrence', '=', True)]}"
-                                widget="section_and_note_one2many"
-                                context="{'default_contract_type': contract_type, 'default_recurring_rule_type': recurring_rule_type, 'default_recurring_invoicing_type': recurring_invoicing_type, 'default_recurring_interval': recurring_interval, 'default_date_start': date_start, 'default_recurring_next_date': recurring_next_date}"
-                            >
-                                <tree
-                                    decoration-muted="is_canceled"
-                                    decoration-info="create_invoice_visibility and not is_canceled"
-                                    editable="bottom"
-                                >
+                            <field name="contract_line_fixed_ids" attrs="{'readonly': [('is_terminated','=',True)], 'invisible': [('line_recurrence', '=', True)]}" widget="section_and_note_one2many" context="{'default_contract_type': contract_type, 'default_recurring_rule_type': recurring_rule_type, 'default_recurring_invoicing_type': recurring_invoicing_type, 'default_recurring_interval': recurring_interval, 'default_date_start': date_start, 'default_recurring_next_date': recurring_next_date}">
+                                <tree decoration-muted="is_canceled" decoration-info="create_invoice_visibility and not is_canceled" editable="bottom">
                                     <control>
                                         <create string="Add a line" />
-                                        <create
-                                            string="Add a section"
-                                            context="{'default_display_type': 'line_section'}"
-                                        />
-                                        <create
-                                            string="Add a note"
-                                            context="{'default_display_type': 'line_note'}"
-                                        />
+                                        <create string="Add a section" context="{'default_display_type': 'line_section'}" />
+                                        <create string="Add a note" context="{'default_display_type': 'line_note'}" />
                                     </control>
                                     <field name="display_type" invisible="1" />
                                     <field name="sequence" widget="handle" />
                                     <field name="product_id" />
                                     <field name="name" widget="section_and_note_text" />
-                                    <field
-                                        name="analytic_account_id"
-                                        groups="analytic.group_analytic_accounting"
-                                    />
-                                    <field
-                                        name="analytic_tag_ids"
-                                        widget="many2many_tags"
-                                        groups="analytic.group_analytic_tags"
-                                    />
+                                    <field name="analytic_account_id" groups="analytic.group_analytic_accounting" />
+                                    <field name="analytic_tag_ids" widget="many2many_tags" groups="analytic.group_analytic_tags" />
                                     <field name="quantity" />
                                     <!-- AX4B - CPTM - CONTRATO MEDIÇÃO  -->
                                     <field name="cd_recebido" />
                                     <!-- AX4B - CPTM - CONTRATO MEDIÇÃO  -->
                                     <field name="uom_id" />
-                                    <field
-                                        name="automatic_price"
-                                        attrs="{'column_invisible': [('parent.contract_type', '=', 'purchase')]}"
-                                    />
-                                    <field
-                                        name="price_unit"
-                                        attrs="{'readonly': [('automatic_price', '=', True)]}"
-                                    />
+                                    <field name="automatic_price" attrs="{'column_invisible': [('parent.contract_type', '=', 'purchase')]}" />
+                                    <field name="price_unit" attrs="{'readonly': [('automatic_price', '=', True)]}" />
                                     <field name="specific_price" invisible="1" />
                                     <field name="discount" groups="base.group_no_one" />
                                     <field name="price_subtotal" />
                                     <field name="recurring_interval" invisible="1" />
                                     <field name="recurring_rule_type" invisible="1" />
-                                    <field
-                                        name="recurring_invoicing_type"
-                                        invisible="1"
-                                    />
+                                    <field name="recurring_invoicing_type" invisible="1" />
                                     <field name="recurring_next_date" invisible="1" />
                                     <field name="date_start" invisible="1" />
                                     <field name="date_end" />
-                                    <field
-                                        name="last_date_invoiced"
-                                        groups="base.group_no_one"
-                                    />
-                                    <field
-                                        name="create_invoice_visibility"
-                                        invisible="1"
-                                    />
-                                    <field
-                                        name="is_plan_successor_allowed"
-                                        invisible="1"
-                                    />
+                                    <field name="last_date_invoiced" groups="base.group_no_one" />
+                                    <field name="create_invoice_visibility" invisible="1" />
+                                    <field name="is_plan_successor_allowed" invisible="1" />
                                     <field name="is_stop_allowed" invisible="1" />
                                     <field name="is_cancel_allowed" invisible="1" />
                                     <field name="is_un_cancel_allowed" invisible="1" />
                                     <field name="is_canceled" invisible="1" />
-                                    <button
-                                        name="action_plan_successor"
-                                        string="Plan Start"
-                                        type="object"
-                                        icon="fa-calendar text-success"
-                                        attrs="{'invisible': [('is_plan_successor_allowed', '=', False)]}"
-                                    />
-                                    <button
-                                        name="action_stop"
-                                        string="Stop"
-                                        type="object"
-                                        icon="fa-stop text-danger"
-                                        attrs="{'invisible': [('is_stop_allowed', '=', False)]}"
-                                    />
-                                    <button
-                                        name="cancel"
-                                        string="Cancel"
-                                        type="object"
-                                        icon="fa-ban text-danger"
-                                        confirm="Are you sure you want to cancel this line"
-                                        attrs="{'invisible': [('is_cancel_allowed', '=', False)]}"
-                                    />
-                                    <button
-                                        name="action_uncancel"
-                                        string="Un-cancel"
-                                        type="object"
-                                        icon="fa-ban text-success"
-                                        attrs="{'invisible': [('is_un_cancel_allowed', '=', False)]}"
-                                    />
+                                    <button name="action_plan_successor" string="Plan Start" type="object" icon="fa-calendar text-success" attrs="{'invisible': [('is_plan_successor_allowed', '=', False)]}" />
+                                    <button name="action_stop" string="Stop" type="object" icon="fa-stop text-danger" attrs="{'invisible': [('is_stop_allowed', '=', False)]}" />
+                                    <button name="cancel" string="Cancel" type="object" icon="fa-ban text-danger" confirm="Are you sure you want to cancel this line" attrs="{'invisible': [('is_cancel_allowed', '=', False)]}" />
+                                    <button name="action_uncancel" string="Un-cancel" type="object" icon="fa-ban text-success" attrs="{'invisible': [('is_un_cancel_allowed', '=', False)]}" />
                                 </tree>
                             </field>
-                            <field
-                                name="contract_line_ids"
-                                attrs="{'readonly': [('is_terminated','=',True)], 'invisible': [('line_recurrence', '=', False)]}"
-                                widget="section_and_note_one2many"
-                                context="{'default_contract_type': contract_type}"
-                            >
-                                <tree
-                                    decoration-muted="is_canceled"
-                                    decoration-info="create_invoice_visibility and not is_canceled"
-                                >
+                            <field name="contract_line_ids" attrs="{'readonly': [('is_terminated','=',True)], 'invisible': [('line_recurrence', '=', False)]}" widget="section_and_note_one2many" context="{'default_contract_type': contract_type}">
+                                <tree decoration-muted="is_canceled" decoration-info="create_invoice_visibility and not is_canceled">
                                     <control>
                                         <create string="Add a line" />
-                                        <create
-                                            string="Add a section"
-                                            context="{'default_display_type': 'line_section'}"
-                                        />
-                                        <create
-                                            string="Add a note"
-                                            context="{'default_display_type': 'line_note'}"
-                                        />
+                                        <create string="Add a section" context="{'default_display_type': 'line_section'}" />
+                                        <create string="Add a note" context="{'default_display_type': 'line_note'}" />
                                     </control>
                                     <field name="display_type" invisible="1" />
                                     <field name="sequence" widget="handle" />
                                     <field name="product_id" />
                                     <field name="name" widget="section_and_note_text" />
-                                    <field
-                                        name="analytic_account_id"
-                                        groups="analytic.group_analytic_accounting"
-                                    />
-                                    <field
-                                        name="analytic_tag_ids"
-                                        widget="many2many_tags"
-                                        groups="analytic.group_analytic_tags"
-                                    />
+                                    <field name="analytic_account_id" groups="analytic.group_analytic_accounting" />
+                                    <field name="analytic_tag_ids" widget="many2many_tags" groups="analytic.group_analytic_tags" />
                                     <field name="quantity" />
                                     <field name="uom_id" />
-                                    <field
-                                        name="automatic_price"
-                                        attrs="{'column_invisible': [('parent.contract_type', '=', 'purchase')]}"
-                                    />
-                                    <field
-                                        name="price_unit"
-                                        attrs="{'readonly': [('automatic_price', '=', True)]}"
-                                    />
+                                    <field name="automatic_price" attrs="{'column_invisible': [('parent.contract_type', '=', 'purchase')]}" />
+                                    <field name="price_unit" attrs="{'readonly': [('automatic_price', '=', True)]}" />
                                     <field name="specific_price" invisible="1" />
                                     <field name="discount" groups="base.group_no_one" />
                                     <field name="price_subtotal" />
                                     <field name="recurring_interval" invisible="1" />
                                     <field name="recurring_rule_type" invisible="1" />
-                                    <field
-                                        name="recurring_invoicing_type"
-                                        invisible="1"
-                                    />
+                                    <field name="recurring_invoicing_type" invisible="1" />
                                     <field name="date_start" required="1" />
                                     <field name="date_end" />
                                     <field name="recurring_next_date" required="1" />
-                                    <field
-                                        name="last_date_invoiced"
-                                        groups="base.group_no_one"
-                                    />
-                                    <field
-                                        name="create_invoice_visibility"
-                                        invisible="1"
-                                    />
-                                    <field
-                                        name="is_plan_successor_allowed"
-                                        invisible="1"
-                                    />
-                                    <field
-                                        name="is_stop_plan_successor_allowed"
-                                        invisible="1"
-                                    />
+                                    <field name="last_date_invoiced" groups="base.group_no_one" />
+                                    <field name="create_invoice_visibility" invisible="1" />
+                                    <field name="is_plan_successor_allowed" invisible="1" />
+                                    <field name="is_stop_plan_successor_allowed" invisible="1" />
                                     <field name="is_stop_allowed" invisible="1" />
                                     <field name="is_cancel_allowed" invisible="1" />
                                     <field name="is_un_cancel_allowed" invisible="1" />
                                     <field name="is_auto_renew" invisible="1" />
                                     <field name="is_canceled" invisible="1" />
-                                    <button
-                                        name="action_plan_successor"
-                                        string="Plan Start"
-                                        type="object"
-                                        icon="fa-calendar text-success"
-                                        attrs="{'invisible': [('is_plan_successor_allowed', '=', False)]}"
-                                    />
-                                    <button
-                                        name="action_stop_plan_successor"
-                                        string="Stop Plan Successor"
-                                        type="object"
-                                        icon="fa-pause text-muted"
-                                        attrs="{'invisible': [('is_stop_plan_successor_allowed', '=', False)]}"
-                                    />
-                                    <button
-                                        name="action_stop"
-                                        string="Stop"
-                                        type="object"
-                                        icon="fa-stop text-danger"
-                                        attrs="{'invisible': [('is_stop_allowed', '=', False)]}"
-                                    />
-                                    <button
-                                        name="cancel"
-                                        string="Cancel"
-                                        type="object"
-                                        icon="fa-ban text-danger"
-                                        confirm="Are you sure you want to cancel this line"
-                                        attrs="{'invisible': [('is_cancel_allowed', '=', False)]}"
-                                    />
-                                    <button
-                                        name="action_uncancel"
-                                        string="Un-cancel"
-                                        type="object"
-                                        icon="fa-ban text-success"
-                                        attrs="{'invisible': [('is_un_cancel_allowed', '=', False)]}"
-                                    />
-                                    <button
-                                        name="renew"
-                                        string="Renew"
-                                        type="object"
-                                        icon="fa-fast-forward text-success"
-                                        groups="base.group_no_one"
-                                        attrs="{'invisible': [('is_auto_renew', '=', False)]}"
-                                    />
+                                    <button name="action_plan_successor" string="Plan Start" type="object" icon="fa-calendar text-success" attrs="{'invisible': [('is_plan_successor_allowed', '=', False)]}" />
+                                    <button name="action_stop_plan_successor" string="Stop Plan Successor" type="object" icon="fa-pause text-muted" attrs="{'invisible': [('is_stop_plan_successor_allowed', '=', False)]}" />
+                                    <button name="action_stop" string="Stop" type="object" icon="fa-stop text-danger" attrs="{'invisible': [('is_stop_allowed', '=', False)]}" />
+                                    <button name="cancel" string="Cancel" type="object" icon="fa-ban text-danger" confirm="Are you sure you want to cancel this line" attrs="{'invisible': [('is_cancel_allowed', '=', False)]}" />
+                                    <button name="action_uncancel" string="Un-cancel" type="object" icon="fa-ban text-success" attrs="{'invisible': [('is_un_cancel_allowed', '=', False)]}" />
+                                    <button name="renew" string="Renew" type="object" icon="fa-fast-forward text-success" groups="base.group_no_one" attrs="{'invisible': [('is_auto_renew', '=', False)]}" />
                                 </tree>
                             </field>
                             <field name="note" />
                         </page>
                         <page name="modications" string="Modifications">
-                            <field
-                                name="modification_ids"
-                                attrs="{'readonly': [('is_terminated','=',True)]}"
-                            >
+                            <field name="modification_ids" attrs="{'readonly': [('is_terminated','=',True)]}">
                                 <tree editable="bottom">
                                     <field name="date" />
                                     <field name="description" />
@@ -498,34 +239,13 @@
                         <page name="info" string="Other Information">
                             <field name="create_invoice_visibility" invisible="1" />
                             <group>
-                                <field
-                                    name="code"
-                                    attrs="{'readonly': [('is_terminated','=',True)]}"
-                                />
-                                <field
-                                    name="group_id"
-                                    attrs="{'readonly': [('is_terminated','=',True)]}"
-                                />
-                                <field
-                                    name="company_id"
-                                    attrs="{'readonly': [('is_terminated','=',True)]}"
-                                    options="{'no_create': True}"
-                                    groups="base.group_multi_company"
-                                />
-                                <field
-                                    name="currency_id"
-                                    groups="base.group_multi_currency"
-                                />
-                                <field
-                                    name="invoice_partner_id"
-                                    attrs="{'readonly': [('is_terminated','=',True)]}"
-                                    required="1"
-                                />
+                                <field name="code" attrs="{'readonly': [('is_terminated','=',True)]}" />
+                                <field name="group_id" attrs="{'readonly': [('is_terminated','=',True)]}" />
+                                <field name="company_id" attrs="{'readonly': [('is_terminated','=',True)]}" options="{'no_create': True}" groups="base.group_multi_company" />
+                                <field name="currency_id" groups="base.group_multi_currency" />
+                                <field name="invoice_partner_id" attrs="{'readonly': [('is_terminated','=',True)]}" required="1" />
                             </group>
-                            <group
-                                string="Legend (for the markers inside invoice lines description)"
-                                name="group_legend"
-                            >
+                            <group string="Legend (for the markers inside invoice lines description)" name="group_legend">
                                 <p colspan="2">
                                     <strong>#START#</strong>
                                     : Start
@@ -542,48 +262,47 @@
                                 </p>
                             </group>
                         </page>
-                    <!-- AX4B - CPTM - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO -->
+                        <!-- AX4B - CPTM - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO -->
                         <page name="Orçamento" string="Orçamento">
                             <group>
                                 <group>
-                                    <field name= "nota_empenho" domain="[('x_studio_status_empenho', '=', 'Aprovado'), ('x_studio_bloquear_empenho','=', False)]" />
-                                    <field name= "nota_reserva" />
-                                    <field name= "ds_orgao" />
-                                    <field name= "ds_uo" />
-                                    <field name= "ds_fonte" />
-                                    <field name= "nome_categoria" />
-                                    <field name= "nome_classe" />
-                                    <field name= "nome_modalidade" />
-                                    <field name= "nome_grupo" />
-                                    <field name= "ds_elemento" />
-                                    <field name= "ds_funcao" />
-                                    <field name= "ds_subfuncao" />
-                                    <field name= "ds_programa" />
-                                    <field name= "ds_projeto_atividade" />
-                                    <field name= "cod_ptres" />
-                                    <field name= "programa_trabalho" />
-                                    <field name= "cod_processo" />
+                                    <field name="nota_empenho" domain="[('x_studio_status_empenho', '=', 'Aprovado'), ('x_studio_bloquear_empenho','=', False)]" />
+                                    <field name="nota_reserva" />
+                                    <field name="ds_orgao" />
+                                    <field name="ds_uo" />
+                                    <field name="ds_fonte" />
+                                    <field name="nome_categoria" />
+                                    <field name="nome_classe" />
+                                    <field name="nome_modalidade" />
+                                    <field name="nome_grupo" />
+                                    <field name="ds_elemento" />
+                                    <field name="ds_funcao" />
+                                    <field name="ds_subfuncao" />
+                                    <field name="ds_programa" />
+                                    <field name="ds_projeto_atividade" />
+                                    <field name="cod_ptres" />
+                                    <field name="programa_trabalho" />
+                                    <field name="cod_processo" />
                                 </group>
                                 <group>
-                                    <field name= "ano_orcamento" />
-                                    <field name= "cod_orgao" />
-                                    <field name= "cod_poder" />
-                                    <field name= "cod_uo" />
-                                    <field name= "cod_fonte" />
-                                    <field name= "cod_categoria" />
-                                    <field name= "cod_classe" />
-                                    <field name= "cod_modalidade" />
-                                    <field name= "cod_grupo" />
-                                    <field name= "cod_elemento" />
-                                    <field name= "cod_funcao" />
-                                    <field name= "cod_subfuncao" />
-                                    <field name= "cod_programa" />
-                                    <field name= "cod_projeto_atividade" />
+                                    <field name="ano_orcamento" />
+                                    <field name="cod_orgao" />
+                                    <field name="cod_poder" />
+                                    <field name="cod_uo" />
+                                    <field name="cod_fonte" />
+                                    <field name="cod_categoria" />
+                                    <field name="cod_classe" />
+                                    <field name="cod_modalidade" />
+                                    <field name="cod_grupo" />
+                                    <field name="cod_elemento" />
+                                    <field name="cod_funcao" />
+                                    <field name="cod_subfuncao" />
+                                    <field name="cod_programa" />
+                                    <field name="cod_projeto_atividade" />
                                 </group>
                             </group>
                         </page>
-                        <page name="faturas_do_consorcio" string="Receber Faturas do Consórcio"
-                        attrs="{'invisible': [('ativar_consorcio','=', False)]}">
+                        <page name="faturas_do_consorcio" string="Receber Faturas do Consórcio" attrs="{'invisible': [('ativar_consorcio','=', False)]}">
                             <field name="fatura_consorcio" />
                         </page>
                         <!-- AX4B - CPTM - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO -->
@@ -607,14 +326,10 @@
         <field name="arch" type="xml">
             <field name="partner_id" position="attributes">
                 <attribute name="string">Customer</attribute>
-                <attribute
-                    name="context"
-                >{'default_customer_rank': 1, 'default_supplier_rank': 0, 'res_partner_search_mode': 'customer', 'show_vat': True}</attribute>
+                <attribute name="context">{'default_customer_rank': 1, 'default_supplier_rank': 0, 'res_partner_search_mode': 'customer', 'show_vat': True}</attribute>
             </field>
             <field name="journal_id" position="attributes">
-                <attribute
-                    name="domain"
-                >[('type', '=', 'sale'),('company_id', '=', company_id)]</attribute>
+                <attribute name="domain">[('type', '=', 'sale'),('company_id', '=', company_id)]</attribute>
             </field>
         </field>
     </record>
@@ -628,14 +343,10 @@
         <field name="arch" type="xml">
             <field name="partner_id" position="attributes">
                 <attribute name="string">Supplier</attribute>
-                <attribute
-                    name="context"
-                >{'default_customer_rank': False, 'default_supplier_rank': 1, 'res_partner_search_mode': 'supplier', 'show_vat': True}</attribute>
+                <attribute name="context">{'default_customer_rank': False, 'default_supplier_rank': 1, 'res_partner_search_mode': 'supplier', 'show_vat': True}</attribute>
             </field>
             <field name="journal_id" position="attributes">
-                <attribute
-                    name="domain"
-                >[('type', '=', 'purchase'),('company_id', '=', company_id)]</attribute>
+                <attribute name="domain">[('type', '=', 'purchase'),('company_id', '=', company_id)]</attribute>
             </field>
         </field>
     </record>
@@ -655,7 +366,7 @@
                 <field name="active" invisible="1" />
                 <field name="company_id" groups="base.group_multi_company" />
                 <!-- AX4B - CPTM ADICIONANDO FIELD SELECTION DE TIPO DE CONTRATO -->
-                <field name="state"/>
+                <field name="state" />
             </tree>
         </field>
     </record>
@@ -665,55 +376,21 @@
         <field name="model">contract.contract</field>
         <field name="arch" type="xml">
             <search>
-                <field
-                    name="name"
-                    filter_domain="['|', ('name','ilike',self), ('code','ilike',self)]"
-                />
+                <field name="name" filter_domain="['|', ('name','ilike',self), ('code','ilike',self)]" />
                 <field name="journal_id" />
                 <field name="pricelist_id" />
                 <separator />
                 <separator />
-                <filter
-                    name="not_finished"
-                    string="In progress"
-                    domain="['|', ('date_end', '&gt;=', context_today().strftime('%Y-%m-%d')), '&amp;', ('date_end', '=', False), ('recurring_next_date', '!=', False)]"
-                />
-                <filter
-                    name="finished"
-                    string="Finished"
-                    domain="[('date_end', '&lt;', context_today().strftime('%Y-%m-%d')), ('recurring_next_date', '=', False)]"
-                />
+                <filter name="not_finished" string="In progress" domain="['|', ('date_end', '&gt;=', context_today().strftime('%Y-%m-%d')), '&amp;', ('date_end', '=', False), ('recurring_next_date', '!=', False)]" />
+                <filter name="finished" string="Finished" domain="[('date_end', '&lt;', context_today().strftime('%Y-%m-%d')), ('recurring_next_date', '=', False)]" />
                 <field name="partner_id" />
                 <field name="commercial_partner_id" />
-                <filter
-                    string="Archived"
-                    domain="[('active', '=', False)]"
-                    name="inactive"
-                />
+                <filter string="Archived" domain="[('active', '=', False)]" name="inactive" />
                 <group expand="0" string="Group By...">
-                    <filter
-                        string="Associated Partner"
-                        name="group_by_partner"
-                        domain="[]"
-                        context="{'group_by':'partner_id'}"
-                    />
-                    <filter
-                        name="commercial_partner_groupby"
-                        string="Commercial Entity"
-                        context="{'group_by': 'commercial_partner_id'}"
-                    />
-                    <filter
-                        name="group_by_next_invoice"
-                        string="Next Invoice"
-                        domain="[('recurring_next_date', '!=', False)]"
-                        context="{'group_by':'recurring_next_date'}"
-                    />
-                    <filter
-                        name="group_by_date_end"
-                        string="Date End"
-                        domain="[]"
-                        context="{'group_by':'date_end'}"
-                    />
+                    <filter string="Associated Partner" name="group_by_partner" domain="[]" context="{'group_by':'partner_id'}" />
+                    <filter name="commercial_partner_groupby" string="Commercial Entity" context="{'group_by': 'commercial_partner_id'}" />
+                    <filter name="group_by_next_invoice" string="Next Invoice" domain="[('recurring_next_date', '!=', False)]" context="{'group_by':'recurring_next_date'}" />
+                    <filter name="group_by_date_end" string="Date End" domain="[]" context="{'group_by':'date_end'}" />
                 </group>
             </search>
         </field>
@@ -748,12 +425,7 @@
         <field name="view_id" ref="contract_contract_customer_form_view" />
         <field name="act_window_id" ref="action_customer_contract" />
     </record>
-    <menuitem
-        id="menu_contract_contract_customer"
-        parent="account.menu_finance_receivables"
-        action="action_customer_contract"
-        sequence="99"
-    />
+    <menuitem id="menu_contract_contract_customer" parent="account.menu_finance_receivables" action="action_customer_contract" sequence="99" />
     <!--ACTION supplier contracts-->
     <record id="action_supplier_contract" model="ir.actions.act_window">
         <field name="name">Supplier Contracts</field>
@@ -784,10 +456,5 @@
         <field name="view_id" ref="contract_contract_supplier_form_view" />
         <field name="act_window_id" ref="action_supplier_contract" />
     </record>
-    <menuitem
-        id="menu_contract_contract_supplier"
-        parent="account.menu_finance_payables"
-        action="action_supplier_contract"
-        sequence="99"
-    />
+    <menuitem id="menu_contract_contract_supplier" parent="account.menu_finance_payables" action="action_supplier_contract" sequence="99" />
 </odoo>
