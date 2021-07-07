@@ -23,44 +23,6 @@ class ReceberFatura(models.TransientModel):
     receber_fatura_line = fields.One2many(
         "contract.receber_fatura_line", "receber_fatura", string="Receber Fatura")
 
-    def btn_receber_fatura(self):
-        # Contrato <-- -->
-
-        if self.contract_id.bt_reserva_garantia:
-
-            fatura_line = self.receber_fatura_line  # Transition Model
-
-            contract = self.contract_id
-            fatura = self.env['account.move'].create({
-                'cd_empresa': self.env.user.company_id.id,
-                'contract_garantia_id': contract.id,
-                'invoice_origin': contract.name,
-            })
-
-            line_list = []
-            amount_total = 0
-
-            for item in fatura_line:
-                amount = (item.products_list.price_unit
-                          * (float(contract.cod_reserva_garantia) / 100)) * item.concluido
-                amount_total += amount
-
-                line_list.append((0, 0, {
-                    'move_id': fatura.id,
-                    'account_id': contract.cod_conta_contabil.id,
-                    'partner_id': contract.partner_id.id,
-                    'debit': amount,
-                }))
-
-            line_list.append((0, 0, {
-                'move_id': fatura.id,
-                'account_id': contract.cod_conta_contabil.id,
-                'partner_id': contract.partner_id.id,
-                'credit': amount_total,
-            }))
-
-            fatura.line_ids = line_list
-
     def btn_validar_concluido(self):
 
         for products_line in self.receber_fatura_line:
@@ -75,7 +37,7 @@ class ReceberFatura(models.TransientModel):
 
                                  })
 
-        self.btn_receber_fatura()
+        self.criar_fatura_garantia()
 
     def action_close(self):
         return {'type': 'ir.actions.act_window_close'}
@@ -85,3 +47,49 @@ class ReceberFatura(models.TransientModel):
         obj = super(ReceberFatura, self).create(vals)
         sequence = self.env['ir.sequence'].get('receber_fatura_sequence')
         obj.write({'name': sequence})
+
+    def criar_linha_na_fatura(self, move_id, account_id, partner_id,
+                              debit,
+                              credit):
+        return (0, 0, {
+            'move_id': move_id,
+            'account_id': account_id,
+            'partner_id': partner_id,
+            'tipo_fatura': debit,
+            'credit': credit,
+        })
+
+    def criar_fatura_garantia(self):
+        if self.contract_id.bt_reserva_garantia:
+
+            fatura_line = self.receber_fatura_line
+
+            contract = self.contract_id
+            fatura = self.env['account.move'].create({
+                'cd_empresa': self.env.user.company_id.id,
+                'contract_garantia_id': contract.id,
+                'invoice_origin': contract.name,
+            })
+
+            lines_ids_list = []
+            amount_total = 0
+
+            for item in fatura_line:
+                amount = (item.products_list.price_unit
+                          * (float(contract.cod_reserva_garantia) / 100)) * item.concluido
+                amount_total += amount
+
+                lines_ids_list.append(
+                    self.criar_linha_na_fatura(move_id=fatura.id,
+                                               account_id=contract.cod_conta_contabil.id,
+                                               partner_id=contract.partner_id.id,
+                                               debit=amount)
+                )
+
+            lines_ids_list.append(
+                self.criar_linha_na_fatura(move_id=fatura.id,
+                                           account_id=contract.cod_conta_contabil.id,
+                                           partner_id=contract.partner_id.id,
+                                           credit=amount_total))
+
+            fatura.line_ids = lines_ids_list
