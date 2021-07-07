@@ -831,7 +831,7 @@ class ContractContract(models.Model):
             vals = {
                 "receber_fatura": receber_fatura.id,
                 "products_list": product.id,
-                "concluido": product.cd_recebido
+                "recebido": product.cd_recebido
             }
             self.env["contract.receber_fatura_line"].create(vals)
             self.env.cr.commit()
