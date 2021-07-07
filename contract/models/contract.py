@@ -304,7 +304,7 @@ class ContractContract(models.Model):
     def _compute_fatura_count(self):
         for rec in self:
             # rec.fatura_count = len(rec._get_related_invoices())
-            rec.fatura_count = len([u for u in self.env['account.move'].search([])
+            rec.fatura_count = len([u for u in self.env['account.move'].search(['contract_garantia_id'])
                                     if u.contract_garantia_id.id == self.id])
 
     def action_show_invoices(self):
