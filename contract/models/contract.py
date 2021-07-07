@@ -904,7 +904,7 @@ class ContractContract(models.Model):
 
     #AX4B - CPTM - RESERVA DE GARANTIA
     cod_reserva_garantia = fields.Selection([('10', '10%'),('20', '20%'),('30', '30%')],
-                                        string=" Reserva de Garantia")
+                                            string=" Reserva de Garantia")
     bt_reserva_garantia = fields.Boolean(default=False, string="Reserva de Garantia")
     cod_conta_contabil = fields.Many2one('account.account', 'Conta Contábil')
     #AX4B - CPTM - RESERVA DE GARANTIA
