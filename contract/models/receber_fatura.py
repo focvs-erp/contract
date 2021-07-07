@@ -48,16 +48,17 @@ class ReceberFatura(models.TransientModel):
         sequence = self.env['ir.sequence'].get('receber_fatura_sequence')
         obj.write({'name': sequence})
 
-    def criar_linha_na_fatura(self, move_id, account_id, partner_id,
-                              debit,
-                              credit):
-        return (0, 0, {
+    def criar_linha_na_fatura(self, move_id, contract, amount, type_bills)
+
+        vals = {
             'move_id': move_id,
-            'account_id': account_id,
-            'partner_id': partner_id,
-            'tipo_fatura': debit,
-            'credit': credit,
-        })
+            'account_id': contract.cod_conta_contabil.id,
+            'partner_id': contract.partner_id.id
+        }
+
+        vals['credit'] = amount if type_bills == "credit" else vals['debit'] = amount
+
+        return (0, 0, vals)
 
     def criar_fatura_garantia(self):
         if self.contract_id.bt_reserva_garantia:
@@ -80,16 +81,16 @@ class ReceberFatura(models.TransientModel):
                 amount_total += amount
 
                 lines_ids_list.append(
-                    self.criar_linha_na_fatura(move_id=fatura.id,
-                                               account_id=contract.cod_conta_contabil.id,
-                                               partner_id=contract.partner_id.id,
-                                               debit=amount)
+                    self.criar_linha_na_fatura(fatura.id, contract, amount, 'debit')
                 )
 
+            # lines_ids_list.append(
+            #     self.criar_linha_na_fatura(move_id=fatura.id,
+            #                                account_id=contract.cod_conta_contabil.id,
+            #                                partner_id=contract.partner_id.id,
+            #                                credit=amount_total))
             lines_ids_list.append(
-                self.criar_linha_na_fatura(move_id=fatura.id,
-                                           account_id=contract.cod_conta_contabil.id,
-                                           partner_id=contract.partner_id.id,
-                                           credit=amount_total))
+                self.criar_linha_na_fatura(fatura.id, contract, amount_total, 'credit')
+            )
 
             fatura.line_ids = lines_ids_list
