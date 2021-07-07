@@ -4,7 +4,7 @@
             <field name="name">Receber Fatura</field>
             <field name="model">contract.receber_fatura</field>
             <field name="arch" type="xml">
-                <form string="Receber Fatura"> 
+                <form string="Receber Fatura">
                     <header position="inside">
 <!--                         <button type="object" string="VALIDAR" name="btn_validar_concluido" /> -->
                     </header>
@@ -13,10 +13,9 @@
                     </h1>
                     <group>
                         <group>
-                            <field name="partner_id" readonly="1"/>
-                            <!-- <field name="porcentagem" invisible="context.get('ativar_consorcio',False)"/> -->
-                            <field name="ativar_consorcio_fatura"/>
-                            <field name="porcentagem" attrs="{'invisible': [('ativar_consorcio_fatura','=', False)]}"/>
+                            <field name="partner_id" required="1"/>
+                            <field name="ativar_consorcio_fatura" invisible="1"/>
+                            <field name="porcentagem" readonly="1" attrs="{'invisible': [('ativar_consorcio_fatura','=', False)]}"/>
                         </group>
                         <group>
                             <field name="scheduled_date" readonly="1" />
@@ -29,8 +28,8 @@
                         </page>
                     </notebook>
                     <footer>
-                        <button type="object" string="VALIDAR" name="btn_validar_concluido" default_focus="1" class="oe_highlight"/>
-                        <button name="action_close" string="Cancelar" type="object" default_focus="1" class="oe_highlight"/>
+                        <button type="object" string="CONCLUIR" name="btn_validar_concluido" default_focus="1" class="oe_highlight"/>
+                        <button name="action_close" string="CANCELAR" type="object" default_focus="1" class="oe_highlight"/>
                     </footer>
                 </form>
             </field>
