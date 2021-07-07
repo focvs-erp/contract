@@ -39,7 +39,7 @@ class ReceberFatura(models.TransientModel):
 
     def btn_validar_concluido(self):
         produtos_solicitados = self.receber_fatura_line.filtered(lambda x: x.concluido > 0)
-
+        pedido = self.criar_pedido()
         for solicitado in produtos_solicitados:
             novo_recebido = solicitado.concluido + solicitado.recebido
             if self.env.context.get('ativar_consorcio'):
@@ -59,8 +59,9 @@ class ReceberFatura(models.TransientModel):
 
             self.atualizar_recebido_contrato_line(solicitado.products_list.id, novo_recebido)
             self.env['contract.contract'].browse(self.contract_id.id).write({"houve_recebimento": True})
+            self.criar_linha_pedido(pedido, solicitado)
             self.env.cr.commit()
-            self.criar_pedido()
+
 
 
     def action_close(self):
@@ -122,4 +123,24 @@ class ReceberFatura(models.TransientModel):
 
 
     def criar_pedido(self):
-        pass
+        vals = {
+            "partner_id": self.partner_id.id,
+            "currency_id": self.contract_id.currency_id.id,
+            "cd_justification": "Pedido gerado via contrato",
+            "date_order": datetime.today(),
+        }
+        return self.env["purchase.order"].create(vals)
+
+
+    def criar_linha_pedido(self, pedido, produto):
+        vals = {
+            "product_template_id": produto.products_list.product_id.product_tmpl_id.id,
+            "order_id": pedido.id,
+            "product_qty": produto.concluido,
+            "name": produto.products_list.name,
+            "price_unit": produto.products_list.price_unit,
+            "product_uom": produto.products_list.uom_id.id,
+            "date_planned": datetime.today(),
+            "product_id": produto.products_list.product_id.id
+        }
+        self.env["purchase.order.line"].create(vals)
