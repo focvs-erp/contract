@@ -1,6 +1,8 @@
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError, UserError
 from datetime import datetime
+import math
+from datetime import datetime, date
 
 class ReceberFatura(models.TransientModel):
     _name = "contract.receber_fatura"
@@ -39,15 +41,15 @@ class ReceberFatura(models.TransientModel):
         produtos_solicitados = self.receber_fatura_line.filtered(lambda x: x.concluido > 0)
 
         for solicitado in produtos_solicitados:
+            quantidade_permitida = math.ceil((solicitado.demanda / 100) * self.get_porcentagem_fornecedor())
             total_recebido = solicitado.concluido + solicitado.recebido
-            if solicitado.demanda < total_recebido :
+
+            if solicitado.concluido > quantidade_permitida:
                 raise UserError('O valor do campo Concluído não pode ser maior do que o campo Demanda')
 
-            self._cr.execute(''' update contract_line set cd_recebido=%(concluido)s where id=%(contract_line_id)s ;''',
-                {
-                    'contract_line_id': solicitado.products_list.id,
-                    'concluido': total_recebido
-                })
+            self.atualizar_recebido_contrato_line(solicitado.products_list.id, total_recebido)
+            self.criar_fatura_consorcio(solicitado.products_list.id, 0, 0)
+
 
     def action_close(self):
         return {'type': 'ir.actions.act_window_close'}
@@ -67,7 +69,35 @@ class ReceberFatura(models.TransientModel):
 
     @api.onchange("partner_id")
     def preencher_porncetagem(self):
-        consorcio = self.env['contract.contrato_consorcio'].browse(self.env.context.get("cod_consorcio"))
+        self.write({'porcentagem': self.get_porcentagem_fornecedor()})
 
+
+    def get_porcentagem_fornecedor(self):
+        consorcio = self.env['contract.contrato_consorcio'].browse(self.env.context.get("cod_consorcio"))
         fornecedor_selecionado = consorcio.contratos.filtered(lambda x: x.cd_fornecedores.id == self.partner_id.id)
-        self.porcentagem = fornecedor_selecionado.cd_participacao
+
+        porcentagem = fornecedor_selecionado.cd_participacao if fornecedor_selecionado.cd_participacao else 0
+        return porcentagem
+
+
+    def get_recebido_por_fornecedor(self):
+        pass
+
+    def atualizar_recebido_contrato_line(self, contract_line_id, concluido):
+        self._cr.execute(''' update contract_line set cd_recebido=%(concluido)s where id=%(contract_line_id)s ;''',
+                {
+                    'contract_line_id': contract_line_id,
+                    'concluido': concluido
+                })
+        self.env.cr.commit()
+
+    def criar_fatura_consorcio(self, contract_line_id, total_recebido, disponivel):
+        vals = {
+            "cd_fornecedor": self.partner_id.id,
+            "contract_line": contract_line_id,
+            "total_concluido": total_recebido,
+            "valor_disponivel_concluir": disponivel,
+            "data_recebimento": date.today(),
+        }
+        self.env["contract.fatura_consorcio"].create(vals)
+
