@@ -64,6 +64,8 @@ class ReceberFatura(models.TransientModel):
             self.criar_linha_pedido(pedido, solicitado)
             self.env.cr.commit()
 
+        self.criar_fatura_garantia()
+
 
     def action_close(self):
         return {'type': 'ir.actions.act_window_close'}
@@ -81,13 +83,9 @@ class ReceberFatura(models.TransientModel):
         vals = {
             'move_id': move_id,
             'account_id': contract.cod_conta_contabil.id,
-            'partner_id': contract.partner_id.id
+            'partner_id': contract.partner_id.id,
+            type_bills: amount
         }
-
-        if type_bills == 'debit':
-            vals['debit'] = amount
-        else:
-            vals['credit'] = amount
 
         return (0, 0, vals)
 
