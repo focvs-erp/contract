@@ -881,6 +881,7 @@ class ContractContract(models.Model):
     # AX4B - CPTM - RATEIO FORNECEDOR
     cod_consorcio = fields.Many2one('contract.contrato_consorcio', string="Consórcio")
     ativar_consorcio = fields.Boolean(default=False, string="Ativar Consórcio")
+    houve_recebimento = fields.Boolean(default=False)
 
     @api.onchange("ativar_consorcio")
     def limpar_fornecedor_consorcio(self):

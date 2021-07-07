@@ -142,17 +142,20 @@
                         <group>
                             <field name="commercial_partner_id" invisible="1" />
                              <!-- AX4B - CPTM - RATEIO FORNECEDOR  -->
+                             <field
+                                name="houve_recebimento"
+                                invisible="1"
+                            />
                             <field
                                 name="cod_consorcio"
-                                attrs="{'required': [('ativar_consorcio','=', True)],'invisible': [('ativar_consorcio','=', False)]}"
+                                attrs="{'readonly':[('houve_recebimento', '=', True)],'required': [('ativar_consorcio','=', True)],'invisible': [('ativar_consorcio','=', False)]}"
                                 domain= "[('cd_ativo','=',True)]"
                             />
-                             <!-- AX4B - CPTM - RATEIO FORNECEDOR  -->
-
                             <field
                                 name="partner_id"
-                                attrs="{'required': [('ativar_consorcio','=', False)], 'invisible': [('ativar_consorcio','=', True)]}"
+                                attrs="{'readonly':[('houve_recebimento', '=', True)], 'required': [('ativar_consorcio','=', False)], 'invisible': [('ativar_consorcio','=', True)]}"
                             />
+                            <!-- AX4B - CPTM - RATEIO FORNECEDOR  -->
                             <field
                                 name="pricelist_id"
                                 attrs="{'readonly': [('is_terminated','=',True)]}"
@@ -179,6 +182,7 @@
                             <field
                                 name ="ativar_consorcio"
                                 widget="boolean_toggle"
+                                attrs="{'invisible':[('houve_recebimento', '=', True)]}"
                             />
                          <!-- AX4B - CPTM - RATEIO FORNECEDOR  -->
                             <field

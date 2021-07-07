@@ -58,6 +58,8 @@ class ReceberFatura(models.TransientModel):
                     raise UserError('Quantidade ultrapassa o permitido para este fornecedor, atualmente é permitido ' + str(solicitado.demanda - solicitado.recebido))
 
             self.atualizar_recebido_contrato_line(solicitado.products_list.id, novo_recebido)
+            self.env['contract.contract'].browse(self.contract_id.id).write({"houve_recebimento": True})
+            self.env.cr.commit()
             self.criar_pedido()
 
 
@@ -106,7 +108,7 @@ class ReceberFatura(models.TransientModel):
                     'contract_line_id': contract_line_id,
                     'concluido': concluido
                 })
-        self.env.cr.commit()
+#         self.env.cr.commit()
 
     def criar_fatura_consorcio(self, contract_line_id, total_recebido, disponivel):
         vals = {
