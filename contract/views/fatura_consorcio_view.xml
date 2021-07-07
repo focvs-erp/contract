@@ -18,7 +18,7 @@
     <record id="view_fatura_consorcio_tree" model="ir.ui.view">
       <field name="model">contract.fatura_consorcio</field>
       <field name="arch" type="xml">
-        <tree string="Fatura Consórcio">
+        <tree string="Fatura Consórcio" multi_edit="1" editable="top" create="false" delete="false">
             <field name="cd_fornecedor" />
             <field name="cd_produto" />
             <field name="cd_unidade_medida" />
