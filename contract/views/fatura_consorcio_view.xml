@@ -20,7 +20,7 @@
       <field name="arch" type="xml">
         <tree string="Fatura Consórcio">
             <field name="cd_fornecedor" />
-            <field name="cd_produto" />"
+            <field name="cd_produto" />
             <field name="cd_unidade_medida" />
             <field name="total_concluido" />
             <field name="valor_disponivel_concluir" />

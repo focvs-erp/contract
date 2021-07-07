@@ -41,14 +41,24 @@ class ReceberFatura(models.TransientModel):
         produtos_solicitados = self.receber_fatura_line.filtered(lambda x: x.concluido > 0)
 
         for solicitado in produtos_solicitados:
-            quantidade_permitida = math.ceil((solicitado.demanda / 100) * self.get_porcentagem_fornecedor())
-            total_recebido = solicitado.concluido + solicitado.recebido
+            novo_recebido = solicitado.concluido + solicitado.recebido
+            if self.env.context.get('ativar_consorcio'):
 
-            if solicitado.concluido > quantidade_permitida:
-                raise UserError('O valor do campo Concluído não pode ser maior do que o campo Demanda')
+                total_fornecedor_recebido = self.get_recebido_por_fornecedor_consorcio(solicitado.products_list.id, self.partner_id.id)
+                quantidade_total_permitida = math.ceil((solicitado.demanda / 100) * self.get_porcentagem_fornecedor())
+                quantidade_atual_permitida = quantidade_total_permitida - total_fornecedor_recebido
 
-            self.atualizar_recebido_contrato_line(solicitado.products_list.id, total_recebido)
-            self.criar_fatura_consorcio(solicitado.products_list.id, 0, 0)
+                if solicitado.concluido > quantidade_atual_permitida:
+                    raise UserError('Quantidade ultrapassa o permitido para este fornecedor, atualmente é permitido ' + str(quantidade_atual_permitida))
+
+                self.criar_fatura_consorcio(solicitado.products_list.id, solicitado.concluido, quantidade_atual_permitida - solicitado.concluido)
+
+            else:
+                if solicitado.demanda < novo_recebido:
+                    raise UserError('Quantidade ultrapassa o permitido para este fornecedor, atualmente é permitido ' + str(solicitado.demanda - solicitado.recebido))
+
+            self.atualizar_recebido_contrato_line(solicitado.products_list.id, novo_recebido)
+            self.criar_pedido()
 
 
     def action_close(self):
@@ -80,8 +90,15 @@ class ReceberFatura(models.TransientModel):
         return porcentagem
 
 
-    def get_recebido_por_fornecedor(self):
-        pass
+    def get_recebido_por_fornecedor_consorcio(self, contract_line_id, fornecedor_id):
+        produtos_recebidos = self.env["contract.fatura_consorcio"].search(['&', ("contract_line", "=", contract_line_id), ("cd_contrato", "=", self.contract_id.id), ("cd_fornecedor", "=", fornecedor_id)])
+
+        total_recebido_produto = 0
+        for produto in produtos_recebidos:
+            total_recebido_produto += produto.total_concluido
+
+        return total_recebido_produto
+
 
     def atualizar_recebido_contrato_line(self, contract_line_id, concluido):
         self._cr.execute(''' update contract_line set cd_recebido=%(concluido)s where id=%(contract_line_id)s ;''',
@@ -101,3 +118,6 @@ class ReceberFatura(models.TransientModel):
         }
         self.env["contract.fatura_consorcio"].create(vals)
 
+
+    def criar_pedido(self):
+        pass
