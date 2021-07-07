@@ -300,7 +300,7 @@ class ContractContract(models.Model):
             rec.invoice_count = len(rec._get_related_invoices())
 
     # Contagem de fatura para contrato
-    def _compute_fatura_count(self):
+    def _compute_fatura_count(self): 
         for rec in self:
             rec.fatura_count = len(rec._get_related_invoices())
             # len([u for u in self.env['account.move'].search([]) \
