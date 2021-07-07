@@ -63,7 +63,7 @@
                         <group>
                             <group>
                                 <field name= "nota_empenho" />
-                                <field name= "nota_reserva" /> 
+                                <field name= "nota_reserva" />
                                 <field name= "ds_orgao" />
                                 <field name= "ds_uo" />
                                 <field name= "ds_fonte" />
@@ -81,7 +81,7 @@
                                 <field name= "cod_processo" />
                             </group>
                             <group>
-                                <field name= "ano_orcamento" />   
+                                <field name= "ano_orcamento" />
                                 <field name= "cod_orgao" />
                                 <field name= "cod_poder" />
                                 <field name= "cod_uo" />
@@ -95,8 +95,8 @@
                                 <field name= "cod_subfuncao" />
                                 <field name= "cod_programa" />
                                 <field name= "cod_projeto_atividade" />
-                            </group> 
-                        </group> 
+                            </group>
+                        </group>
                     </page>
                 </notebook>
                 <!-- AX4B - CPTM - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO                -->
@@ -156,7 +156,7 @@
                 />
                 <field name="quantity" />
                 <!-- AX4B - CPTM - CONTRATO MEDIÇÃO  -->
-                <field name="cd_recebido"/>
+                <field name="cd_recebido" readonly="1"/>
                 <!-- AX4B - CPTM - CONTRATO MEDIÇÃO  -->
                 <field name="uom_id" />
                 <field name="automatic_price" />
