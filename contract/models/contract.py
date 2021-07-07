@@ -941,3 +941,40 @@ class ContractContract(models.Model):
         for rec in self:
             rec.fatura_count = len([u for u in self.env['account.move'].search([])
                                     if u.contract_garantia_id.id == self.id])
+
+    def acao_mostra_reserva_garantia(self):
+        self.ensure_one()
+        tree_view = self.env.ref("account.view_invoice_tree", raise_if_not_found=False)
+        form_view = self.env.ref("account.view_move_form", raise_if_not_found=False)
+        action = {
+            "type": "ir.actions.act_window",
+            "name": "Reserva Garantia",
+            "res_model": "account.move",
+            "view_mode": "tree,kanban,form,calendar,pivot,graph,activity",
+            "domain": [("id", "in", self._obter_reserva_garantias().ids)],
+        }
+        if tree_view and form_view:
+            action["views"] = [(tree_view.id, "tree"), (form_view.id, "form")]
+        return action
+
+    def _obter_reserva_garantias(self):
+        self.ensure_one()
+
+        invoices = (
+            self.env["account.move.line"]
+            .search(
+                [
+                    (
+                        "contract_line_id",
+                        "in",
+                        self.contract_line_ids.ids,
+                    )
+                ]
+            )
+            .mapped("move_id")
+        )
+        # we are forced to always search for this for not losing possible <=v11
+        # generated invoices
+        invoices |= self.env["account.move"].search(
+            [("contract_garantia_id", "=", self.id)])
+        return invoices
