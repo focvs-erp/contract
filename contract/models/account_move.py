@@ -15,6 +15,15 @@ class AccountMove(models.Model):
     # Reserva de Garantia
     contract_garantia_id = fields.Many2one("contract.contract")
 
+    # def _check_balanced(self):
+    #     # !IMPORTANTE esse metodo foi sobreescrito para que possa ser possivel
+    #     # a inserção em receber_fatura.py na linha 42 sem a necessidade de
+    #     # ter uma contrapartida.
+    #     ''' Assert the move is fully balanced debit = credit.
+    #     An error is raised if it's not the case.
+    #     '''
+    #     return True
+
 
 class AccountMoveLine(models.Model):
     _inherit = "account.move.line"
