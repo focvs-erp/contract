@@ -38,7 +38,11 @@
                 </div>
                 <header>
                     <button name="action_contract_send" type="object" string="Send by Email" attrs="{'invisible': [('is_terminated','=',True)]}" groups="base.group_user" />
-                    <button name="recurring_create_invoice" type="object" attrs="{'invisible': [('create_invoice_visibility', '=', False)]}" string="Create invoices" groups="base.group_no_one" />
+                    <!-- AX4B - CPTM - RATEIO FORNECEDOR -->
+
+                    <button name="recurring_create_invoice" type="object" invisible="True" string="Create invoices" groups="base.group_no_one" />
+
+                    <!-- AX4B - CPTM - RATEIO FORNECEDOR -->
                     <button name="action_terminate_contract" type="object" string="Terminate Contract" attrs="{'invisible': [('is_terminated','=',True)]}" groups="contract.can_terminate_contract" />
                     <button name="action_terminate_contract" type="object" string="Update Termination Details" attrs="{'invisible': [('is_terminated','=',False)]}" groups="contract.can_terminate_contract" />
                     <button name="action_cancel_contract_termination" type="object" confirm="Are you sure you want to re-activate this contract?" string="Cancel Contract Termination" attrs="{'invisible': [('is_terminated','=',False)]}" groups="contract.can_terminate_contract" />
@@ -49,7 +53,7 @@
 
                     <!-- AX4B - CPTM - CONTRATO MEDIÇÃO -->
                     <button type="object" string="CONFIRMAR" name="action_confirmar_receber_fatura" attrs="{'invisible': ['|',('state','=','confirmado'), ('create_invoice_visibility', '=', False)]}" />
-                    <button type="object" string="RECEBER FATURA" name="action_receber_fatura" attrs="{'invisible': ['|',('state','!=','confirmado'), ('create_invoice_visibility', '=', False)]}" context="{'ativar_consorcio': ativar_consorcio}" />
+                    <button type="object" string="RECEBER FATURA" name="action_receber_fatura" attrs="{'invisible': ['|',('state','!=','confirmado'), ('create_invoice_visibility', '=', False)]}" context="{'ativar_consorcio': ativar_consorcio, 'partner_id': partner_id, 'cod_consorcio':cod_consorcio}" />
                     <field name="state" widget="statusbar" />
                     <!-- AX4B - CPTM - CONTRATO MEDIÇÃO -->
                 </header>
@@ -57,7 +61,7 @@
                     <field name="active" invisible="1" />
                     <widget name="web_ribbon" text="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}" />
                     <div class="oe_button_box" name="button_box">
-                        <button name="action_show_invoices" type="object" icon="fa-list" class="oe_stat_button">
+                        <button name="acao_mostra_reserva_garantia" type="object" icon="fa-list" class="oe_stat_button">
                             <field string="Reserva Garantia" name="fatura_count" widget="statinfo" />
                         </button>
                         <button name="action_show_invoices" type="object" icon="fa-list" class="oe_stat_button">
@@ -74,10 +78,10 @@
                         <group>
                             <field name="commercial_partner_id" invisible="1" />
                             <!-- AX4B - CPTM - RATEIO FORNECEDOR  -->
-                            <field name="cod_consorcio" attrs="{'invisible': [('ativar_consorcio','=', False)]}" />
+                            <field name="houve_recebimento" invisible="1" />
+                            <field name="cod_consorcio" attrs="{'readonly':[('houve_recebimento', '=', True)],'required': [('ativar_consorcio','=', True)],'invisible': [('ativar_consorcio','=', False)]}" domain="[('cd_ativo','=',True)]" />
+                            <field name="partner_id" attrs="{'readonly':[('houve_recebimento', '=', True)], 'required': [('ativar_consorcio','=', False)], 'invisible': [('ativar_consorcio','=', True)]}" />
                             <!-- AX4B - CPTM - RATEIO FORNECEDOR  -->
-
-                            <field name="partner_id" required="1" attrs="{'readonly': [('is_terminated','=',True)]}" />
                             <field name="pricelist_id" attrs="{'readonly': [('is_terminated','=',True)]}" />
                             <!-- AX4B - CPTM - CONTRATO REAJUSTE DE PREÇO -->
                             <field name="reajuste_preco" attrs="{'readonly': [('is_terminated','=',True)]}" />
@@ -85,6 +89,7 @@
                             <field name="payment_term_id" attrs="{'readonly': [('is_terminated','=',True)]}" />
                             <field name="user_id" attrs="{'readonly': [('is_terminated','=',True)]}" />
                             <!--AX4B - CPTM RESERVA DE GARANTIA-->
+                            <field name="bt_reserva_garantia" widget="boolean_toggle" />
                             <field name="cod_reserva_garantia" attrs="{'invisible': [('bt_reserva_garantia', '!=', True)], 'readonly': [('state', '=', 'confirmado')], 'required': [('bt_reserva_garantia', '=', True)]}" />
                             <!--AX4B - CPTM - RESERVA DE GARANTIA-->
                             <field name="cod_conta_contabil" attrs="{'invisible': [('bt_reserva_garantia', '!=', True)], 'readonly': [('state', '=', 'confirmado')], 'required': [('bt_reserva_garantia', '=', True)]}" />
@@ -96,11 +101,14 @@
                             <field name="bt_reserva_garantia" widget="boolean_toggle" />
                             <!--AX4B - CPTM - RESERVA DE GARANTIA-->
                             <!-- AX4B - CPTM - RATEIO FORNECEDOR  -->
-                            <field name="ativar_consorcio" widget="boolean_toggle" />
+                            <field name="ativar_consorcio" widget="boolean_toggle" attrs="{'invisible':[('houve_recebimento', '=', True)]}" />
                             <!-- AX4B - CPTM - RATEIO FORNECEDOR  -->
                             <field name="cd_aditivo_n" readonly="1" attrs="{'invisible': [('state','!=','confirmado')]}" />
                             <field name="data_aditivacao" readonly="1" attrs="{'invisible': [('state','!=','confirmado')]}" />
+<<<<<<< HEAD
                             
+=======
+>>>>>>> 6a3c6f6adbda797865b55f668bb9622e02b14013
                             <!-- AX4B - CPTM - ADITIVAR CONTRATO -->
                             <field name="contract_template_id" attrs="{'readonly': [('is_terminated','=',True)]}" domain="['|', ('contract_type', '=', contract_type), ('contract_type', '=', False)]" context="{'default_contract_type': contract_type}" />
                             <field name="contract_type" invisible="1" required="1" />
@@ -235,7 +243,7 @@
                                 <field name="group_id" attrs="{'readonly': [('is_terminated','=',True)]}" />
                                 <field name="company_id" attrs="{'readonly': [('is_terminated','=',True)]}" options="{'no_create': True}" groups="base.group_multi_company" />
                                 <field name="currency_id" groups="base.group_multi_currency" />
-                                <field name="invoice_partner_id" attrs="{'readonly': [('is_terminated','=',True)]}" required="1" />
+                                <field name="invoice_partner_id" attrs="{'readonly': [('is_terminated','=',True)]}" />
                             </group>
                             <group string="Legend (for the markers inside invoice lines description)" name="group_legend">
                                 <p colspan="2">
@@ -294,9 +302,12 @@
                                 </group>
                             </group>
                         </page>
+                        <!-- AX4B - CPTM - RATEIO FORNECEDOR -->
                         <page name="faturas_do_consorcio" string="Receber Faturas do Consórcio" attrs="{'invisible': [('ativar_consorcio','=', False)]}">
                             <field name="fatura_consorcio" />
                         </page>
+                        <!-- AX4B - CPTM - RATEIO FORNECEDOR -->
+
                         <!-- AX4B - CPTM - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO -->
                     </notebook>
                 </sheet>
