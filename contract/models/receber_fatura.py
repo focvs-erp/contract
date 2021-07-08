@@ -42,8 +42,18 @@ class ReceberFatura(models.TransientModel):
     def btn_validar_concluido(self):
         produtos_solicitados = self.receber_fatura_line.filtered(lambda x: x.concluido > 0)
         pedido = self.criar_pedido()
+        fatura = None
+        contract=self.contract_id
+        linha_fatura = {"lines_ids_list": [], "amount_total": 0}
+
+        if produtos_solicitados and self.contract_id.bt_reserva_garantia:
+            fatura = self.criar_fatura_reserva_garantia(contract=contract)
+
         for solicitado in produtos_solicitados:
-    
+
+            if fatura:
+                linha_fatura = self.criar_linha_debito_fatura(contract, fatura, linha_fatura['lines_ids_list'], linha_fatura['amount_total'], solicitado)
+
             novo_recebido = solicitado.concluido + solicitado.recebido
             if self.env.context.get('ativar_consorcio'):
 
@@ -66,7 +76,8 @@ class ReceberFatura(models.TransientModel):
             self.env.cr.commit()
 
         # Receber Fatura garantia -->
-        self.criar_fatura_garantia()
+        if fatura:
+            self.compor_fatura(contract, fatura, linha_fatura)
 
     def action_close(self):
         return {'type': 'ir.actions.act_window_close'}
@@ -90,32 +101,55 @@ class ReceberFatura(models.TransientModel):
 
         return (0, 0, vals)
 
-    def criar_fatura_garantia(self):
-        if self.contract_id.bt_reserva_garantia:
+    # def criar_fatura_garantia(self):
+    #     if self.contract_id.bt_reserva_garantia:
 
-            produtos_solicitados = self.receber_fatura_line.filtered(lambda x: x.concluido > 0)
+    #         produtos_solicitados = self.receber_fatura_line.filtered(lambda x: x.concluido > 0)
 
-            if produtos_solicitados:
-                contract=self.contract_id
-                fatura = self.criar_fatura_reserva_garantia(contract=contract)
-                
-                lines_ids_list = []
-                amount_total = 0
+    #         if produtos_solicitados:
+    #             contract=self.contract_id
+    #             fatura = self.criar_fatura_reserva_garantia(contract=contract)
 
-                for solicitado in produtos_solicitados:
-                    amount = (solicitado.products_list.price_unit
-                            * (float(contract.cod_reserva_garantia) / 100)) * solicitado.concluido
-                    amount_total += amount
+    #             lines_ids_list = []
+    #             amount_total = 0
 
-                    lines_ids_list.append(
-                        self.criar_linha_na_fatura(fatura.id, contract, amount, 'debit')
-                    )
+    #             for solicitado in produtos_solicitados:
+    #                 amount = (solicitado.products_list.price_unit
+    #                         * (float(contract.cod_reserva_garantia) / 100)) * solicitado.concluido
+    #                 amount_total += amount
 
-                lines_ids_list.append(
-                    self.criar_linha_na_fatura(fatura.id, contract, amount_total, 'credit')
-                )
+    #                 lines_ids_list.append(
+    #                     self.criar_linha_na_fatura(fatura.id, contract, amount, 'debit')
+    #                 )
 
-                fatura.line_ids = lines_ids_list
+    #             lines_ids_list.append(
+    #                 self.criar_linha_na_fatura(fatura.id, contract, amount_total, 'credit')
+    #             )
+
+    #             fatura.line_ids = lines_ids_list
+    def criar_linha_debito_fatura(self, contract, fatura, lines_ids_list, amount_total, solicitado):
+            # for solicitado in produtos_solicitados:
+        amount = (solicitado.products_list.price_unit
+                * (float(contract.cod_reserva_garantia) / 100)) * solicitado.concluido
+        amount_total += amount
+
+        lines_ids_list.append(
+            self.criar_linha_na_fatura(fatura.id, contract, amount, 'debit')
+        )
+
+        return {"lines": lines_ids_list, "amount_total":amount_total}
+
+
+    def adicionar_linha_credito_fatura(self, contract, fatura, linha_fatura):
+        linha_fatura['lines_ids_list'].append(
+            self.criar_linha_na_fatura(fatura.id, contract, linha_fatura['amount_total'], 'credit')
+        )
+        return linha_fatura
+
+    def compor_fatura(self, contract, fatura, linha_fatura):
+        self.adicionar_linha_credito_fatura(contract, fatura, linha_fatura)
+        fatura.line_ids = linha_fatura['lines_ids_list']
+
 
     def set_ativar_consorcio_fatura(self):
         for rec in self:
