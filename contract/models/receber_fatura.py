@@ -43,6 +43,7 @@ class ReceberFatura(models.TransientModel):
         produtos_solicitados = self.receber_fatura_line.filtered(lambda x: x.concluido > 0)
         pedido = self.criar_pedido()
         for solicitado in produtos_solicitados:
+    
             novo_recebido = solicitado.concluido + solicitado.recebido
             if self.env.context.get('ativar_consorcio'):
 
@@ -64,8 +65,8 @@ class ReceberFatura(models.TransientModel):
             self.criar_linha_pedido(pedido, solicitado)
             self.env.cr.commit()
 
+        # Receber Fatura garantia -->
         self.criar_fatura_garantia()
-
 
     def action_close(self):
         return {'type': 'ir.actions.act_window_close'}
@@ -92,23 +93,18 @@ class ReceberFatura(models.TransientModel):
     def criar_fatura_garantia(self):
         if self.contract_id.bt_reserva_garantia:
 
-            fatura_line = self.receber_fatura_line.filtered(lambda x: x.concluido > 0)
+            produtos_solicitados = self.receber_fatura_line.filtered(lambda x: x.concluido > 0)
 
-            if fatura_line:
-
-                contract = self.contract_id
-                fatura = self.env['account.move'].create({
-                    'cd_empresa': self.env.user.company_id.id,
-                    'contract_garantia_id': contract.id,
-                    'invoice_origin': contract.name,
-                })
-
+            if produtos_solicitados:
+                contract=self.contract_id
+                fatura = self.criar_fatura_reserva_garantia(contract=contract)
+                
                 lines_ids_list = []
                 amount_total = 0
 
-                for item in fatura_line:
-                    amount = (item.products_list.price_unit
-                            * (float(contract.cod_reserva_garantia) / 100)) * item.concluido
+                for solicitado in produtos_solicitados:
+                    amount = (solicitado.products_list.price_unit
+                            * (float(contract.cod_reserva_garantia) / 100)) * solicitado.concluido
                     amount_total += amount
 
                     lines_ids_list.append(
@@ -190,3 +186,13 @@ class ReceberFatura(models.TransientModel):
             "product_id": produto.products_list.product_id.id
         }
         self.env["purchase.order.line"].create(vals)
+
+    def criar_fatura_reserva_garantia(self, contract):
+        vals = {
+            'cd_empresa': self.env.user.company_id.id,
+            'contract_garantia_id': contract.id,
+            'invoice_origin': contract.name
+
+        }
+
+        return self.env['account.move'].create(vals)
