@@ -94,30 +94,32 @@ class ReceberFatura(models.TransientModel):
 
             fatura_line = self.receber_fatura_line.filtered(lambda x: x.concluido > 0)
 
-            contract = self.contract_id
-            fatura = self.env['account.move'].create({
-                'cd_empresa': self.env.user.company_id.id,
-                'contract_garantia_id': contract.id,
-                'invoice_origin': contract.name,
-            })
+            if fatura_line:
 
-            lines_ids_list = []
-            amount_total = 0
+                contract = self.contract_id
+                fatura = self.env['account.move'].create({
+                    'cd_empresa': self.env.user.company_id.id,
+                    'contract_garantia_id': contract.id,
+                    'invoice_origin': contract.name,
+                })
 
-            for item in fatura_line:
-                amount = (item.products_list.price_unit
-                          * (float(contract.cod_reserva_garantia) / 100)) * item.concluido
-                amount_total += amount
+                lines_ids_list = []
+                amount_total = 0
+
+                for item in fatura_line:
+                    amount = (item.products_list.price_unit
+                            * (float(contract.cod_reserva_garantia) / 100)) * item.concluido
+                    amount_total += amount
+
+                    lines_ids_list.append(
+                        self.criar_linha_na_fatura(fatura.id, contract, amount, 'debit')
+                    )
 
                 lines_ids_list.append(
-                    self.criar_linha_na_fatura(fatura.id, contract, amount, 'debit')
+                    self.criar_linha_na_fatura(fatura.id, contract, amount_total, 'credit')
                 )
 
-            lines_ids_list.append(
-                self.criar_linha_na_fatura(fatura.id, contract, amount_total, 'credit')
-            )
-
-            fatura.line_ids = lines_ids_list
+                fatura.line_ids = lines_ids_list
 
     def set_ativar_consorcio_fatura(self):
         for rec in self:
