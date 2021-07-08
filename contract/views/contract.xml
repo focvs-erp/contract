@@ -92,15 +92,15 @@
                         </group>
                         <group>
                             <!-- AX4B - CPTM - ADITIVAR CONTRATO -->
-
+                            <!--AX4B - CPTM - RESERVA DE GARANTIA-->
+                            <field name="bt_reserva_garantia" widget="boolean_toggle" />
+                            <!--AX4B - CPTM - RESERVA DE GARANTIA-->
                             <!-- AX4B - CPTM - RATEIO FORNECEDOR  -->
                             <field name="ativar_consorcio" widget="boolean_toggle" />
                             <!-- AX4B - CPTM - RATEIO FORNECEDOR  -->
                             <field name="cd_aditivo_n" readonly="1" attrs="{'invisible': [('state','!=','confirmado')]}" />
                             <field name="data_aditivacao" readonly="1" attrs="{'invisible': [('state','!=','confirmado')]}" />
-                            <!--AX4B - CPTM - RESERVA DE GARANTIA-->
-                            <field name="bt_reserva_garantia" widget="boolean_toggle" />
-                            <!--AX4B - CPTM - RESERVA DE GARANTIA-->
+                            
                             <!-- AX4B - CPTM - ADITIVAR CONTRATO -->
                             <field name="contract_template_id" attrs="{'readonly': [('is_terminated','=',True)]}" domain="['|', ('contract_type', '=', contract_type), ('contract_type', '=', False)]" context="{'default_contract_type': contract_type}" />
                             <field name="contract_type" invisible="1" required="1" />

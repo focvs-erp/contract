@@ -48,7 +48,7 @@ class ReceberFatura(models.TransientModel):
         sequence = self.env['ir.sequence'].get('receber_fatura_sequence')
         obj.write({'name': sequence})
 
-    def criar_linha_na_fatura(self, move_id, contract, amount, type_bills)
+    def criar_linha_na_fatura(self, move_id, contract, amount, type_bills):
 
         vals = {
             'move_id': move_id,
