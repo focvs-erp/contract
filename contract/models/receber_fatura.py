@@ -4,6 +4,7 @@ from datetime import datetime
 import math
 from datetime import datetime, date
 
+
 class ReceberFatura(models.TransientModel):
     _name = "contract.receber_fatura"
     _description = "Receber Fatura"
@@ -34,13 +35,25 @@ class ReceberFatura(models.TransientModel):
     scheduled_date = fields.Date(string="Data Agendada", default=datetime.today())
     origin = fields.Char(related="contract_id.name", string="Documento de Origem")
 
-    receber_fatura_line = fields.One2many("contract.receber_fatura_line","receber_fatura",string="Receber Fatura")
+    receber_fatura_line = fields.One2many(
+        "contract.receber_fatura_line", "receber_fatura", string="Receber Fatura")
 
 
     def btn_validar_concluido(self):
         produtos_solicitados = self.receber_fatura_line.filtered(lambda x: x.concluido > 0)
         pedido = self.criar_pedido()
+        fatura = None
+        contract=self.contract_id
+        linha_fatura = {"lines_ids_list": [], "amount_total": 0}
+
+        if produtos_solicitados and self.contract_id.bt_reserva_garantia:
+            fatura = self.criar_fatura_reserva_garantia(contract=contract)
+
         for solicitado in produtos_solicitados:
+
+            if fatura:
+                linha_fatura = self.criar_linha_debito_fatura(contract, fatura, linha_fatura['lines_ids_list'], linha_fatura['amount_total'], solicitado)
+
             novo_recebido = solicitado.concluido + solicitado.recebido
             if self.env.context.get('ativar_consorcio'):
 
@@ -62,18 +75,55 @@ class ReceberFatura(models.TransientModel):
             self.criar_linha_pedido(pedido, solicitado)
             self.env.cr.commit()
 
-
+        # Receber Fatura garantia -->
+        if fatura:
+            self.compor_fatura(contract, fatura, linha_fatura)
 
     def action_close(self):
         return {'type': 'ir.actions.act_window_close'}
-
 
     @api.model
     def create(self, vals):
         obj = super(ReceberFatura, self).create(vals)
         sequence = self.env['ir.sequence'].get('receber_fatura_sequence')
         obj.write({'name': sequence})
+
         return obj
+
+    def criar_linha_na_fatura(self, move_id, contract, amount, type_bills):
+
+        vals = {
+            'move_id': move_id,
+            'account_id': contract.cod_conta_contabil.id,
+            'partner_id': contract.partner_id.id,
+            type_bills: amount
+        }
+
+        return (0, 0, vals)
+
+    def criar_linha_debito_fatura(self, contract, fatura, lines_ids_list, amount_total, solicitado):
+            # for solicitado in produtos_solicitados:
+        amount = (solicitado.products_list.price_unit
+                * (float(contract.cod_reserva_garantia) / 100)) * solicitado.concluido
+        amount_total += amount
+
+        lines_ids_list.append(
+            self.criar_linha_na_fatura(fatura.id, contract, amount, 'debit')
+        )
+
+        return {"lines_ids_list": lines_ids_list, "amount_total": amount_total}
+
+
+    def adicionar_linha_credito_fatura(self, contract, fatura, linha_fatura):
+        linha_fatura['lines_ids_list'].append(
+            self.criar_linha_na_fatura(fatura.id, contract, linha_fatura['amount_total'], 'credit')
+        )
+        return linha_fatura
+
+    def compor_fatura(self, contract, fatura, linha_fatura):
+        self.adicionar_linha_credito_fatura(contract, fatura, linha_fatura)
+        fatura.line_ids = linha_fatura['lines_ids_list']
+
 
     def set_ativar_consorcio_fatura(self):
         for rec in self:
@@ -81,7 +131,7 @@ class ReceberFatura(models.TransientModel):
 
 
     @api.onchange("partner_id")
-    def preencher_porncetagem(self):
+    def preencher_porcentagem(self):
         self.write({'porcentagem': self.get_porcentagem_fornecedor()})
 
 
@@ -144,3 +194,13 @@ class ReceberFatura(models.TransientModel):
             "product_id": produto.products_list.product_id.id
         }
         self.env["purchase.order.line"].create(vals)
+
+    def criar_fatura_reserva_garantia(self, contract):
+        vals = {
+            'cd_empresa': self.env.user.company_id.id,
+            'contract_garantia_id': contract.id,
+            'invoice_origin': contract.name
+
+        }
+
+        return self.env['account.move'].create(vals)
