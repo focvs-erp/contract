@@ -101,32 +101,6 @@ class ReceberFatura(models.TransientModel):
 
         return (0, 0, vals)
 
-    # def criar_fatura_garantia(self):
-    #     if self.contract_id.bt_reserva_garantia:
-
-    #         produtos_solicitados = self.receber_fatura_line.filtered(lambda x: x.concluido > 0)
-
-    #         if produtos_solicitados:
-    #             contract=self.contract_id
-    #             fatura = self.criar_fatura_reserva_garantia(contract=contract)
-
-    #             lines_ids_list = []
-    #             amount_total = 0
-
-    #             for solicitado in produtos_solicitados:
-    #                 amount = (solicitado.products_list.price_unit
-    #                         * (float(contract.cod_reserva_garantia) / 100)) * solicitado.concluido
-    #                 amount_total += amount
-
-    #                 lines_ids_list.append(
-    #                     self.criar_linha_na_fatura(fatura.id, contract, amount, 'debit')
-    #                 )
-
-    #             lines_ids_list.append(
-    #                 self.criar_linha_na_fatura(fatura.id, contract, amount_total, 'credit')
-    #             )
-
-    #             fatura.line_ids = lines_ids_list
     def criar_linha_debito_fatura(self, contract, fatura, lines_ids_list, amount_total, solicitado):
             # for solicitado in produtos_solicitados:
         amount = (solicitado.products_list.price_unit
