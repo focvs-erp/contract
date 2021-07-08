@@ -137,7 +137,7 @@ class ReceberFatura(models.TransientModel):
             self.criar_linha_na_fatura(fatura.id, contract, amount, 'debit')
         )
 
-        return {"lines": lines_ids_list, "amount_total":amount_total}
+        return {"lines_ids_list": lines_ids_list, "amount_total": amount_total}
 
 
     def adicionar_linha_credito_fatura(self, contract, fatura, linha_fatura):
