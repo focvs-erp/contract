@@ -937,11 +937,13 @@ class ContractContract(models.Model):
 
     fatura_count = fields.Integer(compute="_compute_fatura_count")
 
+    # AX4B - CPTM - RESERVA DE GARANTIA
     def _compute_fatura_count(self):
         for rec in self:
-            rec.fatura_count = len([u for u in self.env['account.move'].search([])
-                                    if u.contract_garantia_id.id == self.id])
+            rec.fatura_count = self.env['account.move'].search_count(
+                [('contract_garantia_id.id', '=', self.id)])
 
+    # AX4B - CPTM - RESERVA DE GARANTIA
     def acao_mostra_reserva_garantia(self):
         self.ensure_one()
         tree_view = self.env.ref("account.view_invoice_tree", raise_if_not_found=False)
@@ -957,6 +959,7 @@ class ContractContract(models.Model):
             action["views"] = [(tree_view.id, "tree"), (form_view.id, "form")]
         return action
 
+    # AX4B - CPTM - RESERVA DE GARANTIA
     def _obter_reserva_garantias(self):
         self.ensure_one()
 

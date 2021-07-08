@@ -92,7 +92,7 @@ class ReceberFatura(models.TransientModel):
     def criar_fatura_garantia(self):
         if self.contract_id.bt_reserva_garantia:
 
-            fatura_line = self.receber_fatura_line
+            fatura_line = self.receber_fatura_line.filtered(lambda x: x.concluido > 0)
 
             contract = self.contract_id
             fatura = self.env['account.move'].create({
