@@ -177,7 +177,9 @@ class ReceberFatura(models.TransientModel):
             "partner_id": self.partner_id.id,
             "currency_id": self.contract_id.currency_id.id,
             "cd_justification": "Pedido gerado via contrato",
-            "date_order": datetime.today(),
+            # "date_order": datetime.today(),
+            "date_approve": datetime.today(),
+            "state":"purchase",
         }
         return self.env["purchase.order"].create(vals)
 
