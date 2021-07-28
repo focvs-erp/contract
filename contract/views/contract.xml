@@ -53,7 +53,7 @@
 
                     <!-- AX4B - CPTM - CONTRATO MEDIÇÃO -->
                     <button type="object" string="CONFIRMAR" name="action_confirmar_receber_fatura" attrs="{'invisible': ['|',('state','=','confirmado'), ('create_invoice_visibility', '=', False)]}" />
-                    <button type="object" string="RECEBER FATURA" name="action_receber_fatura" attrs="{'invisible': ['|',('state','!=','confirmado'), ('create_invoice_visibility', '=', False)]}" context="{'ativar_consorcio': ativar_consorcio, 'partner_id': partner_id, 'cod_consorcio':cod_consorcio}" />
+                    <button type="object" string="GERAR PEDIDOS" name="action_receber_fatura" attrs="{'invisible': ['|',('state','!=','confirmado'), ('create_invoice_visibility', '=', False)]}" context="{'ativar_consorcio': ativar_consorcio, 'partner_id': partner_id, 'cod_consorcio':cod_consorcio}" />
                     <field name="state" widget="statusbar" />
                     <!-- AX4B - CPTM - CONTRATO MEDIÇÃO -->
                 </header>
