@@ -150,7 +150,7 @@
                                     <field name="analytic_tag_ids" widget="many2many_tags" groups="analytic.group_analytic_tags" />
                                     <field name="quantity" />
                                     <!-- AX4B - CPTM - CONTRATO MEDIÇÃO  -->
-                                    <field name="cd_recebido" />
+                                    <field name="cd_recebido" readonly="1"/>
                                     <!-- AX4B - CPTM - CONTRATO MEDIÇÃO  -->
                                     <field name="uom_id" />
                                     <field name="automatic_price" attrs="{'column_invisible': [('parent.contract_type', '=', 'purchase')]}" />
@@ -191,6 +191,9 @@
                                     <field name="analytic_account_id" groups="analytic.group_analytic_accounting" />
                                     <field name="analytic_tag_ids" widget="many2many_tags" groups="analytic.group_analytic_tags" />
                                     <field name="quantity" />
+                                    <!-- AX4B - CPTM - CONTRATO MEDIÇÃO  -->
+                                    <field name="cd_recebido" readonly="1"/>
+                                    <!-- AX4B - CPTM - CONTRATO MEDIÇÃO  -->
                                     <field name="uom_id" />
                                     <field name="automatic_price" attrs="{'column_invisible': [('parent.contract_type', '=', 'purchase')]}" />
                                     <field name="price_unit" attrs="{'readonly': [('automatic_price', '=', True)]}" />
