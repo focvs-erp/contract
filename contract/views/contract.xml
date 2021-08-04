@@ -152,6 +152,9 @@
                                     <!-- AX4B - CPTM - CONTRATO MEDIÇÃO  -->
                                     <field name="cd_recebido" readonly="1"/>
                                     <!-- AX4B - CPTM - CONTRATO MEDIÇÃO  -->
+                                    <!--AX4B - FORMULÁRIO DE CONTRATO - SALDO-->
+                                    <field name="saldo" readonly="1"/>
+                                    <!--AX4B - FORMULÁRIO DE CONTRATO - SALDO-->
                                     <field name="uom_id" />
                                     <field name="automatic_price" attrs="{'column_invisible': [('parent.contract_type', '=', 'purchase')]}" />
                                     <field name="price_unit" attrs="{'readonly': [('automatic_price', '=', True)]}" />
@@ -194,6 +197,9 @@
                                     <!-- AX4B - CPTM - CONTRATO MEDIÇÃO  -->
                                     <field name="cd_recebido" readonly="1"/>
                                     <!-- AX4B - CPTM - CONTRATO MEDIÇÃO  -->
+                                    <!--AX4B - FORMULÁRIO DE CONTRATO - SALDO-->
+                                    <field name="saldo" readonly="1"/>
+                                    <!--AX4B - FORMULÁRIO DE CONTRATO - SALDO-->
                                     <field name="uom_id" />
                                     <field name="automatic_price" attrs="{'column_invisible': [('parent.contract_type', '=', 'purchase')]}" />
                                     <field name="price_unit" attrs="{'readonly': [('automatic_price', '=', True)]}" />
