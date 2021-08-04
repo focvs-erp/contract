@@ -1138,4 +1138,12 @@ class ContractLine(models.Model):
     
     # AX4B - CPTM - CONTRATO MEDIÇÃO 
     cd_recebido = fields.Float(string="Recebido")
-    # AX4B - CPTM - CONTRATO MEDIÇÃO 
+    # AX4B - CPTM - CONTRATO MEDIÇÃO
+
+    # AX4B - FORMULÁRIO DE CONTRATO - SALDO
+    saldo = fields.Float(string='Saldo')
+    # AX4B - FORMULÁRIO DE CONTRATO - SALDO
+    
+
+    
+
