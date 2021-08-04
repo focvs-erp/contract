@@ -55,7 +55,7 @@ class ReceberFatura(models.TransientModel):
                 linha_fatura = self.criar_linha_debito_fatura(contract, fatura, linha_fatura['lines_ids_list'], linha_fatura['amount_total'], solicitado)
 
             novo_recebido = solicitado.concluido + solicitado.recebido
-            novo_saldo = solicitado.demanda - novo_recebido
+            
             if self.env.context.get('ativar_consorcio'):
 
                 total_fornecedor_recebido = self.get_recebido_por_fornecedor_consorcio(solicitado.products_list.id, self.partner_id.id)
@@ -71,7 +71,7 @@ class ReceberFatura(models.TransientModel):
                 if solicitado.demanda < novo_recebido:
                     raise UserError('Quantidade ultrapassa o permitido para este fornecedor, atualmente é permitido ' + str(solicitado.demanda - solicitado.recebido))
             
-            self.atualizar_saldo_contrato_line(solicitado.products_list.id, novo_saldo)
+            self.atualizar_saldo_contrato_line(solicitado.products_list.id, novo_recebido, solicitado.demanda)
             self.atualizar_recebido_contrato_line(solicitado.products_list.id, novo_recebido)
             self.env['contract.contract'].browse(self.contract_id.id).write({"houve_recebimento": True})
             self.criar_linha_pedido(pedido, solicitado)
@@ -156,19 +156,11 @@ class ReceberFatura(models.TransientModel):
 
 
     def atualizar_recebido_contrato_line(self, contract_line_id, concluido):
-        self._cr.execute(''' update contract_line set cd_recebido=%(concluido)s where id=%(contract_line_id)s ;''',
-                {
-                    'contract_line_id': contract_line_id,
-                    'concluido': concluido
-                })
-#         self.env.cr.commit()
+        self.env['contract.line'].browse(contract_line_id).write({"cd_recebido": concluido})
      
-    def atualizar_saldo_contrato_line(self, contract_line_id, saldo):
-        self._cr.execute(''' update contract_line set saldo=%(saldo)s where id=%(contract_line_id)s ;''',
-                {
-                    'contract_line_id': contract_line_id,
-                    'saldo': saldo
-                })
+    def atualizar_saldo_contrato_line(self, contract_line_id, recebido, demanda):
+        novo_saldo = demanda - recebido
+        self.env['contract.line'].browse(contract_line_id).write({"saldo": novo_saldo})
 
 
     def criar_fatura_consorcio(self, contract_line_id, total_recebido, disponivel):
