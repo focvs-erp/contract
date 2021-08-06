@@ -29,14 +29,14 @@ class ReceberFatura(models.TransientModel):
 
 
 
-    partner_id = fields.Many2one("res.partner", string="Receber De", domain=_get_domain_fornecedores)
-    porcentagem = fields.Float(string="Porcentagem")
+    partner_id = fields.Many2one("res.partner", string="Receive From", domain=_get_domain_fornecedores)
+    porcentagem = fields.Float(string="Percentage")
 
-    scheduled_date = fields.Date(string="Data Agendada", default=datetime.today())
-    origin = fields.Char(related="contract_id.name", string="Documento de Origem")
+    scheduled_date = fields.Date(string="Scheduled Date", default=datetime.today())
+    origin = fields.Char(related="contract_id.name", string="Source Document")
 
     receber_fatura_line = fields.One2many(
-        "contract.receber_fatura_line", "receber_fatura", string="Receber Fatura")
+        "contract.receber_fatura_line", "receber_fatura", string="Receive Invoice")
 
 
     def btn_validar_concluido(self):
@@ -62,13 +62,13 @@ class ReceberFatura(models.TransientModel):
                 quantidade_atual_permitida = quantidade_total_permitida - total_fornecedor_recebido
 
                 if solicitado.concluido > quantidade_atual_permitida:
-                    raise UserError('Quantidade ultrapassa o permitido para este fornecedor, atualmente é permitido ' + str(quantidade_atual_permitida))
+                    raise UserError('Quantity exceeds what is currently allowed for this supplier ' + str(quantidade_atual_permitida))
 
                 self.criar_fatura_consorcio(solicitado.products_list.id, solicitado.concluido, quantidade_atual_permitida - solicitado.concluido)
 
             else:
                 if solicitado.demanda < novo_recebido:
-                    raise UserError('Quantidade ultrapassa o permitido para este fornecedor, atualmente é permitido ' + str(solicitado.demanda - solicitado.recebido))
+                    raise UserError('Quantity exceeds what is currently allowed for this supplier ' + str(solicitado.demanda - solicitado.recebido))
 
             self.atualizar_recebido_contrato_line(solicitado.products_list.id, novo_recebido)
             self.env['contract.contract'].browse(self.contract_id.id).write({"houve_recebimento": True})

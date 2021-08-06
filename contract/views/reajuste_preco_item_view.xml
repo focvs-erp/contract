@@ -4,7 +4,7 @@
             <field name="name">reajuste_preco_item_form</field>
             <field name="model">contract.reajuste_preco_item</field>
             <field name="arch" type="xml">
-                <form string="Items Reajuste de Preço">
+                <form string="Price Readjustment Items">
                     <sheet>
                       <h1><field name="name"/></h1>
                       <group>
@@ -65,7 +65,7 @@
             <field name="model">contract.reajuste_preco_item</field>
              <field name="priority">100</field>
             <field name="arch" type="xml">
-                <tree string="Itens reajuste de preço">
+                <tree string="Price Readjustment Items">
                     <!-- Scope = coming from a product/product template -->
                     <field name="aplicado_em" />
                     <field name="product_id" />
@@ -78,7 +78,7 @@
         </record>
 
         <record model="ir.actions.act_window" id="action_reajuste_item_preco_window">
-			<field name="name">Item preco</field>
+			<field name="name">Item Price</field>
 			<field name="res_model">contract.reajuste_preco_item</field>
 			<field name="type">ir.actions.act_window</field>
 			<field name="view_id" ref="reajuste_preco_item_view" />
