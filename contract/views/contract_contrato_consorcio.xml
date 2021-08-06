@@ -3,18 +3,18 @@
 
     <!-- ACTIONS OPENING VIEWS ON MODELS -->
     <record model="ir.actions.act_window" id="contrato_consorcio_action_window">
-      <field name="name">Consórcio</field>
+      <field name="name">Consortium</field>
       <field name="res_model">contract.contrato_consorcio</field>
       <field name="view_mode">tree,form</field>
     </record>
 
     <!-- ACTIONS -->
-    <menuitem name="Consórcio" id="contrato_consorcio_menu_1_list" parent="account.menu_finance_payables" action="contrato_consorcio_action_window" />
+    <menuitem name="Consortium" id="contrato_consorcio_menu_1_list" parent="account.menu_finance_payables" action="contrato_consorcio_action_window" />
 
 
     <!-- EXPLICIT LIST VIEW DEFINITION -->
     <record model="ir.ui.view" id="contrato_consorcio_list">
-      <field name="name">Contrato Consórcio List</field>
+      <field name="name">Consortium Agreement List</field>
       <field name="model">contract.contrato_consorcio</field>
       <field name="arch" type="xml">
         <tree>
@@ -27,7 +27,7 @@
 
     <!-- EXPLICIT FORM VIEW DEFINITION -->
     <record model="ir.ui.view" id="contrato_consorcio_form">
-      <field name="name">Contrato Consórcio form</field>
+      <field name="name">Consortium Agreement Form</field>
       <field name="model">contract.contrato_consorcio</field>
       <field name="arch" type="xml">
         <form>
@@ -54,7 +54,7 @@
 
     <!-- SEQUENCIA PARA CONTRATO CONSORCIO -->
     <record model="ir.sequence" id="contrato_consorcio_linha_id">
-      <field name="name">Consórcio Sequece</field>
+      <field name="name">Consortium Sequece</field>
       <field name="code">contract.contrato_consorcio</field>
       <field name="prefix"></field>
       <field name="suffix"></field>
