@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-06 15:01+0000\n"
-"PO-Revision-Date: 2021-08-06 15:01+0000\n"
+"POT-Creation-Date: 2021-08-06 17:38+0000\n"
+"PO-Revision-Date: 2021-08-06 17:38+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -442,6 +442,7 @@ msgid "Basic recurrency mixin for abstract contract models"
 msgstr ""
 
 #. module: contract
+#: model_terms:ir.ui.view,arch_db:contract.contract_contract_form_view
 #: model_terms:ir.ui.view,arch_db:contract.contract_line_form_view
 msgid "Budget"
 msgstr "Orçamentário"
@@ -476,11 +477,6 @@ msgstr "CONFIRMAR"
 #. module: contract
 #: model_terms:ir.ui.view,arch_db:contract.view_contract_reajuste_preco_item_form
 msgid "Calcular Preço"
-msgstr ""
-
-#. module: contract
-#: model_terms:ir.ui.view,arch_db:contract.view_contract_reajuste_preco_item_form
-msgid "Calculo de Preço"
 msgstr ""
 
 #. module: contract
@@ -1559,8 +1555,8 @@ msgid ""
 "Mark this check if you want to control recurrrence at line level instead of "
 "all together for the whole contract."
 msgstr ""
-"Marque esta opção se você deseja controlar a recorrência no nível da linha em vez de"
-"todos juntos para todo o contrato."
+"Marque esta opção se você deseja controlar a recorrência no nível da linha "
+"em vez detodos juntos para todo o contrato."
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_contract__message_has_error
@@ -1775,11 +1771,6 @@ msgstr "Operações"
 
 #. module: contract
 #: model_terms:ir.ui.view,arch_db:contract.contract_contract_form_view
-msgid "Orçamento"
-msgstr ""
-
-#. module: contract
-#: model_terms:ir.ui.view,arch_db:contract.contract_contract_form_view
 msgid "Other Information"
 msgstr "Outras Informações"
 
@@ -1883,6 +1874,16 @@ msgstr ""
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_line__preco_original
 msgid "Preço Original"
+msgstr ""
+
+#. module: contract
+#: model:ir.model.fields,field_description:contract.field_contract_contract__reajuste_preco
+msgid "Price Adjustment"
+msgstr "Reajuste de Preço"
+
+#. module: contract
+#: model_terms:ir.ui.view,arch_db:contract.view_contract_reajuste_preco_item_form
+msgid "Price Calculation"
 msgstr ""
 
 #. module: contract
@@ -1994,7 +1995,6 @@ msgstr "Trimestre(s)"
 
 #. module: contract
 #: model:ir.model,name:contract.model_contract_reajuste_preco
-#: model:ir.model.fields,field_description:contract.field_contract_contract__reajuste_preco
 msgid "Reajuste de Preço"
 msgstr ""
 
@@ -2010,13 +2010,13 @@ msgid "Receber Fatura Line"
 msgstr ""
 
 #. module: contract
-#: model_terms:ir.ui.view,arch_db:contract.contract_contract_form_view
-msgid "Receber Faturas do Consórcio"
+#: model:ir.model,name:contract.model_contract_fatura_consorcio
+msgid "Recebimentos de Faturas do Consórcio"
 msgstr ""
 
 #. module: contract
-#: model:ir.model,name:contract.model_contract_fatura_consorcio
-msgid "Recebimentos de Faturas do Consórcio"
+#: model_terms:ir.ui.view,arch_db:contract.contract_contract_form_view
+msgid "Receive Consortium Invoices"
 msgstr ""
 
 #. module: contract
@@ -2042,13 +2042,6 @@ msgid "Receiving Date"
 msgstr "Data de Recebimento"
 
 #. module: contract
-#: model:ir.model.fields,field_description:contract.field_contract_abstract_contract__line_recurrence
-#: model:ir.model.fields,field_description:contract.field_contract_contract__line_recurrence
-#: model:ir.model.fields,field_description:contract.field_contract_template__line_recurrence
-msgid "Recurrence at line level?"
-msgstr "Recorrência ao nível da linha?"
-
-#. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_abstract_contract__recurring_rule_type
 #: model:ir.model.fields,field_description:contract.field_contract_abstract_contract_line__recurring_rule_type
 #: model:ir.model.fields,field_description:contract.field_contract_contract__recurring_rule_type
@@ -2060,6 +2053,13 @@ msgstr "Recorrência ao nível da linha?"
 #: model_terms:ir.ui.view,arch_db:contract.portal_contract_page
 msgid "Recurrence"
 msgstr "Recorrência"
+
+#. module: contract
+#: model:ir.model.fields,field_description:contract.field_contract_abstract_contract__line_recurrence
+#: model:ir.model.fields,field_description:contract.field_contract_contract__line_recurrence
+#: model:ir.model.fields,field_description:contract.field_contract_template__line_recurrence
+msgid "Recurrence at line level?"
+msgstr "Recorrência ao nível da linha?"
 
 #. module: contract
 #: model:ir.model,name:contract.model_contract_recurrency_mixin
@@ -2350,10 +2350,6 @@ msgstr "Linha do Contrato Sucessor"
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_fatura_consorcio__cd_fornecedor
-msgid "Supplier"
-msgstr "Fornecedor"
-
-#. module: contract
 #: model:ir.model.fields.selection,name:contract.selection__contract_abstract_contract__contract_type__purchase
 #: model:ir.model.fields.selection,name:contract.selection__contract_contract__contract_type__purchase
 #: model:ir.model.fields.selection,name:contract.selection__contract_manually_create_invoice__contract_type__purchase
