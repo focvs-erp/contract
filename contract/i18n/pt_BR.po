@@ -2045,8 +2045,8 @@ msgstr "Data de Recebimento"
 #: model:ir.model.fields,field_description:contract.field_contract_abstract_contract__line_recurrence
 #: model:ir.model.fields,field_description:contract.field_contract_contract__line_recurrence
 #: model:ir.model.fields,field_description:contract.field_contract_template__line_recurrence
-msgid "Recorrência ao nível da linha?"
-msgstr ""
+msgid "Recurrence at line level?"
+msgstr "Recorrência ao nível da linha?"
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_abstract_contract__recurring_rule_type

@@ -136,7 +136,7 @@ class ContractContract(models.Model):
     )
     # <!-- AX4B - CPTM - CONTRATO REAJUSTE DE PREÇO -->n
     reajuste_preco = fields.Many2one(
-        "contract.reajuste_preco", string="Reajuste de Preço")
+        "contract.reajuste_preco", string="Price Adjustment")
     # <!-- AX4B - CPTM - CONTRATO REAJUSTE DE PREÇO -->
 
     def get_formview_id(self, access_uid=None):
@@ -154,7 +154,7 @@ class ContractContract(models.Model):
     def write(self, vals):
         if "date_end" in vals:
             self.message_post(body=_(
-                _("A data final foi alterada de %s para: '%s'.")
+                _("The end date has been changed from %s to: '%s'.")
                 % (self.date_end, vals["date_end"])
             ))
 
@@ -893,8 +893,8 @@ class ContractContract(models.Model):
     def action_receber_fatura(self):
         # AX4B - CPTM - RATEIO FORNECEDOR
         if self.ativar_consorcio and not self.cod_consorcio:
-            raise ValidationError(
-                "A consortium must be selected for this contract") #Necessário selecionar um consórcio para este contrato
+            raise ValidationError(_(
+                "A consortium must be selected for this contract")) #Necessário selecionar um consórcio para este contrato
 
         receber_fatura = self._create_receber_fatura()
         self._create_receber_fatura_line(receber_fatura)
