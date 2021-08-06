@@ -1,5 +1,6 @@
 from odoo import fields, api, models
 from odoo.exceptions import ValidationError
+from odoo.tools.translate import _
 
 
 class ContratoConsorcioLinha(models.Model):
@@ -31,7 +32,7 @@ class ContratoConsorcioLinha(models.Model):
     @api.constrains('cd_participacao')
     def verificar_porcentagem(self):
         if self.cd_participacao < 0 or self.cd_participacao > 100:
-            raise ValidationError("Share field must be between 0 and 100!") #Campo participação deve ser maior que 0 e menor que 100!
+            raise ValidationError(_("Share field must be between 0 and 100!")) #Campo participação deve ser maior que 0 e menor que 100!
   
     @api.onchange('cd_fornecedores')
     def _onchange_cd_fornecedore(self):

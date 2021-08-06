@@ -810,11 +810,11 @@ class ContractContract(models.Model):
         data_final = getattr(self, date_end)
 
         if not data_final or not data_final:
-            raise ValidationError('Start and end date must be filled') #Data inicial e final devem ser preenchidas
+            raise ValidationError(_('Start and end date must be filled')) #Data inicial e final devem ser preenchidas
 
         # data inicial e final no contrato tem que estar preenchido
         elif not (data_inicial <= DATA_ATUAL and data_final >= DATA_ATUAL):
-            raise ValidationError('Expired contract') #Contrato fora de validade
+            raise ValidationError(_('Expired contract')) #Contrato fora de validade
 
     def action_atualizar_preco(self):
 

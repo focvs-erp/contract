@@ -1,6 +1,7 @@
 import collections
 from odoo import fields, api, models
 from odoo.exceptions import ValidationError
+from odoo.tools.translate import _
 
 
 class ContratoConsorcio(models.Model):
@@ -38,8 +39,8 @@ class ContratoConsorcio(models.Model):
                 lambda item: item.cd_fornecedores.id == n)
 
             if len(cts) > 0:
-                raise ValidationError('It is not possible to repeat a supplier in the same consortium contract') #Não é possível repetir um fornecedor no mesmo contrato de consórcio
+                raise ValidationError(_('It is not possible to repeat a supplier in the same consortium contract')) #Não é possível repetir um fornecedor no mesmo contrato de consórcio
 
         if sum([item.cd_participacao for item in contratos]) > 100:
-            raise ValidationError(
-                'The sum of the "%" shares of the companies must be less than 100') #A soma das participações "%" das empresas devem ser menor que 100
+            raise ValidationError(_(
+                'The sum of the "%" shares of the companies must be less than 100')) #A soma das participações "%" das empresas devem ser menor que 100

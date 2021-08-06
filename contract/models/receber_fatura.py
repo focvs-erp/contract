@@ -1,6 +1,7 @@
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError, UserError
 from datetime import datetime
+from odoo.tools.translate import _
 import math
 from datetime import datetime, date
 
@@ -62,13 +63,13 @@ class ReceberFatura(models.TransientModel):
                 quantidade_atual_permitida = quantidade_total_permitida - total_fornecedor_recebido
 
                 if solicitado.concluido > quantidade_atual_permitida:
-                    raise UserError('Quantity exceeds what is currently allowed for this supplier ' + str(quantidade_atual_permitida))
+                    raise UserError(_('Quantity exceeds what is currently allowed for this supplier ' + str(quantidade_atual_permitida)))
 
                 self.criar_fatura_consorcio(solicitado.products_list.id, solicitado.concluido, quantidade_atual_permitida - solicitado.concluido)
 
             else:
                 if solicitado.demanda < novo_recebido:
-                    raise UserError('Quantity exceeds what is currently allowed for this supplier ' + str(solicitado.demanda - solicitado.recebido))
+                    raise UserError(_('Quantity exceeds what is currently allowed for this supplier ' + str(solicitado.demanda - solicitado.recebido)))
 
             self.atualizar_recebido_contrato_line(solicitado.products_list.id, novo_recebido)
             self.env['contract.contract'].browse(self.contract_id.id).write({"houve_recebimento": True})

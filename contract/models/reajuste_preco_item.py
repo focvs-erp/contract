@@ -2,6 +2,7 @@
 
 from odoo import models, fields, api
 from odoo.exceptions import UserError, ValidationError
+from odoo.tools.translate import _
 
 
 class ReajustePrecoItem(models.Model):
@@ -57,7 +58,7 @@ class ReajustePrecoItem(models.Model):
     def validar_produto_informado(self):
         # Validar se o campo produto foi preenchido
         if self.aplicado_em == '2' and not self.product_id:
-            raise UserError('Product must be informed')
+            raise UserError(_('Product must be informed'))
 
     def validar_campos_obrigatorios(self):
         self.validar_produto_informado()
