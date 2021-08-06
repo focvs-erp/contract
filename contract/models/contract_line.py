@@ -1142,6 +1142,7 @@ class ContractLine(models.Model):
 
     # AX4B - FORMULÁRIO DE CONTRATO - SALDO
     saldo = fields.Float(string='Saldo')
+    state_contract = fields.Selection(related="contract_id.state")
     # AX4B - FORMULÁRIO DE CONTRATO - SALDO
     
 
