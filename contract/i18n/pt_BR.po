@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-06 20:27+0000\n"
-"PO-Revision-Date: 2021-08-06 20:27+0000\n"
+"POT-Creation-Date: 2021-08-06 20:31+0000\n"
+"PO-Revision-Date: 2021-08-06 20:31+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -2649,3 +2649,51 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:contract.contract_contract_form_view
 msgid "on"
 msgstr "em"
+
+#. module: contract
+#: code:addons/contract/models/account_contrato_consorcio_linha.py:0
+#, python-format
+msgid "Share field must be between 0 and 100!"
+msgstr "O campo participação deve ser maior que 0 e menor que 100!"
+
+#. module: contract
+#: code:addons/contract/models/account_contrato_consorcio.py:0
+#, python-format
+msgid "It is not possible to repeat a supplier in the same consortium contract"
+msgstr "Não é possível repetir um fornecedor no mesmo contrato de consórcio"
+
+#. module: contract
+#: code:addons/contract/models/account_contrato_consorcio.py:0
+#, python-format
+msgid "The sum of the '%' shares of the companies must be less than 100"
+msgstr "A soma das participações '%' das empresas devem ser menor que 100"
+
+#. module: contract
+#: code:addons/contract/models/contract.py:0
+#, python-format
+msgid "Start and end date must be filled"
+msgstr "Data inícial e final devem ser preenchidas"
+
+#. module: contract
+#: code:addons/contract/models/contract.py:0
+#, python-format
+msgid "Expired contract"
+msgstr "Contrato fora de validade"
+
+#. module: contract
+#: code:addons/contract/models/contract.py:0
+#, python-format
+msgid "A consortium must be selected for this contract"
+msgstr "Necessário selecionar um consórcio para este contrato"
+
+#. module: contract
+#: code:addons/contract/models/reajuste_preco_item.py:0
+#, python-format
+msgid "Product must be informed"
+msgstr "O produto deve ser informado"
+
+#. module: contract
+#: code:addons/contract/models/receber_fatura.py:0
+#, python-format
+msgid "Quantity exceeds what is currently allowed for this supplier"
+msgstr "A quantidade excede o que é permitido atualmente para este fornecedor"
