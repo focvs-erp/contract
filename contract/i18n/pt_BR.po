@@ -120,7 +120,7 @@ msgstr ""
 #. module: contract
 #: model_terms:ir.ui.view,arch_db:contract.view_reajuste_preco_form
 msgid "<span class=\"o_form_label\">Price Readjustment</span>"
-msgstr ""
+msgstr "<span class=\"o_form_label\">Reajuste de Preço</span>"
 
 #. module: contract
 #: model_terms:ir.ui.view,arch_db:contract.report_contract_document
@@ -349,7 +349,7 @@ msgstr ""
 #. module: contract
 #: model:ir.model.fields.selection,name:contract.selection__contract_reajuste_preco_item__aplicado_em__1
 msgid "All Procuts"
-msgstr ""
+msgstr "Todos Produtos"
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_line__analytic_tag_ids
@@ -420,12 +420,12 @@ msgstr "Precificação Automática?"
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_fatura_consorcio__valor_disponivel_concluir
 msgid "Available"
-msgstr ""
+msgstr "Disponível"
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_reajuste_preco_item__indice
 msgid "Based On"
-msgstr ""
+msgstr "Baseado Em"
 
 #. module: contract
 #: model:ir.model,name:contract.model_contract_recurrency_basic_mixin
@@ -452,12 +452,12 @@ msgstr ""
 #. module: contract
 #: model_terms:ir.ui.view,arch_db:contract.receber_fatura_line_form_view
 msgid "CANCEL"
-msgstr ""
+msgstr "CANCELAR"
 
 #. module: contract
 #: model_terms:ir.ui.view,arch_db:contract.receber_fatura_line_form_view
 msgid "CONCLUDE"
-msgstr ""
+msgstr "CONCLUIR"
 
 #. module: contract
 #: model_terms:ir.ui.view,arch_db:contract.contract_contract_form_view
@@ -594,7 +594,7 @@ msgstr "Empresa"
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_fatura_consorcio__total_concluido
 msgid "Completed Total"
-msgstr ""
+msgstr "Total Concluído"
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_reajuste_preco_item__compute_price
@@ -604,7 +604,7 @@ msgstr ""
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_receber_fatura_line__concluido
 msgid "Concluded"
-msgstr ""
+msgstr "Concluído"
 
 #. module: contract
 #: model:ir.model,name:contract.model_res_config_settings
@@ -632,7 +632,7 @@ msgstr ""
 #: model:ir.actions.act_window,name:contract.account_fatura_consorcio_window
 #: model_terms:ir.ui.view,arch_db:contract.view_fatura_consorcio_tree
 msgid "Consortium Invoice"
-msgstr ""
+msgstr "Fatura do Consórcio"
 
 #. module: contract
 #: model:ir.model,name:contract.model_res_partner
@@ -1011,7 +1011,7 @@ msgstr ""
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_receber_fatura_line__demanda
 msgid "Demand"
-msgstr ""
+msgstr "Demanda"
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_reajuste_preco_item__descricao
@@ -1136,7 +1136,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:contract.field_contract_reajuste_preco_item__fixed_price
 #: model:ir.model.fields.selection,name:contract.selection__contract_reajuste_preco_item__compute_price__fixed
 msgid "Fixed Price"
-msgstr ""
+msgstr "Preço Fixo"
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_contract__message_follower_ids
@@ -1297,7 +1297,7 @@ msgstr ""
 #. module: contract
 #: model:ir.model.fields.selection,name:contract.selection__contract_reajuste_preco_item__compute_price__indice
 msgid "Index"
-msgstr ""
+msgstr "índice"
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_contract__invoice_count
@@ -1392,12 +1392,12 @@ msgstr "É suspenso sem data final"
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_reajuste_preco__items
 msgid "Item"
-msgstr ""
+msgstr "Itens"
 
 #. module: contract
 #: model:ir.actions.act_window,name:contract.action_reajuste_item_preco_window
 msgid "Item Price"
-msgstr ""
+msgstr "Preço do Item"
 
 #. module: contract
 #: model:ir.model,name:contract.model_contract_reajuste_preco_item
@@ -1407,7 +1407,7 @@ msgstr ""
 #. module: contract
 #: model_terms:ir.ui.view,arch_db:contract.view_reajuste_preco_form
 msgid "Items"
-msgstr ""
+msgstr "Itens"
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_abstract_contract__journal_id
@@ -1760,7 +1760,7 @@ msgstr "Contrato Antigo"
 #: model_terms:ir.ui.view,arch_db:contract.receber_fatura_line_form_view
 #: model_terms:ir.ui.view,arch_db:contract.view_receber_fatura_expense_form
 msgid "Operations"
-msgstr ""
+msgstr "Operações"
 
 #. module: contract
 #: model_terms:ir.ui.view,arch_db:contract.contract_contract_form_view
@@ -1800,7 +1800,7 @@ msgstr "Condições de pagamento"
 #: model:ir.model.fields,field_description:contract.field_contract_receber_fatura__porcentagem
 #: model:ir.model.fields.selection,name:contract.selection__contract_reajuste_preco_item__compute_price__percentage
 msgid "Percentage"
-msgstr ""
+msgstr "Porcentagem"
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_contrato_consorcio_linha__cd_telefone
@@ -1878,19 +1878,19 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:contract.view_reajuste_preco_form
 #: model_terms:ir.ui.view,arch_db:contract.view_reajuste_preco_tree
 msgid "Price Readjustment"
-msgstr ""
+msgstr "Reajuste de Preço"
 
 #. module: contract
 #: model_terms:ir.ui.view,arch_db:contract.reajuste_preco_item_view
 #: model_terms:ir.ui.view,arch_db:contract.view_contract_reajuste_preco_item_form
 msgid "Price Readjustment Items"
-msgstr ""
+msgstr "Reajuste de preço Itens"
 
 #. module: contract
 #: model:ir.actions.act_window,name:contract.action_reajuste_preco_window
 #: model:ir.ui.menu,name:contract.menu_reajuste_preco_purchase
 msgid "Price Readjustment List"
-msgstr ""
+msgstr "Reajuste de Preço Lista"
 
 #. module: contract
 #: model:ir.model.fields.selection,name:contract.selection__contract_contract__tipo__price_record
@@ -1900,7 +1900,7 @@ msgstr ""
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_reajuste_preco_item__reajuste_preco
 msgid "Price adjustment"
-msgstr ""
+msgstr "Reajuste de Preço"
 
 #. module: contract
 #: model_terms:ir.ui.view,arch_db:contract.portal_contract_page
@@ -1934,7 +1934,7 @@ msgstr "Produto"
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_receber_fatura_line__products_list
 msgid "Products List"
-msgstr ""
+msgstr "Lista de Produtos"
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_contract__cod_programa
@@ -2011,24 +2011,24 @@ msgstr ""
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_receber_fatura__partner_id
 msgid "Receive From"
-msgstr ""
+msgstr "Receber De"
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_receber_fatura__receber_fatura_line
 #: model_terms:ir.ui.view,arch_db:contract.receber_fatura_line_form_view
 msgid "Receive Invoice"
-msgstr ""
+msgstr "Receber Fatura"
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_line__cd_recebido
 #: model:ir.model.fields,field_description:contract.field_contract_receber_fatura_line__recebido
 msgid "Received"
-msgstr ""
+msgstr "Recebido"
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_fatura_consorcio__data_recebimento
 msgid "Receiving Date"
-msgstr ""
+msgstr "Data de Recebimento"
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_abstract_contract__line_recurrence
@@ -2148,7 +2148,7 @@ msgstr "Contratos de Venda"
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_receber_fatura__scheduled_date
 msgid "Scheduled Date"
-msgstr ""
+msgstr "Data Agendada"
 
 #. module: contract
 #: model:ir.model.fields.selection,name:contract.selection__contract_abstract_contract_line__display_type__line_section
@@ -2217,7 +2217,7 @@ msgstr "Exibir os contratos de venda para este parceiro"
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_receber_fatura__origin
 msgid "Source Document"
-msgstr ""
+msgstr "Documento de Origem"
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_contract__ds_fonte
@@ -2339,8 +2339,8 @@ msgstr "Linha do Contrato Sucessor"
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_fatura_consorcio__cd_fornecedor
-msgid "Supllier"
-msgstr ""
+msgid "Supplier"
+msgstr "Fornecedor"
 
 #. module: contract
 #: model:ir.model.fields.selection,name:contract.selection__contract_abstract_contract__contract_type__purchase
@@ -2354,7 +2354,7 @@ msgstr "Fornecedor"
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_fatura_consorcio__cd_contrato
 msgid "Supplier Contract"
-msgstr ""
+msgstr "Contrato de Fornecedor"
 
 #. module: contract
 #: model:ir.actions.act_window,name:contract.action_supplier_contract
@@ -2502,7 +2502,7 @@ msgstr "Preço Unitário"
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_fatura_consorcio__cd_unidade_medida
 msgid "Unit of Meassure"
-msgstr ""
+msgstr "Unidade de Medida"
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_abstract_contract_line__uom_id

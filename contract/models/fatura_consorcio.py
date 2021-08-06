@@ -4,7 +4,7 @@ class FaturaConsorcio(models.Model):
     _name = 'contract.fatura_consorcio'
     _description = 'Recebimentos de Faturas do Consórcio'
 
-    cd_fornecedor = fields.Many2one("res.partner", string="Supllier")
+    cd_fornecedor = fields.Many2one("res.partner", string="Supplier")
     contract_line = fields.Many2one("contract.line", string="Contract Line")
     total_concluido = fields.Integer(string="Completed Total")
     valor_disponivel_concluir = fields.Integer(string="Available")

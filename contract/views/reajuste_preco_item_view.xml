@@ -29,7 +29,7 @@
                           <field name="product_id" optional="show" attrs="{'required':[('aplicado_em', '!=', '1')]}" />
                       </group>
 
-                      <group string="Calculo de Preço" name="pricelist_rule_computation">
+                      <group string="Price Calculation" name="pricelist_rule_computation">
                           <group name="pricelist_rule_method">
                               <field name="compute_price" string="Calcular Preço" widget="radio"/>
                           </group>
