@@ -8,15 +8,15 @@ class ContratoConsorcio(models.Model):
     _description = 'Contrato Consórcio'
 
     name = fields.Char(
-        string="Código", 
+        string="Code", #Código
         default="COD", 
         copy=False, 
         index=True, 
         readonly=True)
-    cd_descricao = fields.Text(string="Descrição")
-    cd_ativo = fields.Boolean(default=False, string="Ativo")
+    cd_descricao = fields.Text(string="Description") #Descrição
+    cd_ativo = fields.Boolean(default=False, string="Active") #Ativo
 
-    contratos = fields.One2many('contract.contrato_consorcio_linha', 'contrato_id', string='Contratos')
+    contratos = fields.One2many('contract.contrato_consorcio_linha', 'contrato_id', string='Contracts') #Contratos
 
     @api.model
     def create(self, vals):
@@ -38,8 +38,8 @@ class ContratoConsorcio(models.Model):
                 lambda item: item.cd_fornecedores.id == n)
 
             if len(cts) > 0:
-                raise ValidationError('Não é possível repetir um fornecedor no mesmo contrato de consórcio')
+                raise ValidationError('It is not possible to repeat a supplier in the same consortium contract') #Não é possível repetir um fornecedor no mesmo contrato de consórcio
 
         if sum([item.cd_participacao for item in contratos]) > 100:
             raise ValidationError(
-                'A soma das participações "%" das empresas devem ser menor que 100')
+                'The sum of the "%" shares of the companies must be less than 100') #A soma das participações "%" das empresas devem ser menor que 100

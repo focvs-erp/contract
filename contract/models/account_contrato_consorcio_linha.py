@@ -7,19 +7,19 @@ class ContratoConsorcioLinha(models.Model):
     _description = 'Contrato Consórcio Linha'
 
     name = fields.Char(
-            string="Código", 
+            string="Code", #Código
             default="COD", 
             copy=False, 
             index=True, 
             readonly=True)
-    cd_fornecedores = fields.Many2one('res.partner', string="Fornecedores")
-    cd_contato = fields.Many2one('res.partner', string="Contato") 
+    cd_fornecedores = fields.Many2one('res.partner', string="Partners") #Fornecedores
+    cd_contato = fields.Many2one('res.partner', string="Contact") #Contato
     cd_email = fields.Char(related='cd_contato.email', string="Email") 
-    cd_telefone = fields.Char(related='cd_contato.phone', string="Telefone")
-    cd_participacao = fields.Float(string="Participação %")
-    cd_ativo = fields.Boolean(default=False, string="Ativo")
+    cd_telefone = fields.Char(related='cd_contato.phone', string="Phone") #Telefone
+    cd_participacao = fields.Float(string="Share %") #Participação %
+    cd_ativo = fields.Boolean(default=False, string="Active") #Ativo
 
-    contrato_id = fields.Many2one('contract.contrato_consorcio', string="Contrato")
+    contrato_id = fields.Many2one('contract.contrato_consorcio', string="Contract") #Contrato
 
     @api.model
     def create(self, vals):
@@ -31,7 +31,7 @@ class ContratoConsorcioLinha(models.Model):
     @api.constrains('cd_participacao')
     def verificar_porcentagem(self):
         if self.cd_participacao < 0 or self.cd_participacao > 100:
-            raise ValidationError("Campo participação deve ser maior que 0 e menor que 100!")
+            raise ValidationError("Share field must be between 0 and 100!") #Campo participação deve ser maior que 0 e menor que 100!
   
     @api.onchange('cd_fornecedores')
     def _onchange_cd_fornecedore(self):
