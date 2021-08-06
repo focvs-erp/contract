@@ -676,69 +676,69 @@ class ContractContract(models.Model):
             }
         )
     # AX4B - CPTM - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO
-    nota_empenho = fields.Many2one('x_nota_de_empenho', string="Nota de Empenho")
+    nota_empenho = fields.Many2one('x_nota_de_empenho', string ="Commitment Note") #Nota de Empenho
     nota_reserva = fields.Many2one(
-        related='nota_empenho.x_studio_many2one_field_6ECHp', string="Nota de Reserva")
+        related='nota_empenho.x_studio_many2one_field_6ECHp', string="Reservation Note") #Nota de Reserva
     ano_orcamento = fields.Char(
-        related='nota_empenho.x_studio_ano_empenho', string="Exercício")
+        related='nota_empenho.x_studio_ano_empenho', string="Fiscal Year") #Exercício
     cod_orgao = fields.Char(
-        related='nota_empenho.x_studio_orgao_empenho', string="Órgão")
+        related='nota_empenho.x_studio_orgao_empenho', string="Agency") #Órgão
     ds_orgao = fields.Char(
-        related='nota_empenho.x_studio_cod_orgao_empenho', string='Nome Órgão')
+        related='nota_empenho.x_studio_cod_orgao_empenho', string='Agency Name') #Nome Órgão
     cod_poder = fields.Char(
-        related='nota_empenho.x_studio_poder_empenho', string="Poder")
+        related='nota_empenho.x_studio_poder_empenho', string="Power") #Poder
     ds_poder = fields.Char(
-        related='nota_empenho.x_studio_nome_do_poder_empenho', string='Nome do Poder')
+        related='nota_empenho.x_studio_nome_do_poder_empenho', string='Power Name') #Nome do Poder
     cod_uo = fields.Char(
-        related='nota_empenho.x_studio_unidade_oramentria_empenho', string='Unidade Orçamentária')
+        related='nota_empenho.x_studio_unidade_oramentria_empenho', string='Budget Unit') #Unidade Orçamentária
     ds_uo = fields.Char(related='nota_empenho.x_studio_nome_da_unidade_oramentria_empenho',
-                        string='Nome Unidade Orçamentária')
+                        string='Budget Unit Name') #Nome Unidade Orçamentária
     cod_fonte = fields.Char(
-        related='nota_empenho.x_studio_fonte_empenho', string='Fonte do Recurso')
+        related='nota_empenho.x_studio_fonte_empenho', string='Resource Source') #Fonte do Recurso
     ds_fonte = fields.Char(
-        related='nota_empenho.x_studio_nome_da_fonte_empenho', string='Nome da Fonte')
+        related='nota_empenho.x_studio_nome_da_fonte_empenho', string='Source Name') #Nome da Fonte
     cod_categoria = fields.Char(
-        related='nota_empenho.x_studio_categoria_empenho', string='Categoria')
+        related='nota_empenho.x_studio_categoria_empenho', string='Category') #Categoria
     nome_categoria = fields.Char(
-        related='nota_empenho.x_studio_nome_da_categoria_empenho', string='Nome da Categoria')
+        related='nota_empenho.x_studio_nome_da_categoria_empenho', string='Category Name') #Nome da Categoria
     cod_classe = fields.Char(
-        related='nota_empenho.x_studio_classe_empenho', string='Classe')
+        related='nota_empenho.x_studio_classe_empenho', string='Class') #Classe
     nome_classe = fields.Char(
-        related='nota_empenho.x_studio_nome_da_classe_empenho', string='Nome da Classe')
+        related='nota_empenho.x_studio_nome_da_classe_empenho', string='Class Name') #Nome da Classe
     cod_modalidade = fields.Char(
-        related='nota_empenho.x_studio_modalidade_empenho', string='Modalidade')
+        related='nota_empenho.x_studio_modalidade_empenho', string='Modality') #Modalidade
     nome_modalidade = fields.Char(
-        related='nota_empenho.x_studio_nome_da_modalidade_empenho', string='Nome da Modalidade')
+        related='nota_empenho.x_studio_nome_da_modalidade_empenho', string='Modality Name') #Nome da Modalidade
     cod_grupo = fields.Char(
-        related='nota_empenho.x_studio_grupo_empenho', string='Grupo')
+        related='nota_empenho.x_studio_grupo_empenho', string='Group') #Grupo
     nome_grupo = fields.Char(
-        related='nota_empenho.x_studio_nome_do_grupo_empenho', string='Nome do Grupo')
+        related='nota_empenho.x_studio_nome_do_grupo_empenho', string='Group Name') #Nome do Grupo
     cod_elemento = fields.Char(
-        related='nota_empenho.x_studio_elemento_empenho', string='Elemento')
+        related='nota_empenho.x_studio_elemento_empenho', string='Element') #Elemento
     ds_elemento = fields.Char(
-        related='nota_empenho.x_studio_nome_do_elemento_empenho', string='Nome do Elemento')
+        related='nota_empenho.x_studio_nome_do_elemento_empenho', string='Element Name') #Nome do Elemento
     cod_funcao = fields.Char(
-        related='nota_empenho.x_studio_funcao_empenho', string='Função')
+        related='nota_empenho.x_studio_funcao_empenho', string='Occupation') #Função
     ds_funcao = fields.Char(
-        related='nota_empenho.x_studio_nome_da_funcao_empenho', string='Nome da Função')
+        related='nota_empenho.x_studio_nome_da_funcao_empenho', string='Occupation Name') #Nome da Função
     cod_subfuncao = fields.Char(
-        related='nota_empenho.x_studio_subfuncao_empenho', string='SunFunção')
+        related='nota_empenho.x_studio_subfuncao_empenho', string='Sub Occupation') #SubFunção
     ds_subfuncao = fields.Char(
-        related='nota_empenho.x_studio_nome_da_subfuncao_empenho', string='Nome da SubFunção')
+        related='nota_empenho.x_studio_nome_da_subfuncao_empenho', string='Sub Occupation Name') #Nome da SubFunção
     cod_programa = fields.Char(
-        related='nota_empenho.x_studio_programa_empenho', string='Programa')
+        related='nota_empenho.x_studio_programa_empenho', string='Program') #Programa
     ds_programa = fields.Char(
-        related='nota_empenho.x_studio_nome_do_programa_empenho', string='Nome do Programa')
+        related='nota_empenho.x_studio_nome_do_programa_empenho', string='Program Name') #Nome do Programa
     cod_projeto_atividade = fields.Char(
-        related='nota_empenho.x_studio_projeto_atividade_empenho', string='Projeto Atividade')
+        related='nota_empenho.x_studio_projeto_atividade_empenho', string='Activity Project') #Projeto Atividade
     ds_projeto_atividade = fields.Char(
-        related='nota_empenho.x_studio_nome_do_projeto_atividade_empenho', string='Nome do Projeto')
+        related='nota_empenho.x_studio_nome_do_projeto_atividade_empenho', string='Project Name') #Nome do Projeto
     cod_ptres = fields.Char(
         related='nota_empenho.x_studio_cod_ptres_empenho', string='PTRES')
     programa_trabalho = fields.Char(
-        related='nota_empenho.x_studio_programa_trabalho_empenho', string='Programa de Trabalho')
+        related='nota_empenho.x_studio_programa_trabalho_empenho', string='Work Program') #Programa de Trabalho
     cod_processo = fields.Char(
-        related='nota_empenho.x_studio_cod_processo_empenho', string='Processo')
+        related='nota_empenho.x_studio_cod_processo_empenho', string='Process') #Processo
 
     @api.onchange('nota_empenho')
     def set_nota_empenho_linha_pedido(self):
@@ -810,11 +810,11 @@ class ContractContract(models.Model):
         data_final = getattr(self, date_end)
 
         if not data_final or not data_final:
-            raise ValidationError('Data inicial e final devem ser preenchidas')
+            raise ValidationError('Start and end date must be filled') #Data inicial e final devem ser preenchidas
 
         # data inicial e final no contrato tem que estar preenchido
         elif not (data_inicial <= DATA_ATUAL and data_final >= DATA_ATUAL):
-            raise ValidationError('Contrato fora de validade')
+            raise ValidationError('Expired contract') #Contrato fora de validade
 
     def action_atualizar_preco(self):
 
@@ -850,12 +850,12 @@ class ContractContract(models.Model):
 
     # AX4B - CPTM ADICIONANDO FIELD SELECTION DE TIPO DE CONTRATO
     tipo = fields.Selection(
-        [('normal', 'Normal'), ('price_record', 'Registro de Preço')], string="Tipo")
+        [('normal', 'Normal'), ('price_record', 'Price Record')], string="Type")
     # AX4B - CPTM ADICIONANDO FIELD SELECTION DE TIPO DE CONTRATO
 
     # AX4B - CPTM - CONTRATO MEDIÇÃO - Status
-    state = fields.Selection([('rascunho', 'Rascunho'), ('confirmado',
-                             'Confirmado'), ('encerrado', 'Encerrado')], default="rascunho")
+    state = fields.Selection([('rascunho', 'Draft'), ('confirmado',
+                             'Confirmed'), ('encerrado', 'Closed')], default="rascunho")
 
     def action_confirmar_receber_fatura(self):
         self.write({'state': 'confirmado'})
@@ -894,7 +894,7 @@ class ContractContract(models.Model):
         # AX4B - CPTM - RATEIO FORNECEDOR
         if self.ativar_consorcio and not self.cod_consorcio:
             raise ValidationError(
-                "Necessário selecionar um consórcio para este contrato")
+                "A consortium must be selected for this contract") #Necessário selecionar um consórcio para este contrato
 
         receber_fatura = self._create_receber_fatura()
         self._create_receber_fatura_line(receber_fatura)
@@ -911,13 +911,13 @@ class ContractContract(models.Model):
     # AX4B - CPTM - CONTRATO MEDIÇÃO
 
     # AX4B - CPTM - ADITIVAR CONTRATO
-    cd_aditivo_n = fields.Integer(string="Aditivo Nº", default=0)
-    data_aditivacao = fields.Date(string="Data de Aditivaçao")
+    cd_aditivo_n = fields.Integer(string="Additive Nº", default=0) #Aditivo Nº
+    data_aditivacao = fields.Date(string="Additive Date") #Data de Aditivaçao
     # AX4B - CPTM - ADITIVAR CONTRATO
 
     # AX4B - CPTM - RATEIO FORNECEDOR
-    cod_consorcio = fields.Many2one('contract.contrato_consorcio', string="Consórcio")
-    ativar_consorcio = fields.Boolean(default=False, string="Ativar Consórcio")
+    cod_consorcio = fields.Many2one('contract.contrato_consorcio', string="Consortium") #Consórcio
+    ativar_consorcio = fields.Boolean(default=False, string="Activate Consortium") #Ativar Consórcio
     houve_recebimento = fields.Boolean(default=False)
 
     @api.onchange("ativar_consorcio")
@@ -931,9 +931,9 @@ class ContractContract(models.Model):
 
      # AX4B - CPTM - RESERVA DE GARANTIA
     cod_reserva_garantia = fields.Selection([('10', '10%'), ('20', '20%'), ('30', '30%')],
-                                            string=" Reserva de Garantia")
-    bt_reserva_garantia = fields.Boolean(default=False, string="Reserva de Garantia")
-    cod_conta_contabil = fields.Many2one('account.account', 'Conta Contábil')
+                                            string="Warranty Reserve") #Reserva de Garantia
+    bt_reserva_garantia = fields.Boolean(default=False, string="Warranty Reserve") #Reserva de Garantia
+    cod_conta_contabil = fields.Many2one('account.account', 'Account') #Conta Contábil
 
     fatura_count = fields.Integer(compute="_compute_fatura_count")
 
