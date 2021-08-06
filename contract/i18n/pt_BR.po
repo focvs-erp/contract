@@ -2017,7 +2017,7 @@ msgstr ""
 #. module: contract
 #: model_terms:ir.ui.view,arch_db:contract.contract_contract_form_view
 msgid "Receive Consortium Invoices"
-msgstr ""
+msgstr "Receber Faturas de Consórcio"
 
 #. module: contract
 #: model:ir.model.fields,field_description:contract.field_contract_receber_fatura__partner_id
