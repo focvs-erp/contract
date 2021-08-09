@@ -161,7 +161,10 @@ class ReceberFatura(models.TransientModel):
     def atualizar_saldo_contrato_line(self, contract_line_id, recebido, demanda):
         novo_saldo = demanda - recebido
         self.env['contract.line'].browse(contract_line_id).write({"saldo": novo_saldo})
-
+    #CONTINUAR SEGUNDA-FEIRA
+    def atualizar_porcentagem(self, fatura_consorcio_id, recebido, demanda):
+        # nova_porcentagem = novo_saldo
+        self.env['contract.fatura_consorcio'].browse(fatura_consorcio_id).write({"saldo_porcentagem": nova_porcentagem})
 
     def criar_fatura_consorcio(self, contract_line_id, total_recebido, disponivel):
         vals = {
