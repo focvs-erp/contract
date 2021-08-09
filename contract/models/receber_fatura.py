@@ -66,6 +66,7 @@ class ReceberFatura(models.TransientModel):
                     raise UserError('Quantidade ultrapassa o permitido para este fornecedor, atualmente é permitido ' + str(quantidade_atual_permitida))
 
                 self.criar_fatura_consorcio(solicitado.products_list.id, solicitado.concluido, quantidade_atual_permitida - solicitado.concluido)
+                self.atualizar_porcentagem_contrato_line(solicitado.products_list.id, solicitado.concluido, solicitado.demanda)
 
             else:
                 if solicitado.demanda < novo_recebido:
@@ -161,6 +162,10 @@ class ReceberFatura(models.TransientModel):
     def atualizar_saldo_contrato_line(self, contract_line_id, recebido, demanda):
         novo_saldo = demanda - recebido
         self.env['contract.line'].browse(contract_line_id).write({"saldo": novo_saldo})
+
+    def atualizar_porcentagem_contrato_line(self, contract_line_id, concluido, demanda):
+        saldo_porcentagem = math.ceil((100*concluido) / demanda)
+        self.env['contract.fatura_consorcio'].browse(contract_line_id).write({"saldo_porcentagem": saldo_porcentagem})
 
 
     def criar_fatura_consorcio(self, contract_line_id, total_recebido, disponivel):
