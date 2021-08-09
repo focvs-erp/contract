@@ -56,6 +56,10 @@
                     <!-- AX4B - CPTM - CONTRATO MEDIÇÃO  -->
                     <field name="cd_recebido"/>
                     <!-- AX4B - CPTM - CONTRATO MEDIÇÃO  -->
+                    <!--AX4B - FORMULÁRIO DE CONTRATO - SALDO-->
+                    <field name="saldo" readonly="1"/>
+                    <!--AX4B - FORMULÁRIO DE CONTRATO - SALDO-->
+
                 </group>
                 <!-- AX4B - CPTM - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO -->
                 <notebook>
@@ -158,6 +162,9 @@
                 <!-- AX4B - CPTM - CONTRATO MEDIÇÃO  -->
                 <field name="cd_recebido" readonly="1"/>
                 <!-- AX4B - CPTM - CONTRATO MEDIÇÃO  -->
+                <!--AX4B - FORMULÁRIO DE CONTRATO - SALDO-->
+                <field name="saldo" readonly="1"/>
+                <!--AX4B - FORMULÁRIO DE CONTRATO - SALDO-->
                 <field name="uom_id" />
                 <field name="automatic_price" />
                 <field
