@@ -13,5 +13,4 @@ class FaturaConsorcio(models.Model):
     # cd_contrato = fields.Many2one('contract.contract', string="Contrato do Fornecedor")
     cd_contrato = fields.Many2one(related='contract_line.contract_id', string="Contrato do Fornecedor")
     cd_produto = fields.Many2one(related='contract_line.product_id', string="Produto" )
-    saldo_porcentagem = fields.Float(string='Percentage')
-
+    balance_percentage = fields.Float(string="Percentage", readonly="1")
