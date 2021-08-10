@@ -166,8 +166,8 @@ class ReceberFatura(models.TransientModel):
     
     def porcentagem_saldo_fatura_consorcio(self, contract_line_id, total_concluido, 
             valor_disponivel_concluir):
-        porcentagem_concluido = total_concluido * valor_disponivel_concluir/ 100
-        return porcentagem_concluido
+        porcentagem_concluido = total_concluido + valor_disponivel_concluir/ 100
+        return porcentagem_concluido * valor_disponivel_concluir / 100
 
     def criar_fatura_consorcio(self, contract_line_id, total_recebido, disponivel):
         vals = {
