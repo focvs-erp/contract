@@ -863,27 +863,30 @@ class ContractContract(models.Model):
 
     # AX4B - Calculo automático para Data de Faturamento
     @api.onchange("date_start", "recurring_interval")
-    def automatic_calculation_invoicing_date(self):
+    def get_next_date(self):
+        self.recurring_next_date = self.config_next_date()
+
+    def config_next_date(self):
         if self.recurring_rule_type == "daily":
-            self.recurring_next_date = self.date_start + relativedelta(days=+ self.recurring_interval)
+            return self.date_start + relativedelta(days=+ self.recurring_interval)
             
         elif self.recurring_rule_type == "weekly":
-            self.recurring_next_date = self.date_start + relativedelta(days=+ (self.recurring_interval * 7))
+            return self.date_start + relativedelta(days=+ (self.recurring_interval * 7))
         
         elif self.recurring_rule_type == "monthly":
-            self.recurring_next_date = self.date_start + relativedelta(months=+ self.recurring_interval)
+            return self.date_start + relativedelta(months=+ self.recurring_interval)
             
         elif self.recurring_rule_type == "monthlylastday":
-            self.recurring_next_date = self.date_start + relativedelta(day=31)
+            return self.date_start + relativedelta(day=31)
         
         elif self.recurring_rule_type == "quarterly":
-            self.recurring_next_date = self.date_start + relativedelta(months=+ (self.recurring_interval * 3))
+            return self.date_start + relativedelta(months=+ (self.recurring_interval * 3))
             
         elif self.recurring_rule_type == "semesterly":
-            self.recurring_next_date = self.date_start + relativedelta(months=+ (self.recurring_interval * 6))
+            return self.date_start + relativedelta(months=+ (self.recurring_interval * 6))
             
         elif self.recurring_rule_type == "yearly":
-            self.recurring_next_date = self.date_start + relativedelta(years=+ self.recurring_interval)
+            return self.date_start + relativedelta(years=+ self.recurring_interval)
     # AX4B - Calculo automático para Data de Faturamento
 
     def _create_receber_fatura_line(self, receber_fatura):
