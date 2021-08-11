@@ -164,7 +164,7 @@ class ReceberFatura(models.TransientModel):
         self.env['contract.line'].browse(contract_line_id).write({"saldo": novo_saldo})
 
     
-    def porcentagem_saldo_fatura_consorcio(self, total_completed, value_available_finish):
+    def porcentagem_saldo_fatura_consorcio(self,contract_line_id, total_completed, value_available_finish):
         percent_completed = total_completed * 100
         return percent_completed / value_available_finish
 
