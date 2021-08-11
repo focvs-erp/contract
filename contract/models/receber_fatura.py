@@ -66,7 +66,7 @@ class ReceberFatura(models.TransientModel):
                     raise UserError('Quantidade ultrapassa o permitido para este fornecedor, atualmente é permitido ' + str(quantidade_atual_permitida))
 
                 self.criar_fatura_consorcio(solicitado.products_list.id, solicitado.concluido, quantidade_atual_permitida - solicitado.concluido)
-                self.porcentagem_saldo_fatura_consorcio(solicitado.products_list.id, solicitado.concluido, solicitado.demanda)
+                self.percentage_balance_invoice_consortium(solicitado.products_list.id, solicitado.concluido, solicitado.demanda)
 
             else:
                 if solicitado.demanda < novo_recebido:
@@ -164,9 +164,9 @@ class ReceberFatura(models.TransientModel):
         self.env['contract.line'].browse(contract_line_id).write({"saldo": novo_saldo})
 
     
-    def porcentagem_saldo_fatura_consorcio(self,contract_line_id, total_completed, value_available_finish):
-        percent_completed = total_completed * 100
-        return percent_completed / value_available_finish
+    def percentage_balance_invoice_consortium(self, contract_line_id, total_completed, value_available_finish):
+        percent_completed = (total_completed + value_available_finish) / 100
+        return value_available_finish / percent_completed
 
     def criar_fatura_consorcio(self, contract_line_id, total_recebido, disponivel):
         vals = {
@@ -175,7 +175,7 @@ class ReceberFatura(models.TransientModel):
             "total_completed": total_recebido,
             "value_available_finish": disponivel,
             "data_recebimento": date.today(),
-            "balance_percentage": self.porcentagem_saldo_fatura_consorcio(contract_line_id, total_recebido, disponivel),
+            "balance_percentage": self.percentage_balance_invoice_consortium(contract_line_id, total_recebido, disponivel),
         }
         self.env["contract.fatura_consorcio"].create(vals)
 
