@@ -8,8 +8,8 @@
             <field name="cd_produto" />"
             <field name="cd_unidade_medida" />
             
-            <field name="total_concluido" readonly="1"/>
-            <field name="valor_disponivel_concluir" readonly="1"/>
+            <field name="total_completed" readonly="1"/>
+            <field name="value_available_finish" readonly="1"/>
             <field name="balance_percentage" readonly="1"/>
             <field name="data_recebimento" />
             <!-- <field name="cd_contrato"/> -->
@@ -24,8 +24,8 @@
             <field name="cd_fornecedor" />
             <field name="cd_produto" />
             <field name="cd_unidade_medida" />
-            <field name="total_concluido" readonly="1"/>
-            <field name="valor_disponivel_concluir" readonly="1"/>
+            <field name="total_completed" readonly="1"/>
+            <field name="value_available_finish" readonly="1"/>
             <field name="balance_percentage" readonly="1"/>
             <field name="data_recebimento" />
 

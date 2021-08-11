@@ -151,7 +151,7 @@ class ReceberFatura(models.TransientModel):
 
         total_recebido_produto = 0
         for produto in produtos_recebidos:
-            total_recebido_produto += produto.total_concluido
+            total_recebido_produto += produto.total_completed
 
         return total_recebido_produto
 
@@ -164,19 +164,18 @@ class ReceberFatura(models.TransientModel):
         self.env['contract.line'].browse(contract_line_id).write({"saldo": novo_saldo})
 
     
-    def porcentagem_saldo_fatura_consorcio(self, contract_line_id, total_concluido, 
-            valor_disponivel_concluir):
-        porcentagem_concluido = total_concluido * 100
-        return porcentagem_concluido / valor_disponivel_concluir
+    def porcentagem_saldo_fatura_consorcio(self, total_completed, value_available_finish):
+        percent_completed = total_completed * 100
+        return percent_completed / value_available_finish
 
     def criar_fatura_consorcio(self, contract_line_id, total_recebido, disponivel):
         vals = {
             "cd_fornecedor": self.partner_id.id,
             "contract_line": contract_line_id,
-            "total_concluido": total_recebido,
-            "valor_disponivel_concluir": disponivel,
+            "total_completed": total_recebido,
+            "value_available_finish": disponivel,
             "data_recebimento": date.today(),
-            "balance_percentage": self.porcentagem_saldo_fatura_consorcio(contract_line_id, total_recebido, disponivel),
+            "balance_percentage": self.porcentagem_saldo_fatura_consorcio(total_recebido, disponivel),
         }
         self.env["contract.fatura_consorcio"].create(vals)
 
