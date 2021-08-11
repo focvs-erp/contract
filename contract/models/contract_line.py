@@ -1141,7 +1141,7 @@ class ContractLine(models.Model):
     # AX4B - CPTM - CONTRATO MEDIÇÃO
 
     # AX4B - FORMULÁRIO DE CONTRATO - SALDO
-    saldo = fields.Float(string='Saldo')
+    saldo = fields.Float(string='Balance')
     state_contract = fields.Selection(related="contract_id.state")
     # AX4B - FORMULÁRIO DE CONTRATO - SALDO
     
