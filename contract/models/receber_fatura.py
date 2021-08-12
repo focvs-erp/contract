@@ -163,10 +163,9 @@ class ReceberFatura(models.TransientModel):
         self.env['contract.line'].browse(contract_line_id).write({"saldo": novo_saldo})
 
     
-    def percentage_balance_invoice_consortium(self, contract_line_id, quantidade_total_permitida):
-        total_fornecedor_recebido = self.get_recebido_por_fornecedor_consorcio(contract_line_id, self.partner_id.id)
+    def percentage_balance_invoice_consortium(self, disponivel, quantidade_total_permitida):
         
-        percent_completed = 100 - total_fornecedor_recebido * 100 / quantidade_total_permitida
+        percent_completed = disponivel * 100 / quantidade_total_permitida
         
         return percent_completed
 
@@ -177,14 +176,15 @@ class ReceberFatura(models.TransientModel):
             "total_completed": total_recebido,
             "value_available_finish": disponivel,
             "data_recebimento": date.today(),
+            "balance_percentage" : self.percentage_balance_invoice_consortium(disponivel, quantidade_total_permitida) + "%"
         }
         
-        fatura_consorcio_id = self.env["contract.fatura_consorcio"].create(vals)
-        self._cr.execute('''UPDATE contract_fatura_consorcio SET balance_percentage = %(percentage)s WHERE id = %(fatura_consorcio_id)s''',
-                         {
-                             'percentage': self.percentage_balance_invoice_consortium(contract_line_id, quantidade_total_permitida),
-                             'fatura_consorcio_id': fatura_consorcio_id.id,
-                         })
+        self.env["contract.fatura_consorcio"].create(vals)
+        # self._cr.execute('''UPDATE contract_fatura_consorcio SET balance_percentage = %(percentage)s WHERE id = %(fatura_consorcio_id)s''',
+        #                  {
+        #                      'percentage': self.percentage_balance_invoice_consortium(contract_line_id, quantidade_total_permitida),
+        #                      'fatura_consorcio_id': fatura_consorcio_id.id,
+        #                  })
 
 
     def criar_pedido(self):
