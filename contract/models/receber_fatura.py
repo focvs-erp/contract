@@ -180,11 +180,6 @@ class ReceberFatura(models.TransientModel):
         }
         
         self.env["contract.fatura_consorcio"].create(vals)
-        # self._cr.execute('''UPDATE contract_fatura_consorcio SET balance_percentage = %(percentage)s WHERE id = %(fatura_consorcio_id)s''',
-        #                  {
-        #                      'percentage': self.percentage_balance_invoice_consortium(contract_line_id, quantidade_total_permitida),
-        #                      'fatura_consorcio_id': fatura_consorcio_id.id,
-        #                  })
 
 
     def criar_pedido(self):
