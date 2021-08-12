@@ -176,7 +176,7 @@ class ReceberFatura(models.TransientModel):
             "total_completed": total_recebido,
             "value_available_finish": disponivel,
             "data_recebimento": date.today(),
-            "balance_percentage" : self.percentage_balance_invoice_consortium(disponivel, quantidade_total_permitida) + "%"
+            "balance_percentage" : str(self.percentage_balance_invoice_consortium(disponivel, quantidade_total_permitida)) + "%"
         }
         
         self.env["contract.fatura_consorcio"].create(vals)
