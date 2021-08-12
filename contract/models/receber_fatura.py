@@ -167,7 +167,7 @@ class ReceberFatura(models.TransientModel):
         
         percent_completed = disponivel * 100 / quantidade_total_permitida
         
-        return percent_completed
+        return round(percent_completed, 2)
 
     def criar_fatura_consorcio(self, contract_line_id, total_recebido, disponivel, quantidade_total_permitida):
         vals = {
