@@ -1,6 +1,6 @@
 <odoo>
      <record id="view_fatura_consorcio" model="ir.ui.view">
-      <field name="name">Fatura Consórcio</field>
+      <field name="name">Consortium Invoice</field>
       <field name="model">contract.fatura_consorcio</field>
       <field name="arch" type="xml">
         <form string="fatura_consorcio">
@@ -20,7 +20,7 @@
     <record id="view_fatura_consorcio_tree" model="ir.ui.view">
       <field name="model">contract.fatura_consorcio</field>
       <field name="arch" type="xml">
-        <tree string="Fatura Consórcio" multi_edit="1" editable="top" create="false" delete="false">
+        <tree string="Consortium Invoice" multi_edit="1" editable="top" create="false" delete="false">
             <field name="cd_fornecedor" />
             <field name="cd_produto" />
             <field name="cd_unidade_medida" />
@@ -35,7 +35,7 @@
     </record>
 
     <record id="account_fatura_consorcio_window" model="ir.actions.act_window">
-      <field name="name">Fatura Consórcio</field>
+      <field name="name">Consortium Invoice</field>
       <field name="res_model">contract.fatura_consorcio</field>
       <field name="type">ir.actions.act_window</field>
       <field name="view_id" ref="view_fatura_consorcio_tree"/>

@@ -63,7 +63,7 @@
                 </group>
                 <!-- AX4B - CPTM - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO -->
                 <notebook>
-                    <page string="Orçamento">
+                    <page string="Budget">
                         <group>
                             <group>
                                 <field name= "nota_empenho" />

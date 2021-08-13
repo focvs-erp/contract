@@ -2,6 +2,7 @@
 
 from odoo import models, fields, api
 from odoo.exceptions import UserError, ValidationError
+from odoo.tools.translate import _
 
 
 class ReajustePrecoItem(models.Model):
@@ -10,35 +11,35 @@ class ReajustePrecoItem(models.Model):
 
     name = fields.Char()
     descricao =fields.Char()
-    reajuste_preco = fields.Many2one("contract.reajuste_preco", invisible=True, string="Reajuste de Preço")
+    reajuste_preco = fields.Many2one("contract.reajuste_preco", invisible=True, string="Price adjustment")
 
 
     aplicado_em = fields.Selection([
-        ('1', 'Todos os Produtos'),
-        ('2', 'Produto')],
+        ('1', 'All Procuts'),
+        ('2', 'Product')],
         default='1', required=True
         )
 
     compute_price = fields.Selection([
-        ('fixed', 'Preço Fixo'),
-        ('percentage', 'Porcentagem'),
-        ('indice', 'Indice')],
+        ('fixed', 'Fixed Price'),
+        ('percentage', 'Percentage'),
+        ('indice', 'Index')],
         index=True,
         default='fixed',
         required=True)
 
-    fixed_price = fields.Float(string="Preço fixo")
-    percent_price = fields.Float('Porcentagem')
+    fixed_price = fields.Float(string="Fixed Price")
+    percent_price = fields.Float('Percentage')
 
     currency_id = fields.Many2one('res.currency', 'Currency',readonly=True, store=True)
-    company_id = fields.Many2one('res.company', string='Empresa')
-    indice = fields.Many2one('res.currency', string='Baseado em')
-    product_id = fields.Many2one('product.product', 'Produto', ondelete='cascade', check_company=True)
+    company_id = fields.Many2one('res.company', string='Company')
+    indice = fields.Many2one('res.currency', string='Based On')
+    product_id = fields.Many2one('product.product', 'Product', ondelete='cascade', check_company=True)
 
 
 
-    data_inicio = fields.Date(string='Data Inicio',required="1")
-    data_final = fields.Date(string='Data Final',required="1")
+    data_inicio = fields.Date(string='Date Start',required="1")
+    data_final = fields.Date(string='Date End',required="1")
 
     @api.onchange('compute_price')
     def _total(self):
@@ -57,7 +58,7 @@ class ReajustePrecoItem(models.Model):
     def validar_produto_informado(self):
         # Validar se o campo produto foi preenchido
         if self.aplicado_em == '2' and not self.product_id:
-            raise UserError('Produto deve ser informado')
+            raise UserError(_('Product must be informed'))
 
     def validar_campos_obrigatorios(self):
         self.validar_produto_informado()
