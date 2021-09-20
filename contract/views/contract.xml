@@ -277,7 +277,7 @@
                             </group>
                         </page>
                         <!-- AX4B - CPTM - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO -->
-                        <page name="Orçamento" string="Budget">
+                        <!-- <page name="Orçamento" string="Budget">
                             <group>
                                 <group>
                                     <field name="nota_empenho" domain="[('x_studio_status_empenho', '=', 'Aprovado'), ('x_studio_bloquear_empenho','=', False)]" />
@@ -315,7 +315,7 @@
                                     <field name="cod_projeto_atividade" />
                                 </group>
                             </group>
-                        </page>
+                        </page> -->
                         <!-- AX4B - CPTM - RATEIO FORNECEDOR -->
                         <page name="faturas_do_consorcio" string="Receive Consortium Invoices" attrs="{'invisible': [('ativar_consorcio','=', False)]}">
                             <field name="fatura_consorcio" />

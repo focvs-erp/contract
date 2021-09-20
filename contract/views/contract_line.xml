@@ -62,7 +62,7 @@
 
                 </group>
                 <!-- AX4B - CPTM - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO -->
-                <notebook>
+                <!-- <notebook>
                     <page string="Budget">
                         <group>
                             <group>
@@ -102,7 +102,7 @@
                             </group>
                         </group>
                     </page>
-                </notebook>
+                </notebook> -->
                 <!-- AX4B - CPTM - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO                -->
             </group>
         </field>
