@@ -1016,6 +1016,10 @@ class ContractContract(models.Model):
 
     # AX4B - CONCLUIR CONTRATO DE FORNECEDOR
     def _compute_concluir_contrato_fornecedor(self):
+        
+        """
+        Function that checks as completed contract rules
+        """
         for record in self:
             if record.state != 'concluido' and record.state != 'encerrado':
                 saldo_zerado = [int(product.saldo)
@@ -1027,5 +1031,5 @@ class ContractContract(models.Model):
                         product.date_end for product in record.contract_line_fixed_ids])
                     if maior_data_line > datetime.now():
                         record.write({'state': 'concluido'})
-                elif record.date_end and record.date_end > datetime.now():
+                elif record.date_end and record.date_end > date.today():
                     record.write({'state': 'concluido'})

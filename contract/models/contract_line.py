@@ -1145,7 +1145,23 @@ class ContractLine(models.Model):
     cd_recebido = fields.Float(string="Received") #Recebido
     # AX4B - CPTM - CONTRATO MEDIÇÃO 
 
-    # TODO
+
     @api.onchange('quantity', 'cd_recebido')
     def _compute_balance(self):
+
+        """
+        Calculation Function for the Balance of Receivables
+        """
         self.write({'saldo': self.quantity - self.cd_recebido})
+
+
+    @api.model   
+    def create(self, vals):
+
+        """
+        overwriting the create method for the balance column to receive the amount
+        """
+        obj = super(ContractLine, self).create(vals)
+        obj.write({'saldo': obj['quantity'] - obj['cd_recebido']})
+        return obj
+      
