@@ -856,7 +856,9 @@ class ContractContract(models.Model):
 
     # AX4B - CPTM - CONTRATO MEDIÇÃO - Status
     state = fields.Selection([('rascunho', 'Draft'), ('confirmado',
-                             'Confirmed'), ('encerrado', 'Closed')], default="rascunho")
+                             'Confirmed'), ('concluido', 'Concluded'), ('encerrado', 'Closed')], 
+                             default="rascunho", 
+                             compute='_compute_concluir_contrato_fornecedor')
 
     def action_confirmar_receber_fatura(self):
         self.write({'state': 'confirmado'})
@@ -1010,3 +1012,20 @@ class ContractContract(models.Model):
         invoices |= self.env["account.move"].search(
             [("contract_garantia_id", "=", self.id)])
         return invoices
+
+
+    # AX4B - CONCLUIR CONTRATO DE FORNECEDOR
+    def _compute_concluir_contrato_fornecedor(self):
+        for record in self:
+            if record.state != 'concluido' and record.state != 'encerrado':
+                saldo_zerado = [int(product.saldo)
+                                for product in record.contract_line_fixed_ids]
+                if not all(saldo_zerado):
+                    record.write({'state': 'concluido'})
+                elif record.contract_line_fixed_ids and record.line_recurrence:
+                    maior_data_line = max([
+                        product.date_end for product in record.contract_line_fixed_ids])
+                    if maior_data_line > datetime.now():
+                        record.write({'state': 'concluido'})
+                elif record.date_end and record.date_end > datetime.now():
+                    record.write({'state': 'concluido'})

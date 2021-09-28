@@ -1144,3 +1144,8 @@ class ContractLine(models.Model):
     
     cd_recebido = fields.Float(string="Received") #Recebido
     # AX4B - CPTM - CONTRATO MEDIÇÃO 
+
+    # TODO
+    @api.onchange('quantity', 'cd_recebido')
+    def _compute_balance(self):
+        self.write({'saldo': self.quantity - self.cd_recebido})
