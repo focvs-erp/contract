@@ -857,8 +857,7 @@ class ContractContract(models.Model):
     # AX4B - CPTM - CONTRATO MEDIÇÃO - Status
     state = fields.Selection([('rascunho', 'Draft'), ('confirmado',
                              'Confirmed'), ('concluido', 'Concluded'), ('encerrado', 'Closed')], 
-                             default="rascunho", 
-                             compute='_compute_concluir_contrato_fornecedor')
+                             default="rascunho")
 
     def action_confirmar_receber_fatura(self):
         self.write({'state': 'confirmado'})
@@ -1016,7 +1015,7 @@ class ContractContract(models.Model):
 
     # AX4B - CONCLUIR CONTRATO DE FORNECEDOR
     def _compute_concluir_contrato_fornecedor(self):
-        
+
         """
         Function that checks as completed contract rules
         """

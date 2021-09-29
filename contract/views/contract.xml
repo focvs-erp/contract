@@ -473,5 +473,18 @@
         <field name="view_id" ref="contract_contract_supplier_form_view" />
         <field name="act_window_id" ref="action_supplier_contract" />
     </record>
+
+    <record id="concluded_date_end_scheduler" model="ir.cron">
+        <field name="name">Contract Scheduler Date End</field>
+        <field name="user_id" ref="base.user_root" />
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall">0</field>
+        <field name="model_id" ref="contract_contract"/>
+        <field name="code">model._compute_concluir_contrato_fornecedor</field>
+        <field name="priority">10</field>
+    </record>
+
     <menuitem id="menu_contract_contract_supplier" parent="account.menu_finance_payables" action="action_supplier_contract" sequence="99" />
 </odoo>
