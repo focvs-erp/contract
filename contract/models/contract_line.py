@@ -1103,70 +1103,38 @@ class ContractLine(models.Model):
         return self.quantity if not self.display_type else 0.0
 
     # AX4B - CPTM - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO
-    nota_empenho = fields.Many2one(
-        'x_nota_de_empenho', string="Commitment Note")  # Nota de Empenho
-    nota_reserva = fields.Many2one(
-        related='nota_empenho.x_studio_many2one_field_6ECHp', string="Reservation Note")  # Nota de Reserva
-    ano_orcamento = fields.Char(
-        related='nota_empenho.x_studio_ano_empenho', string="Fiscal Year")  # Exercício
-    cod_orgao = fields.Char(
-        related='nota_empenho.x_studio_orgao_empenho', string="Agency")  # Órgão
-    ds_orgao = fields.Char(
-        related='nota_empenho.x_studio_cod_orgao_empenho', string='Agency Name')  # Nome Órgão
-    cod_poder = fields.Char(
-        related='nota_empenho.x_studio_poder_empenho', string="Power")  # Poder
-    ds_poder = fields.Char(
-        related='nota_empenho.x_studio_nome_do_poder_empenho', string='Power Name')  # Nome do Poder
-    cod_uo = fields.Char(related='nota_empenho.x_studio_unidade_oramentria_empenho',
-                         string='Budget Unit')  # Unidade Orçamentária
-    ds_uo = fields.Char(related='nota_empenho.x_studio_nome_da_unidade_oramentria_empenho',
-                        string='Budget Unit Name')  # Nome Unidade Orçamentária
-    cod_fonte = fields.Char(related='nota_empenho.x_studio_fonte_empenho',
-                            string='Resource Source')  # Fonte do Recurso
-    ds_fonte = fields.Char(
-        related='nota_empenho.x_studio_nome_da_fonte_empenho', string='Source Name')  # Nome da Fonte
-    cod_categoria = fields.Char(
-        related='nota_empenho.x_studio_categoria_empenho', string='Category')  # Categoria
-    nome_categoria = fields.Char(
-        related='nota_empenho.x_studio_nome_da_categoria_empenho', string='Category Name')  # Nome da Categoria
-    cod_classe = fields.Char(
-        related='nota_empenho.x_studio_classe_empenho', string='Class')  # Classe
-    nome_classe = fields.Char(
-        related='nota_empenho.x_studio_nome_da_classe_empenho', string='Class Name')  # Nome da Classe
-    cod_modalidade = fields.Char(
-        related='nota_empenho.x_studio_modalidade_empenho', string='Modality')  # Modalidade
-    nome_modalidade = fields.Char(
-        related='nota_empenho.x_studio_nome_da_modalidade_empenho', string='Modality Name')  # Nome da Modalidade
-    cod_grupo = fields.Char(
-        related='nota_empenho.x_studio_grupo_empenho', string='Group')  # Grupo
-    nome_grupo = fields.Char(
-        related='nota_empenho.x_studio_nome_do_grupo_empenho', string='Group Name')  # Nome do Grupo
-    cod_elemento = fields.Char(
-        related='nota_empenho.x_studio_elemento_empenho', string='Element')  # Elemento
-    ds_elemento = fields.Char(
-        related='nota_empenho.x_studio_nome_do_elemento_empenho', string='Element Name')  # Nome do Elemento
-    cod_funcao = fields.Char(
-        related='nota_empenho.x_studio_funcao_empenho', string='Occupation')  # Função
-    ds_funcao = fields.Char(related='nota_empenho.x_studio_nome_da_funcao_empenho',
-                            string='Occupation Name')  # Nome da Função
-    cod_subfuncao = fields.Char(
-        related='nota_empenho.x_studio_subfuncao_empenho', string='Sub Occupation')  # SubFunção
-    ds_subfuncao = fields.Char(related='nota_empenho.x_studio_nome_da_subfuncao_empenho',
-                               string='Sub Occupation Name')  # Nome da SubFunção
-    cod_programa = fields.Char(
-        related='nota_empenho.x_studio_programa_empenho', string='Program')  # Programa
-    ds_programa = fields.Char(
-        related='nota_empenho.x_studio_nome_do_programa_empenho', string='Program Name')  # Nome do Programa
-    cod_projeto_atividade = fields.Char(
-        related='nota_empenho.x_studio_projeto_atividade_empenho', string='Activity Project')  # Projeto Atividade
-    ds_projeto_atividade = fields.Char(
-        related='nota_empenho.x_studio_nome_do_projeto_atividade_empenho', string='Project Name')  # Nome do Projeto
-    cod_ptres = fields.Char(
-        related='nota_empenho.x_studio_cod_ptres_empenho', string='PTRES')
-    programa_trabalho = fields.Char(
-        related='nota_empenho.x_studio_programa_trabalho_empenho', string='Work Program')  # Programa de Trabalho
-    cod_processo = fields.Char(
-        related='nota_empenho.x_studio_cod_processo_empenho', string='Process')  # Processo
+    nota_empenho = fields.Many2one('ax4b_public_budget.commitment_note', string ="Commitment Note")  # Nota de Empenho
+    nota_reserva = fields.Many2one(related='nota_empenho.reserve_note_id', string="Reservation Note")  # Nota de Reserva
+    ano_orcamento = fields.Char(related='nota_empenho.year', string="Fiscal Year")  # Exercício
+    cod_orgao = fields.Char(related='nota_empenho.cod_agency', string="Agency")  # Órgão
+    ds_orgao = fields.Char(related='nota_empenho.agency', string='Agency Name')  # Nome Órgão
+    cod_poder = fields.Char(related='nota_empenho.cod_authority', string="Power")  # Poder
+    ds_poder = fields.Char(related='nota_empenho.public_authority', string='Power Name')  # Nome do Poder
+    cod_uo = fields.Char(related='nota_empenho.cod_budget_unit', string='Budget Unit')  # Unidade Orçamentária
+    ds_uo = fields.Char(related='nota_empenho.budget_unit', string='Budget Unit Name')  # Nome Unidade Orçamentária
+    cod_fonte = fields.Char(related='nota_empenho.cod_source', string='Resource Source')  # Fonte do Recurso
+    ds_fonte = fields.Char(related='nota_empenho.sources', string='Source Name')  # Nome da Fonte
+    cod_categoria = fields.Char(related='nota_empenho.cod_category', string='Category')  # Categoria
+    nome_categoria = fields.Char(related='nota_empenho.category', string='Category Name')  # Nome da Categoria
+    cod_classe = fields.Char(related='nota_empenho.cod_classe', string='Class')  # Classe
+    nome_classe = fields.Char(related='nota_empenho.classes', string='Class Name')  # Nome da Classe
+    cod_modalidade = fields.Char(related='nota_empenho.cod_modalities', string='Modality')  # Modalidade
+    nome_modalidade = fields.Char(related='nota_empenho.modalities', string='Modality Name')  # Nome da Modalidade
+    cod_grupo = fields.Char(related='nota_empenho.cod_group', string='Group')  # Grupo
+    nome_grupo = fields.Char(related='nota_empenho.group', string='Group Name')  # Nome do Grupo
+    cod_elemento = fields.Char(related='nota_empenho.cod_elements', string='Element')  # Elemento
+    ds_elemento = fields.Char(related='nota_empenho.elements', string='Element Name')  # Nome do Elemento
+    cod_funcao = fields.Char(related='nota_empenho.cod_occupation', string='Occupation')  # Função
+    ds_funcao = fields.Char(related='nota_empenho.occupation', string='Occupation Name')  # Nome da Função
+    cod_subfuncao = fields.Char(related='nota_empenho.cod_sub_occupation', string='Sub Occupation')  # SubFunção
+    ds_subfuncao = fields.Char(related='nota_empenho.sub_occupation', string='Sub Occupation Name')  # Nome da SubFunção
+    cod_programa = fields.Char(related='nota_empenho.cod_program', string='Program')  # Programa
+    ds_programa = fields.Char(related='nota_empenho.programs', string='Program Name')  # Nome do Programa
+    cod_projeto_atividade = fields.Char(related='nota_empenho.cod_activity_project', string='Activity Project')  # Projeto Atividade
+    ds_projeto_atividade = fields.Char(related='nota_empenho.activity_project', string='Project Name')  # Nome do Projeto
+    cod_ptres = fields.Char(related='nota_empenho.ptres', string='PTRES')
+    programa_trabalho = fields.Char(related='nota_empenho.program_work_name', string='Work Program')  # Programa de Trabalho
+    cod_processo = fields.Char(related='nota_empenho.process', string='Process')  # Processo
     # AX4B - CPTM - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO
 
     # AX4B - FORMULÁRIO DE CONTRATO - SALDO

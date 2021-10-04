@@ -58,11 +58,9 @@ class ReceberFatura(models.TransientModel):
             novo_recebido = solicitado.concluido + solicitado.recebido
 
             if self.env.context.get('ativar_consorcio'):
-
-                total_fornecedor_recebido = self.get_recebido_por_fornecedor_consorcio(
-                    solicitado.products_list.id, self.partner_id.id)
-                quantidade_total_permitida = math.ceil(
-                    (solicitado.demanda / 100) * self.get_porcentagem_fornecedor())
+    
+                total_fornecedor_recebido = self.get_recebido_por_fornecedor_consorcio(solicitado.products_list.id, self.partner_id.id)
+                quantidade_total_permitida = math.ceil((solicitado.demanda / 100) * self.get_porcentagem_fornecedor())
                 quantidade_atual_permitida = quantidade_total_permitida - total_fornecedor_recebido
 
                 if solicitado.concluido > quantidade_atual_permitida:

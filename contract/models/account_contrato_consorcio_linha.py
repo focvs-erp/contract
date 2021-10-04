@@ -41,5 +41,3 @@ class ContratoConsorcioLinha(models.Model):
                 return {'domain': {'cd_contato': [('parent_id', '=', record.cd_fornecedores.id)]}}
             else:
                 return {'domain': {'cd_contato': []}}
-
-    
