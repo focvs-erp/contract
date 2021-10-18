@@ -13,7 +13,7 @@
 "contract_modification_portal","Contract modifications - Portal","model_contract_modification","base.group_portal",1,0,0,0
 "contract_line_wizard","contract_line_wizard","model_contract_line_wizard","account.group_account_manager",1,1,1,1
 "contract_manually_create_invoice_wizard","contract_manually_create_invoice_wizard","model_contract_manually_create_invoice","account.group_account_invoice",1,1,1,1
-"contract_contract_terminate_wizard","contract_contract_terminate_wizard","model_contract_contract_terminate","contract.can_terminate_contract",1,1,1,1
+"contract_contract_terminate_wizard","contract_contract_terminate_wizard","model_contract_contract_terminate","contract.can_terminate_contract",,1,1,1,1
 "access_contract_reajuste_preco","contract.reajuste_preco","model_contract_reajuste_preco","base.group_user","1","1","1","1"
 "access_contract_reajuste_preco_item","contract.reajuste_preco_item","model_contract_reajuste_preco_item","base.group_user","1","1","1","1"
 "access_contract_receber_fatura","contract.receber_fatura","model_contract_receber_fatura","base.group_user","1","1","1","1"
