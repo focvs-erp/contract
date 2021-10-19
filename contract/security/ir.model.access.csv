@@ -20,3 +20,4 @@
 "access_contract_contrato_consorcio","contract.contrato_consorcio","model_contract_contrato_consorcio",,1,1,1,1
 "access_contract_contrato_consorcio_linha","contract.contrato_consorcio_linha","model_contract_contrato_consorcio_linha",,1,1,1,1
 "access_contract_fatura_consorcio","contract.fatura_consorcio","model_contract_fatura_consorcio",,1,1,1,1
+"access_contract_contract_terminate","access_contract_contract_terminate","model_contract_contract_terminate","base.group_user","1","1","1","1"
