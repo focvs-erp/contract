@@ -139,6 +139,9 @@ class ContractContract(models.Model):
     reajuste_preco = fields.Many2one(
         "contract.reajuste_preco", string="Price Adjustment")
     # <!-- AX4B - CPTM - CONTRATO REAJUSTE DE PREÇO -->
+    
+    # Fiscal do Contrato
+    contract_supervisor = fields.Char(string="Contract Supervisor")
 
     def get_formview_id(self, access_uid=None):
         if self.contract_type == "sale":

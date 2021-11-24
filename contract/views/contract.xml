@@ -97,6 +97,8 @@
                             <!-- AX4B - CPTM - CONTRATO REAJUSTE DE PREÇO -->
                             <field name="payment_term_id" attrs="{'readonly': [('is_terminated','=',True)]}" />
                             <field name="user_id" attrs="{'readonly': [('is_terminated','=',True)]}" />
+                            <!-- Fiscal do Contrato -->
+                            <field name="contract_supervisor" />
                             <!--AX4B - CPTM RESERVA DE GARANTIA-->
                             <field name="cod_reserva_garantia" attrs="{'invisible': [('bt_reserva_garantia', '!=', True)], 'required': [('bt_reserva_garantia', '=', True)]}" />
                             <!--AX4B - CPTM - RESERVA DE GARANTIA-->
