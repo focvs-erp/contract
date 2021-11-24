@@ -140,9 +140,10 @@ class ContractContract(models.Model):
         "contract.reajuste_preco", string="Price Adjustment")
     # <!-- AX4B - CPTM - CONTRATO REAJUSTE DE PREÇO -->
     
-    # Fiscal do Contrato
+    # <!-- AX4B - PRODUTO - FISCAL DO CONTRATO -->
     contract_supervisor = fields.Char(string="Contract Supervisor")
-
+    # <!-- AX4B - PRODUTO - FISCAL DO CONTRATO -->
+    
     def get_formview_id(self, access_uid=None):
         if self.contract_type == "sale":
             return self.env.ref("contract.contract_contract_customer_form_view").id
