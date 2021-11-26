@@ -8,7 +8,7 @@ from datetime import timedelta
 from dateutil.relativedelta import relativedelta
 
 from odoo import _, api, fields, models
-from odoo.exceptions import ValidationError
+from odoo.exceptions import UserError, ValidationError
 
 from .contract_line_constraints import get_allowed
 
@@ -34,7 +34,8 @@ class ContractLine(models.Model):
         ondelete="cascade",
     )
 
-    preco_original = fields.Float(string='Preço Original', compute='_obter_preco_original')
+    preco_original = fields.Float(string='Preço Original',
+                                  compute='_obter_preco_original')
 
     analytic_account_id = fields.Many2one(
         string="Analytic account",
@@ -1102,45 +1103,81 @@ class ContractLine(models.Model):
         return self.quantity if not self.display_type else 0.0
 
     # AX4B - CPTM - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO
-    # nota_empenho = fields.Many2one('x_nota_de_empenho', string ="Commitment Note") #Nota de Empenho
-    # nota_reserva = fields.Many2one(related='nota_empenho.x_studio_many2one_field_6ECHp', string="Reservation Note") #Nota de Reserva
-    # ano_orcamento = fields.Char(related='nota_empenho.x_studio_ano_empenho', string="Fiscal Year") #Exercício
-    # cod_orgao = fields.Char(related='nota_empenho.x_studio_orgao_empenho', string="Agency") #Órgão
-    # ds_orgao = fields.Char(related='nota_empenho.x_studio_cod_orgao_empenho', string='Agency Name') #Nome Órgão
-    # cod_poder = fields.Char(related='nota_empenho.x_studio_poder_empenho', string="Power") #Poder
-    # ds_poder = fields.Char(related='nota_empenho.x_studio_nome_do_poder_empenho', string='Power Name') #Nome do Poder
-    # cod_uo = fields.Char(related='nota_empenho.x_studio_unidade_oramentria_empenho', string='Budget Unit') #Unidade Orçamentária
-    # ds_uo = fields.Char(related='nota_empenho.x_studio_nome_da_unidade_oramentria_empenho', string='Budget Unit Name') #Nome Unidade Orçamentária
-    # cod_fonte = fields.Char(related='nota_empenho.x_studio_fonte_empenho', string='Resource Source') #Fonte do Recurso
-    # ds_fonte = fields.Char(related='nota_empenho.x_studio_nome_da_fonte_empenho', string='Source Name') #Nome da Fonte
-    # cod_categoria = fields.Char(related='nota_empenho.x_studio_categoria_empenho', string='Category') #Categoria
-    # nome_categoria = fields.Char(related='nota_empenho.x_studio_nome_da_categoria_empenho', string='Category Name') #Nome da Categoria
-    # cod_classe = fields.Char(related='nota_empenho.x_studio_classe_empenho', string='Class') #Classe
-    # nome_classe = fields.Char(related='nota_empenho.x_studio_nome_da_classe_empenho', string='Class Name') #Nome da Classe
-    # cod_modalidade = fields.Char(related='nota_empenho.x_studio_modalidade_empenho', string='Modality') #Modalidade
-    # nome_modalidade = fields.Char(related='nota_empenho.x_studio_nome_da_modalidade_empenho', string='Modality Name') #Nome da Modalidade
-    # cod_grupo = fields.Char(related='nota_empenho.x_studio_grupo_empenho', string='Group') #Grupo
-    # nome_grupo = fields.Char(related='nota_empenho.x_studio_nome_do_grupo_empenho', string='Group Name') #Nome do Grupo
-    # cod_elemento = fields.Char(related='nota_empenho.x_studio_elemento_empenho', string='Element') #Elemento
-    # ds_elemento = fields.Char(related='nota_empenho.x_studio_nome_do_elemento_empenho', string='Element Name') #Nome do Elemento
-    # cod_funcao = fields.Char(related='nota_empenho.x_studio_funcao_empenho', string='Occupation') #Função
-    # ds_funcao = fields.Char(related='nota_empenho.x_studio_nome_da_funcao_empenho', string='Occupation Name') #Nome da Função
-    # cod_subfuncao = fields.Char(related='nota_empenho.x_studio_subfuncao_empenho', string='Sub Occupation') #SubFunção
-    # ds_subfuncao = fields.Char(related='nota_empenho.x_studio_nome_da_subfuncao_empenho', string='Sub Occupation Name') #Nome da SubFunção
-    # cod_programa = fields.Char(related='nota_empenho.x_studio_programa_empenho', string='Program') #Programa
-    # ds_programa = fields.Char(related='nota_empenho.x_studio_nome_do_programa_empenho', string='Program Name') #Nome do Programa
-    # cod_projeto_atividade = fields.Char(related='nota_empenho.x_studio_projeto_atividade_empenho', string='Activity Project') #Projeto Atividade
-    # ds_projeto_atividade = fields.Char(related='nota_empenho.x_studio_nome_do_projeto_atividade_empenho', string='Project Name') #Nome do Projeto
-    # cod_ptres = fields.Char(related='nota_empenho.x_studio_cod_ptres_empenho', string='PTRES')
-    # programa_trabalho = fields.Char(related='nota_empenho.x_studio_programa_trabalho_empenho', string='Work Program') #Programa de Trabalho
-    # cod_processo = fields.Char(related='nota_empenho.x_studio_cod_processo_empenho', string='Process') #Processo
+    # nota_empenho = fields.Many2one('ax4b_public_budget.commitment_note', string ="Commitment Note")  # Nota de Empenho
+    # nota_reserva = fields.Many2one(related='nota_empenho.reserve_note_id', string="Reservation Note")  # Nota de Reserva
+    # ano_orcamento = fields.Char(related='nota_empenho.year', string="Fiscal Year")  # Exercício
+    # cod_orgao = fields.Char(related='nota_empenho.cod_agency', string="Agency")  # Órgão
+    # ds_orgao = fields.Char(related='nota_empenho.agency', string='Agency Name')  # Nome Órgão
+    # cod_poder = fields.Char(related='nota_empenho.cod_authority', string="Power")  # Poder
+    # ds_poder = fields.Char(related='nota_empenho.public_authority', string='Power Name')  # Nome do Poder
+    # cod_uo = fields.Char(related='nota_empenho.cod_budget_unit', string='Budget Unit')  # Unidade Orçamentária
+    # ds_uo = fields.Char(related='nota_empenho.budget_unit', string='Budget Unit Name')  # Nome Unidade Orçamentária
+    # cod_fonte = fields.Char(related='nota_empenho.cod_source', string='Resource Source')  # Fonte do Recurso
+    # ds_fonte = fields.Char(related='nota_empenho.sources', string='Source Name')  # Nome da Fonte
+    # cod_categoria = fields.Char(related='nota_empenho.cod_category', string='Category')  # Categoria
+    # nome_categoria = fields.Char(related='nota_empenho.category', string='Category Name')  # Nome da Categoria
+    # cod_classe = fields.Char(related='nota_empenho.cod_classe', string='Class')  # Classe
+    # nome_classe = fields.Char(related='nota_empenho.classes', string='Class Name')  # Nome da Classe
+    # cod_modalidade = fields.Char(related='nota_empenho.cod_modalities', string='Modality')  # Modalidade
+    # nome_modalidade = fields.Char(related='nota_empenho.modalities', string='Modality Name')  # Nome da Modalidade
+    # cod_grupo = fields.Char(related='nota_empenho.cod_group', string='Group')  # Grupo
+    # nome_grupo = fields.Char(related='nota_empenho.group', string='Group Name')  # Nome do Grupo
+    # cod_elemento = fields.Char(related='nota_empenho.cod_elements', string='Element')  # Elemento
+    # ds_elemento = fields.Char(related='nota_empenho.elements', string='Element Name')  # Nome do Elemento
+    # cod_funcao = fields.Char(related='nota_empenho.cod_occupation', string='Occupation')  # Função
+    # ds_funcao = fields.Char(related='nota_empenho.occupation', string='Occupation Name')  # Nome da Função
+    # cod_subfuncao = fields.Char(related='nota_empenho.cod_sub_occupation', string='Sub Occupation')  # SubFunção
+    # ds_subfuncao = fields.Char(related='nota_empenho.sub_occupation', string='Sub Occupation Name')  # Nome da SubFunção
+    # cod_programa = fields.Char(related='nota_empenho.cod_program', string='Program')  # Programa
+    # ds_programa = fields.Char(related='nota_empenho.programs', string='Program Name')  # Nome do Programa
+    # cod_projeto_atividade = fields.Char(related='nota_empenho.cod_activity_project', string='Activity Project')  # Projeto Atividade
+    # ds_projeto_atividade = fields.Char(related='nota_empenho.activity_project', string='Project Name')  # Nome do Projeto
+    # cod_ptres = fields.Char(related='nota_empenho.ptres', string='PTRES')
+    # programa_trabalho = fields.Char(related='nota_empenho.program_work_name', string='Work Program')  # Programa de Trabalho
+    # cod_processo = fields.Char(related='nota_empenho.process', string='Process')  # Processo
     # AX4B - CPTM - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO
-    
 
     # AX4B - FORMULÁRIO DE CONTRATO - SALDO
     saldo = fields.Float(string='Balance')
     state_contract = fields.Selection(related="contract_id.state")
     # AX4B - FORMULÁRIO DE CONTRATO - SALDO
-    
-    cd_recebido = fields.Float(string="Received") #Recebido
-    # AX4B - CPTM - CONTRATO MEDIÇÃO 
+
+    cd_recebido = fields.Float(string="Received")  # Recebido
+    # AX4B - CPTM - CONTRATO MEDIÇÃO
+
+    @api.onchange('quantity', 'cd_recebido')
+    def _compute_balance(self):
+        """
+        Calculation Function for the Balance of Receivables
+        """
+
+        self.write({'saldo': self.quantity - self.cd_recebido})
+
+    @api.model
+    def create(self, vals):
+        """
+        overwriting the create method for the balance column to receive the amount
+        """
+        obj = super(ContractLine, self).create(vals)
+        obj.write({'saldo': obj['quantity'] - obj['cd_recebido']})
+        return obj
+
+    # AX4B - CONCLUIR CONTRATO DE FORNECEDOR
+    def write(self, vals):
+
+        # Verification to identify changes in cd_recebido and identify contract completion
+        if 'cd_recebido' in vals and self.quantity == vals['cd_recebido']:
+            self.change_contract_status_based_balance()
+
+        res = super(ContractLine, self).write(vals)
+        return res
+
+    def change_contract_status_based_balance(self):
+        """
+        Method to change contract state based on balance field value
+        """
+        lines_contract_balance = self.env['contract.line'].search(
+            [('contract_id', '=', self.contract_id.id), ('saldo', '>', 0)])
+        if not lines_contract_balance:
+            self.contract_id.write({'state': 'concluido'})
+    # AX4B - CONCLUIR CONTRATO DE FORNECEDOR

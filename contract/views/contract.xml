@@ -36,6 +36,15 @@
                         <field name="terminate_comment" />
                     </p>
                 </div>
+                <!-- AX4B - CPTM - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO -->
+                <div class="alert alert-warning" role="alert" style="margin-bottom:0px;" attrs="{'invisible': [('state','!=','concluido')]}">
+                    <p>
+                        <strong>
+                            This contract is concluded.
+                        </strong>
+                    </p>
+                </div>
+                <!-- AX4B - CPTM - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO -->
                 <header>
                     <button name="action_contract_send" type="object" string="Send by Email" attrs="{'invisible': [('is_terminated','=',True)]}" groups="base.group_user" />
                     <!-- AX4B - CPTM - RATEIO FORNECEDOR -->
@@ -52,9 +61,9 @@
                     <!-- AX4B - CPTM - CONTRATO REAJUSTE DE PREÇO -->
 
                     <!-- AX4B - CPTM - CONTRATO MEDIÇÃO -->
-                    <button type="object" string="CONFIRM" name="action_confirmar_receber_fatura" attrs="{'invisible': ['|',('state','=','confirmado'), ('create_invoice_visibility', '=', False)]}" />
-                    <button type="object" string="GENERATE ORDERS" name="action_receber_fatura" attrs="{'invisible': ['|',('state','!=','confirmado'), ('create_invoice_visibility', '=', False)]}" context="{'ativar_consorcio': ativar_consorcio, 'partner_id': partner_id, 'cod_consorcio':cod_consorcio}" />
-                    <field name="state" widget="statusbar" />
+                    <button type="object" string="CONFIRM" name="action_confirmar_receber_fatura" attrs="{'invisible': [('create_invoice_visibility', '=', False)]}" />
+                    <button type="object" string="GENERATE ORDERS" name="action_receber_fatura" attrs="{'invisible': [('create_invoice_visibility', '=', False)]}" context="{'ativar_consorcio': ativar_consorcio, 'partner_id': partner_id, 'cod_consorcio':cod_consorcio}" />
+                    <field name="state" widget="statusbar" force_save="1" />
                     <!-- AX4B - CPTM - CONTRATO MEDIÇÃO -->
                 </header>
                 <sheet string="Contract">
@@ -88,10 +97,13 @@
                             <!-- AX4B - CPTM - CONTRATO REAJUSTE DE PREÇO -->
                             <field name="payment_term_id" attrs="{'readonly': [('is_terminated','=',True)]}" />
                             <field name="user_id" attrs="{'readonly': [('is_terminated','=',True)]}" />
+                            <!-- AX4B - PRODUTO - FISCAL DO CONTRATO -->
+                            <field name="contract_supervisor" />
+                            <!-- AX4B - PRODUTO - FISCAL DO CONTRATO -->
                             <!--AX4B - CPTM RESERVA DE GARANTIA-->
-                            <field name="cod_reserva_garantia" attrs="{'invisible': [('bt_reserva_garantia', '!=', True)], 'readonly': [('state', '=', 'confirmado')], 'required': [('bt_reserva_garantia', '=', True)]}" />
+                            <field name="cod_reserva_garantia" attrs="{'invisible': [('bt_reserva_garantia', '!=', True)], 'required': [('bt_reserva_garantia', '=', True)]}" />
                             <!--AX4B - CPTM - RESERVA DE GARANTIA-->
-                            <field name="cod_conta_contabil" attrs="{'invisible': [('bt_reserva_garantia', '!=', True)], 'readonly': [('state', '=', 'confirmado')], 'required': [('bt_reserva_garantia', '=', True)]}" />
+                            <field name="cod_conta_contabil" attrs="{'invisible': [('bt_reserva_garantia', '!=', True)], 'required': [('bt_reserva_garantia', '=', True)]}" />
                             <!--AX4B -CPTM RESERVA DE GARANTIA-->
                         </group>
                         <group>
@@ -100,10 +112,10 @@
                             <field name="bt_reserva_garantia" widget="boolean_toggle" />
                             <!--AX4B - CPTM - RESERVA DE GARANTIA-->
                             <!-- AX4B - CPTM - RATEIO FORNECEDOR  -->
-                            <field name="ativar_consorcio" widget="boolean_toggle" attrs="{'invisible':[('houve_recebimento', '=', True)]}" />
+                            <field name="ativar_consorcio" widget="boolean_toggle" attrs="{'invisible':[('houve_recebimento', '=', True)],}" />
                             <!-- AX4B - CPTM - RATEIO FORNECEDOR  -->
-                            <field name="cd_aditivo_n" readonly="1" attrs="{'invisible': [('state','!=','confirmado')]}" />
-                            <field name="data_aditivacao" readonly="1" attrs="{'invisible': [('state','!=','confirmado')]}" />
+                            <field name="cd_aditivo_n" readonly="1" attrs="{'invisible': [('state','!=','confirmado')],}" />
+                            <field name="data_aditivacao" readonly="1" attrs="{'invisible': [('state','!=','confirmado')],}" />
                             <!-- AX4B - CPTM - ADITIVAR CONTRATO -->
                             <field name="contract_template_id" attrs="{'readonly': [('is_terminated','=',True)]}" domain="['|', ('contract_type', '=', contract_type), ('contract_type', '=', False)]" context="{'default_contract_type': contract_type}" />
                             <field name="contract_type" invisible="1" required="1" />
@@ -121,14 +133,14 @@
                         <group attrs="{'invisible': [('line_recurrence', '=', True)]}">
                             <label for="recurring_interval" />
                             <div class="o_row">
-                                <field name="recurring_interval" attrs="{'required': [('line_recurrence', '=', False)]}" class="oe_inline" nolabel="1" />
-                                <field name="recurring_rule_type" attrs="{'required': [('line_recurrence', '=', False)]}" class="oe_inline" nolabel="1" />
+                                <field name="recurring_interval" attrs="{'required': [('line_recurrence', '=', False)],}" class="oe_inline" nolabel="1" />
+                                <field name="recurring_rule_type" attrs="{'required': [('line_recurrence', '=', False)],}" class="oe_inline" nolabel="1" />
                             </div>
-                            <field name="recurring_invoicing_type" attrs="{'required': [('line_recurrence', '=', False)]}" />
+                            <field name="recurring_invoicing_type" attrs="{'required': [('line_recurrence', '=', False)],}" />
 
                         </group>
                         <group attrs="{'invisible': [('line_recurrence', '=', True)]}">
-                            <field name="date_start" attrs="{'required': [('line_recurrence', '=', False)]}" />
+                            <field name="date_start" attrs="{'required': [('line_recurrence', '=', False)],}" />
                             <field name="date_end" />
                             <field name="recurring_next_date" />
                         </group>
@@ -148,17 +160,17 @@
                                     <field name="name" widget="section_and_note_text" />
                                     <field name="analytic_account_id" groups="analytic.group_analytic_accounting" />
                                     <field name="analytic_tag_ids" widget="many2many_tags" groups="analytic.group_analytic_tags" />
-                                    
+
                                     <!-- AX4B - FORMULÁRIO DE CONTRATO - SALDO -->
-                                    <field name="state_contract" invisible="1"/>
-                                    <field name="quantity" attrs="{'readonly': [('state_contract', '!=', 'rascunho')]}"/>
+                                    <field name="state_contract" invisible="1" />
+                                    <field name="quantity" attrs="{'readonly': [('state_contract', '!=', 'rascunho')]}" />
                                     <!-- AX4B - FORMULÁRIO DE CONTRATO - SALDO -->
 
                                     <!-- AX4B - CPTM - CONTRATO MEDIÇÃO  -->
-                                    <field name="cd_recebido" readonly="1"/>
+                                    <field name="cd_recebido" readonly="1" />
                                     <!-- AX4B - CPTM - CONTRATO MEDIÇÃO  -->
                                     <!--AX4B - FORMULÁRIO DE CONTRATO - SALDO-->
-                                    <field name="saldo" readonly="1"/>
+                                    <field name="saldo" readonly="1" />
                                     <!--AX4B - FORMULÁRIO DE CONTRATO - SALDO-->
                                     <field name="uom_id" />
                                     <field name="automatic_price" attrs="{'column_invisible': [('parent.contract_type', '=', 'purchase')]}" />
@@ -198,17 +210,17 @@
                                     <field name="name" widget="section_and_note_text" />
                                     <field name="analytic_account_id" groups="analytic.group_analytic_accounting" />
                                     <field name="analytic_tag_ids" widget="many2many_tags" groups="analytic.group_analytic_tags" />
-                                    
+
                                     <!-- AX4B - FORMULÁRIO DE CONTRATO - SALDO -->
-                                    <field name="state_contract" invisible="1"/>
-                                    <field name="quantity" attrs="{'readonly': [('state_contract', '!=', 'rascunho')]}"/>
+                                    <field name="state_contract" invisible="1" />
+                                    <field name="quantity" attrs="{'readonly': [('state_contract', '!=', 'rascunho')]}" />
                                     <!-- AX4B - FORMULÁRIO DE CONTRATO - SALDO -->
-                                    
+
                                     <!-- AX4B - CPTM - CONTRATO MEDIÇÃO  -->
-                                    <field name="cd_recebido" readonly="1"/>
+                                    <field name="cd_recebido" readonly="1" />
                                     <!-- AX4B - CPTM - CONTRATO MEDIÇÃO  -->
                                     <!--AX4B - FORMULÁRIO DE CONTRATO - SALDO-->
-                                    <field name="saldo" readonly="1"/>
+                                    <field name="saldo" readonly="1" />
                                     <!--AX4B - FORMULÁRIO DE CONTRATO - SALDO-->
                                     <field name="uom_id" />
                                     <field name="automatic_price" attrs="{'column_invisible': [('parent.contract_type', '=', 'purchase')]}" />
@@ -280,7 +292,7 @@
                         <!-- <page name="Orçamento" string="Budget">
                             <group>
                                 <group>
-                                    <field name="nota_empenho" domain="[('x_studio_status_empenho', '=', 'Aprovado'), ('x_studio_bloquear_empenho','=', False)]" />
+                                    <field name="nota_empenho" domain="[('status', '=', 'approved'), ('block_commitment','=', False)]" />
                                     <field name="nota_reserva" />
                                     <field name="ds_orgao" />
                                     <field name="ds_uo" />
@@ -333,6 +345,7 @@
             </form>
         </field>
     </record>
+
     <!--Customer FORM view-->
     <record id="contract_contract_customer_form_view" model="ir.ui.view">
         <field name="name">contract.contract customer form view (in contract)</field>
@@ -473,5 +486,17 @@
         <field name="view_id" ref="contract_contract_supplier_form_view" />
         <field name="act_window_id" ref="action_supplier_contract" />
     </record>
+    <record model="ir.cron" id="concluded_date_end_scheduler">
+        <field name="name">Contract Scheduler Contract Concluded</field>
+        <field name="model_id" ref="model_contract_contract" />
+        <field name="state">code</field>
+        <field name="code">model.concluded_supplier_contract_by_date()</field>
+        <field name="user_id" ref="base.user_root" />
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field eval="False" name="doall" />
+    </record>
+
     <menuitem id="menu_contract_contract_supplier" parent="account.menu_finance_payables" action="action_supplier_contract" sequence="99" />
 </odoo>

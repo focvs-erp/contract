@@ -13,7 +13,6 @@
 "contract_modification_portal","Contract modifications - Portal","model_contract_modification","base.group_portal",1,0,0,0
 "contract_line_wizard","contract_line_wizard","model_contract_line_wizard","account.group_account_manager",1,1,1,1
 "contract_manually_create_invoice_wizard","contract_manually_create_invoice_wizard","model_contract_manually_create_invoice","account.group_account_invoice",1,1,1,1
-
 "access_contract_reajuste_preco","contract.reajuste_preco","model_contract_reajuste_preco","base.group_user","1","1","1","1"
 "access_contract_reajuste_preco_item","contract.reajuste_preco_item","model_contract_reajuste_preco_item","base.group_user","1","1","1","1"
 "access_contract_receber_fatura","contract.receber_fatura","model_contract_receber_fatura","base.group_user","1","1","1","1"
@@ -21,3 +20,4 @@
 "access_contract_contrato_consorcio","contract.contrato_consorcio","model_contract_contrato_consorcio",,1,1,1,1
 "access_contract_contrato_consorcio_linha","contract.contrato_consorcio_linha","model_contract_contrato_consorcio_linha",,1,1,1,1
 "access_contract_fatura_consorcio","contract.fatura_consorcio","model_contract_fatura_consorcio",,1,1,1,1
+"access_contract_contract_terminate","access_contract_contract_terminate","model_contract_contract_terminate","base.group_user","1","1","1","1"

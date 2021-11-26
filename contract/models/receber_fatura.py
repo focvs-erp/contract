@@ -13,13 +13,13 @@ class ReceberFatura(models.TransientModel):
     name = fields.Char(readonly=True)
     contract_id = fields.Many2one("contract.contract", invisible=True)
 
-    ativar_consorcio_fatura = fields.Boolean(compute= "set_ativar_consorcio_fatura")
-
+    ativar_consorcio_fatura = fields.Boolean(compute="set_ativar_consorcio_fatura")
 
     def _get_domain_fornecedores(self):
         fornecedores_ids = []
         if self.env.context.get('ativar_consorcio'):
-            consorcio = self.env['contract.contrato_consorcio'].search([("id", "=", self.env.context.get("cod_consorcio"))])
+            consorcio = self.env['contract.contrato_consorcio'].search(
+                [("id", "=", self.env.context.get("cod_consorcio"))])
             for contract in consorcio.contratos:
                 if contract.cd_ativo:
                     fornecedores_ids.append(contract.cd_fornecedores.id)
@@ -28,9 +28,8 @@ class ReceberFatura(models.TransientModel):
 
         return [('id', 'in', fornecedores_ids)]
 
-
-
-    partner_id = fields.Many2one("res.partner", string="Receive From", domain=_get_domain_fornecedores)
+    partner_id = fields.Many2one(
+        "res.partner", string="Receive From", domain=_get_domain_fornecedores)
     porcentagem = fields.Float(string="Percentage")
 
     scheduled_date = fields.Date(string="Scheduled Date", default=datetime.today())
@@ -39,12 +38,12 @@ class ReceberFatura(models.TransientModel):
     receber_fatura_line = fields.One2many(
         "contract.receber_fatura_line", "receber_fatura", string="Receive Invoice")
 
-
     def btn_validar_concluido(self):
-        produtos_solicitados = self.receber_fatura_line.filtered(lambda x: x.concluido > 0)
+        produtos_solicitados = self.receber_fatura_line.filtered(
+            lambda x: x.concluido > 0)
         pedido = self.criar_pedido()
         fatura = None
-        contract=self.contract_id
+        contract = self.contract_id
         linha_fatura = {"lines_ids_list": [], "amount_total": 0}
 
         if produtos_solicitados and self.contract_id.bt_reserva_garantia:
@@ -53,28 +52,36 @@ class ReceberFatura(models.TransientModel):
         for solicitado in produtos_solicitados:
 
             if fatura:
-                linha_fatura = self.criar_linha_debito_fatura(contract, fatura, linha_fatura['lines_ids_list'], linha_fatura['amount_total'], solicitado)
+                linha_fatura = self.criar_linha_debito_fatura(
+                    contract, fatura, linha_fatura['lines_ids_list'], linha_fatura['amount_total'], solicitado)
 
             novo_recebido = solicitado.concluido + solicitado.recebido
             
+
             if self.env.context.get('ativar_consorcio'):
     
                 total_fornecedor_recebido = self.get_recebido_por_fornecedor_consorcio(solicitado.products_list.id, self.partner_id.id)
                 quantidade_total_permitida = math.ceil((solicitado.demanda / 100) * self.get_porcentagem_fornecedor())
                 quantidade_atual_permitida = quantidade_total_permitida - total_fornecedor_recebido
-                
-                if solicitado.concluido > quantidade_atual_permitida:
-                    raise UserError(_('Quantity exceeds what is currently allowed for this supplier ' + str(quantidade_atual_permitida)))
 
-                self.criar_fatura_consorcio(solicitado.products_list.id, solicitado.concluido, quantidade_atual_permitida - solicitado.concluido, quantidade_total_permitida)
+                if solicitado.concluido > quantidade_atual_permitida:
+                    raise UserError(
+                        _('Quantity exceeds what is currently allowed for this supplier ' + str(quantidade_atual_permitida)))
+
+                self.criar_fatura_consorcio(solicitado.products_list.id, solicitado.concluido,
+                                            quantidade_atual_permitida - solicitado.concluido, quantidade_total_permitida)
 
             else:
                 if solicitado.demanda < novo_recebido:
-                    raise UserError(_('Quantity exceeds what is currently allowed for this supplier ' + str(solicitado.demanda - solicitado.recebido)))
-            
-            self.atualizar_saldo_contrato_line(solicitado.products_list.id, novo_recebido, solicitado.demanda)
-            self.atualizar_recebido_contrato_line(solicitado.products_list.id, novo_recebido)
-            self.env['contract.contract'].browse(self.contract_id.id).write({"houve_recebimento": True})
+                    raise UserError(_('Quantity exceeds what is currently allowed for this supplier ' + str(
+                        solicitado.demanda - solicitado.recebido)))
+
+            self.env['contract.contract'].browse(self.contract_id.id).write({
+                "houve_recebimento": True})
+            self.atualizar_saldo_contrato_line(
+                solicitado.products_list.id, novo_recebido, solicitado.demanda)
+            self.atualizar_recebido_contrato_line(
+                solicitado.products_list.id, novo_recebido)
             self.criar_linha_pedido(pedido, solicitado)
             self.env.cr.commit()
 
@@ -105,9 +112,9 @@ class ReceberFatura(models.TransientModel):
         return (0, 0, vals)
 
     def criar_linha_debito_fatura(self, contract, fatura, lines_ids_list, amount_total, solicitado):
-            # for solicitado in produtos_solicitados:
+        # for solicitado in produtos_solicitados:
         amount = (solicitado.products_list.price_unit
-                * (float(contract.cod_reserva_garantia) / 100)) * solicitado.concluido
+                  * (float(contract.cod_reserva_garantia) / 100)) * solicitado.concluido
         amount_total += amount
 
         lines_ids_list.append(
@@ -116,10 +123,10 @@ class ReceberFatura(models.TransientModel):
 
         return {"lines_ids_list": lines_ids_list, "amount_total": amount_total}
 
-
     def adicionar_linha_credito_fatura(self, contract, fatura, linha_fatura):
         linha_fatura['lines_ids_list'].append(
-            self.criar_linha_na_fatura(fatura.id, contract, linha_fatura['amount_total'], 'credit')
+            self.criar_linha_na_fatura(
+                fatura.id, contract, linha_fatura['amount_total'], 'credit')
         )
         return linha_fatura
 
@@ -127,27 +134,26 @@ class ReceberFatura(models.TransientModel):
         self.adicionar_linha_credito_fatura(contract, fatura, linha_fatura)
         fatura.line_ids = linha_fatura['lines_ids_list']
 
-
     def set_ativar_consorcio_fatura(self):
         for rec in self:
             rec.ativar_consorcio_fatura = self.env.context.get('ativar_consorcio')
-
 
     @api.onchange("partner_id")
     def preencher_porcentagem(self):
         self.write({'porcentagem': self.get_porcentagem_fornecedor()})
 
-
     def get_porcentagem_fornecedor(self):
-        consorcio = self.env['contract.contrato_consorcio'].browse(self.env.context.get("cod_consorcio"))
-        fornecedor_selecionado = consorcio.contratos.filtered(lambda x: x.cd_fornecedores.id == self.partner_id.id)
+        consorcio = self.env['contract.contrato_consorcio'].browse(
+            self.env.context.get("cod_consorcio"))
+        fornecedor_selecionado = consorcio.contratos.filtered(
+            lambda x: x.cd_fornecedores.id == self.partner_id.id)
 
         porcentagem = fornecedor_selecionado.cd_participacao if fornecedor_selecionado.cd_participacao else 0
         return porcentagem
 
-
     def get_recebido_por_fornecedor_consorcio(self, contract_line_id, fornecedor_id):
-        produtos_recebidos = self.env["contract.fatura_consorcio"].search(['&', ("contract_line", "=", contract_line_id), ("cd_contrato", "=", self.contract_id.id), ("cd_fornecedor", "=", fornecedor_id)])
+        produtos_recebidos = self.env["contract.fatura_consorcio"].search(
+            ['&', ("contract_line", "=", contract_line_id), ("cd_contrato", "=", self.contract_id.id), ("cd_fornecedor", "=", fornecedor_id)])
 
         total_recebido_produto = 0
         for produto in produtos_recebidos:
@@ -155,19 +161,18 @@ class ReceberFatura(models.TransientModel):
 
         return total_recebido_produto
 
-
     def atualizar_recebido_contrato_line(self, contract_line_id, concluido):
-        self.env['contract.line'].browse(contract_line_id).write({"cd_recebido": concluido})
-     
+        self.env['contract.line'].browse(contract_line_id).write({
+            "cd_recebido": concluido})
+
     def atualizar_saldo_contrato_line(self, contract_line_id, recebido, demanda):
         novo_saldo = demanda - recebido
         self.env['contract.line'].browse(contract_line_id).write({"saldo": novo_saldo})
 
-    
     def percentage_balance_invoice_consortium(self, disponivel, quantidade_total_permitida):
-        
+
         percent_completed = disponivel * 100 / quantidade_total_permitida
-        
+
         return round(percent_completed, 2)
 
     def criar_fatura_consorcio(self, contract_line_id, total_recebido, disponivel, quantidade_total_permitida):
@@ -177,11 +182,10 @@ class ReceberFatura(models.TransientModel):
             "total_completed": total_recebido,
             "value_available_finish": disponivel,
             "data_recebimento": date.today(),
-            "balance_percentage" : str(self.percentage_balance_invoice_consortium(disponivel, quantidade_total_permitida)) + "%"
+            "balance_percentage": str(self.percentage_balance_invoice_consortium(disponivel, quantidade_total_permitida)) + "%"
         }
-        
-        self.env["contract.fatura_consorcio"].create(vals)
 
+        self.env["contract.fatura_consorcio"].create(vals)
 
     def criar_pedido(self):
         vals = {
@@ -190,11 +194,10 @@ class ReceberFatura(models.TransientModel):
             "cd_justification": self.origin,
             # "date_order": datetime.today(),
             "date_approve": datetime.today(),
-            "state":"purchase",
+            "state": "purchase",
             "supplier_contract_name": self.origin,
         }
         return self.env["purchase.order"].create(vals)
-
 
     def criar_linha_pedido(self, pedido, produto):
         vals = {
