@@ -764,18 +764,6 @@ class ContractContract(models.Model):
     #                          'contractId': str(self.ids[0])
     #                      })
 
-<<<<<<< HEAD
-    @api.model
-    def create(self, vals):
-        obj = super(ContractContract, self).create(vals)
-        # if obj['nota_empenho']:
-        #     self._cr.execute('''UPDATE contract_line SET nota_empenho = %(nota)s WHERE contract_id = %(contractId)s''',
-        #                      {
-        #                          'nota': str(obj['nota_empenho']['id']),
-        #                          'contractId': str(obj['id'])
-        #                      })
-        return obj
-=======
     # @api.model
     # def create(self, vals):
     #     obj = super(ContractContract, self).create(vals)
@@ -786,7 +774,6 @@ class ContractContract(models.Model):
     #                              'contractId': str(obj['id'])
     #                          })
     #     return obj
->>>>>>> ddd1a7a479520425efd02238ffe6f8b0c71c7558
     # AX4B - CPTM - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO
 
     # <!-- AX4B - CPTM - CONTRATO REAJUSTE DE PREÇO -->
