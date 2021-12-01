@@ -98,7 +98,7 @@
                             <field name="payment_term_id" attrs="{'readonly': [('is_terminated','=',True)]}" />
                             <field name="user_id" attrs="{'readonly': [('is_terminated','=',True)]}" />
                             <!-- AX4B - PRODUTO - FISCAL DO CONTRATO -->
-                            <field name="contract_supervisor" />
+                            <field name="contract_supervisor" domain="[('parent_id', '=', partner_id)]"/>
                             <!-- AX4B - PRODUTO - FISCAL DO CONTRATO -->
                             <!--AX4B - CPTM RESERVA DE GARANTIA-->
                             <field name="cod_reserva_garantia" attrs="{'invisible': [('bt_reserva_garantia', '!=', True)], 'required': [('bt_reserva_garantia', '=', True)]}" />

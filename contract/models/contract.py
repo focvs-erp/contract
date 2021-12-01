@@ -141,7 +141,7 @@ class ContractContract(models.Model):
     # <!-- AX4B - CPTM - CONTRATO REAJUSTE DE PREÇO -->
     
     # <!-- AX4B - PRODUTO - FISCAL DO CONTRATO -->
-    contract_supervisor = fields.Char(string="Contract Supervisor")
+    contract_supervisor = fields.Many2one('res.partner', string="Contract Supervisor")
     # <!-- AX4B - PRODUTO - FISCAL DO CONTRATO -->
     
     def get_formview_id(self, access_uid=None):
