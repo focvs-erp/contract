@@ -396,6 +396,8 @@
                 <field name="active" invisible="1" />
                 <field name="company_id" groups="base.group_multi_company" />
                 <!-- AX4B - CPTM ADICIONANDO FIELD SELECTION DE TIPO DE CONTRATO -->
+                <field name="date_start" />
+                <field name="date_end" />
                 <field name="state" />
             </tree>
         </field>
