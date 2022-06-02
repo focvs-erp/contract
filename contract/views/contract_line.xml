@@ -53,15 +53,15 @@
                         widget="many2many_tags"
                         groups="analytic.group_analytic_tags"
                     />
-                    <!-- AX4B - CPTM - CONTRATO MEDIÇÃO  -->
+                    <!-- AX4B - FOCVS - CONTRATO MEDIÇÃO  -->
                     <field name="cd_recebido"/>
-                    <!-- AX4B - CPTM - CONTRATO MEDIÇÃO  -->
+                    <!-- AX4B - FOCVS - CONTRATO MEDIÇÃO  -->
                     <!--AX4B - FORMULÁRIO DE CONTRATO - SALDO-->
                     <field name="saldo" readonly="1"/>
                     <!--AX4B - FORMULÁRIO DE CONTRATO - SALDO-->
 
                 </group>
-                <!-- AX4B - CPTM - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO -->
+                <!-- AX4B - FOCVS - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO -->
                 <!-- <notebook>
                     <page string="Budget">
                         <group>
@@ -103,7 +103,7 @@
                         </group>
                     </page>
                 </notebook> -->
-                <!-- AX4B - CPTM - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO                -->
+                <!-- AX4B - FOCVS - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO                -->
             </group>
         </field>
     </record>
@@ -159,9 +159,9 @@
                     groups="analytic.group_analytic_tags"
                 />
                 <field name="quantity" />
-                <!-- AX4B - CPTM - CONTRATO MEDIÇÃO  -->
+                <!-- AX4B - FOCVS - CONTRATO MEDIÇÃO  -->
                 <field name="cd_recebido" readonly="1"/>
-                <!-- AX4B - CPTM - CONTRATO MEDIÇÃO  -->
+                <!-- AX4B - FOCVS - CONTRATO MEDIÇÃO  -->
                 <!--AX4B - FORMULÁRIO DE CONTRATO - SALDO-->
                 <field name="saldo" readonly="1"/>
                 <!--AX4B - FORMULÁRIO DE CONTRATO - SALDO-->

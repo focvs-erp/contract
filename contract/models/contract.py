@@ -135,14 +135,14 @@ class ContractContract(models.Model):
         inverse_name="contract_id",
         string="Modifications",
     )
-    # <!-- AX4B - CPTM - CONTRATO REAJUSTE DE PREÇO -->n
+    # <!-- AX4B - FOCVS - CONTRATO REAJUSTE DE PREÇO -->n
     reajuste_preco = fields.Many2one(
         "contract.reajuste_preco", string="Price Adjustment")
-    # <!-- AX4B - CPTM - CONTRATO REAJUSTE DE PREÇO -->
+    # <!-- AX4B - FOCVS - CONTRATO REAJUSTE DE PREÇO -->
     
-    # <!-- AX4B - PRODUTO - FISCAL DO CONTRATO -->
+    # <!-- AX4B - FOCVS - FISCAL DO CONTRATO -->
     contract_supervisor = fields.Char(string="Contract Supervisor")
-    # <!-- AX4B - PRODUTO - FISCAL DO CONTRATO -->
+    # <!-- AX4B - FOCVS - FISCAL DO CONTRATO -->
     
     def get_formview_id(self, access_uid=None):
         if self.contract_type == "sale":
@@ -168,7 +168,7 @@ class ContractContract(models.Model):
                 % (self.date_end, vals["date_end"])
             ))
 
-        # AX4B - CPTM - ADITIVAR CONTRATO
+        # AX4B - FOCVS - ADITIVAR CONTRATO
         if self.state == 'confirmado':
             vals['cd_aditivo_n'] = self.cd_aditivo_n + 1
             vals['data_aditivacao'] = date.today()
@@ -180,7 +180,7 @@ class ContractContract(models.Model):
             self.message_notify(body=_(
                 "Contrato ADITIVADO, mudanças:" + alteracoes
             ))
-        # AX4B - CPTM - ADITIVAR CONTRATO
+        # AX4B - FOCVS - ADITIVAR CONTRATO
         if "modification_ids" in vals:
             res = super(
                 ContractContract, self.with_context(bypass_modification_send=True)
@@ -685,7 +685,7 @@ class ContractContract(models.Model):
                 "terminate_date": False,
             }
         )
-    # AX4B - CPTM - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO
+    # AX4B - FOCVS - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO
     # nota_empenho = fields.Many2one('ax4b_public_budget.commitment_note', string ="Commitment Note")  # Nota de Empenho
     # nota_reserva = fields.Many2one(
     #     related='nota_empenho.reserve_note_id', string="Reservation Note")  # Nota de Reserva
@@ -774,9 +774,9 @@ class ContractContract(models.Model):
     #                              'contractId': str(obj['id'])
     #                          })
     #     return obj
-    # AX4B - CPTM - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO
+    # AX4B - FOCVS - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO
 
-    # <!-- AX4B - CPTM - CONTRATO REAJUSTE DE PREÇO -->
+    # <!-- AX4B - FOCVS - CONTRATO REAJUSTE DE PREÇO -->
     def convert_date_string_to_object(self, date_string=None, datetime_string=None):
         date_format = '%m/%d/%Y'  # Exemplo '06/07/2021'
         datetime_format = '%m/%d/%Y %H:%m:%S'  # Exemplo 06/07/2021 15:06:45'
@@ -857,14 +857,14 @@ class ContractContract(models.Model):
                 break
 
         self.message_post(body='Efetuado reajuste de preço.')
-    # AX4B - CPTM - CONTRATO REAJUSTE DE PREÇO
+    # AX4B - FOCVS - CONTRATO REAJUSTE DE PREÇO
 
-    # AX4B - CPTM ADICIONANDO FIELD SELECTION DE TIPO DE CONTRATO
+    # AX4B - FOCVS ADICIONANDO FIELD SELECTION DE TIPO DE CONTRATO
     tipo = fields.Selection(
         [('normal', 'Normal'), ('price_record', 'Price Record')], string="Type")
-    # AX4B - CPTM ADICIONANDO FIELD SELECTION DE TIPO DE CONTRATO
+    # AX4B - FOCVS ADICIONANDO FIELD SELECTION DE TIPO DE CONTRATO
 
-    # AX4B - CPTM - CONTRATO MEDIÇÃO - Status
+    # AX4B - FOCVS - CONTRATO MEDIÇÃO - Status
     state = fields.Selection([('rascunho', 'Draft'), ('confirmado',
                              'Confirmed'), ('concluido', 'Concluded'), ('encerrado', 'Closed')],
                              default="rascunho")
@@ -901,7 +901,7 @@ class ContractContract(models.Model):
     # AX4B - Calculo automático para Data de Faturamento
 
     def _create_receber_fatura_line(self, receber_fatura):
-        # AX4B - CPTM - RATEIO FORNECEDOR, CONTRATO MEDIÇÃO
+        # AX4B - FOCVS - RATEIO FORNECEDOR, CONTRATO MEDIÇÃO
         for product in self.contract_line_fixed_ids:
             vals = {
                 "receber_fatura": receber_fatura.id,
@@ -910,16 +910,16 @@ class ContractContract(models.Model):
             }
             self.env["contract.receber_fatura_line"].create(vals)
             self.env.cr.commit()
-        # AX4B - CPTM - RATEIO FORNECEDOR, CONTRATO MEDIÇÃO
+        # AX4B - FOCVS - RATEIO FORNECEDOR, CONTRATO MEDIÇÃO
 
     def _create_receber_fatura(self):
         vals = {
             "contract_id": self.id
         }
-        # AX4B - CPTM - RATEIO FORNECEDOR
+        # AX4B - FOCVS - RATEIO FORNECEDOR
         if not self.ativar_consorcio:
             vals['partner_id'] = self.partner_id.id
-        # AX4B - CPTM - RATEIO FORNECEDOR
+        # AX4B - FOCVS - RATEIO FORNECEDOR
 
         receber_fatura = self.env["contract.receber_fatura"].create(vals)
         self.env.cr.commit()
@@ -931,14 +931,14 @@ class ContractContract(models.Model):
         return exist_receber_fatura
 
     def action_receber_fatura(self):
-        # AX4B - CPTM - RATEIO FORNECEDOR
+        # AX4B - FOCVS - RATEIO FORNECEDOR
         if self.ativar_consorcio and not self.cod_consorcio:
             raise ValidationError(_(
                 "A consortium must be selected for this contract"))  # Necessário selecionar um consórcio para este contrato
 
         receber_fatura = self._create_receber_fatura()
         self._create_receber_fatura_line(receber_fatura)
-        # AX4B - CPTM - RATEIO FORNECEDOR
+        # AX4B - FOCVS - RATEIO FORNECEDOR
 
         return {
             'type': 'ir.actions.act_window',
@@ -948,14 +948,14 @@ class ContractContract(models.Model):
             'context': self.env.context,
             'target': 'new'
         }
-    # AX4B - CPTM - CONTRATO MEDIÇÃO
+    # AX4B - FOCVS - CONTRATO MEDIÇÃO
 
-    # AX4B - CPTM - ADITIVAR CONTRATO
+    # AX4B - FOCVS - ADITIVAR CONTRATO
     cd_aditivo_n = fields.Integer(string="Additive Nº", default=0)  # Aditivo Nº
     data_aditivacao = fields.Date(string="Additive Date")  # Data de Aditivaçao
-    # AX4B - CPTM - ADITIVAR CONTRATO
+    # AX4B - FOCVS - ADITIVAR CONTRATO
 
-    # AX4B - CPTM - RATEIO FORNECEDOR
+    # AX4B - FOCVS - RATEIO FORNECEDOR
     cod_consorcio = fields.Many2one(
         'contract.contrato_consorcio', string="Consortium")  # Consórcio
     ativar_consorcio = fields.Boolean(
@@ -969,9 +969,9 @@ class ContractContract(models.Model):
         else:
             self.cod_consorcio = False
 
-    # AX4B - CPTM - RATEIO FORNECEDOR
+    # AX4B - FOCVS - RATEIO FORNECEDOR
 
-     # AX4B - CPTM - RESERVA DE GARANTIA
+     # AX4B - FOCVS - RESERVA DE GARANTIA
     cod_reserva_garantia = fields.Selection([('10', '10%'), ('20', '20%'), ('30', '30%')],
                                             string="Warranty Reserve")  # Reserva de Garantia
     bt_reserva_garantia = fields.Boolean(
@@ -980,7 +980,7 @@ class ContractContract(models.Model):
 
     fatura_count = fields.Integer(compute="_compute_fatura_count")
 
-    # AX4B - CPTM - RESERVA DE GARANTIA
+    # AX4B - FOCVS - RESERVA DE GARANTIA
 
     edit_state = fields.Boolean(default=False)
 
@@ -989,7 +989,7 @@ class ContractContract(models.Model):
             rec.fatura_count = self.env['account.move'].search_count(
                 [('contract_garantia_id.id', '=', self.id)])
 
-    # AX4B - CPTM - RESERVA DE GARANTIA
+    # AX4B - FOCVS - RESERVA DE GARANTIA
     def acao_mostra_reserva_garantia(self):
         self.ensure_one()
         tree_view = self.env.ref("account.view_invoice_tree", raise_if_not_found=False)
@@ -1005,7 +1005,7 @@ class ContractContract(models.Model):
             action["views"] = [(tree_view.id, "tree"), (form_view.id, "form")]
         return action
 
-    # AX4B - CPTM - RESERVA DE GARANTIA
+    # AX4B - FOCVS - RESERVA DE GARANTIA
     def _obter_reserva_garantias(self):
         self.ensure_one()
 

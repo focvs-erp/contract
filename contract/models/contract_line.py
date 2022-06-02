@@ -1102,7 +1102,7 @@ class ContractLine(models.Model):
         self.ensure_one()
         return self.quantity if not self.display_type else 0.0
 
-    # AX4B - CPTM - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO
+    # AX4B - FOCVS - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO
     # nota_empenho = fields.Many2one('ax4b_public_budget.commitment_note', string ="Commitment Note")  # Nota de Empenho
     # nota_reserva = fields.Many2one(related='nota_empenho.reserve_note_id', string="Reservation Note")  # Nota de Reserva
     # ano_orcamento = fields.Char(related='nota_empenho.year', string="Fiscal Year")  # Exercício
@@ -1135,7 +1135,7 @@ class ContractLine(models.Model):
     # cod_ptres = fields.Char(related='nota_empenho.ptres', string='PTRES')
     # programa_trabalho = fields.Char(related='nota_empenho.program_work_name', string='Work Program')  # Programa de Trabalho
     # cod_processo = fields.Char(related='nota_empenho.process', string='Process')  # Processo
-    # AX4B - CPTM - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO
+    # AX4B - FOCVS - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO
 
     # AX4B - FORMULÁRIO DE CONTRATO - SALDO
     saldo = fields.Float(string='Balance')
@@ -1143,7 +1143,7 @@ class ContractLine(models.Model):
     # AX4B - FORMULÁRIO DE CONTRATO - SALDO
 
     cd_recebido = fields.Float(string="Received")  # Recebido
-    # AX4B - CPTM - CONTRATO MEDIÇÃO
+    # AX4B - FOCVS - CONTRATO MEDIÇÃO
 
     @api.onchange('quantity', 'cd_recebido')
     def _compute_balance(self):

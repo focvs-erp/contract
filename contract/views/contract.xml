@@ -36,7 +36,7 @@
                         <field name="terminate_comment" />
                     </p>
                 </div>
-                <!-- AX4B - CPTM - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO -->
+                <!-- AX4B - FOCVS - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO -->
                 <div class="alert alert-warning" role="alert" style="margin-bottom:0px;" attrs="{'invisible': [('state','!=','concluido')]}">
                     <p>
                         <strong>
@@ -44,27 +44,27 @@
                         </strong>
                     </p>
                 </div>
-                <!-- AX4B - CPTM - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO -->
+                <!-- AX4B - FOCVS - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO -->
                 <header>
                     <button name="action_contract_send" type="object" string="Send by Email" attrs="{'invisible': [('is_terminated','=',True)]}" groups="base.group_user" />
-                    <!-- AX4B - CPTM - RATEIO FORNECEDOR -->
+                    <!-- AX4B - FOCVS - RATEIO FORNECEDOR -->
 
                     <button name="recurring_create_invoice" type="object" invisible="True" string="Create invoices" groups="base.group_no_one" />
 
-                    <!-- AX4B - CPTM - RATEIO FORNECEDOR -->
+                    <!-- AX4B - FOCVS - RATEIO FORNECEDOR -->
                     <button name="action_terminate_contract" type="object" string="Terminate Contract" attrs="{'invisible': [('is_terminated','=',True)]}" groups="contract.can_terminate_contract" />
                     <button name="action_terminate_contract" type="object" string="Update Termination Details" attrs="{'invisible': [('is_terminated','=',False)]}" groups="contract.can_terminate_contract" />
                     <button name="action_cancel_contract_termination" type="object" confirm="Are you sure you want to re-activate this contract?" string="Cancel Contract Termination" attrs="{'invisible': [('is_terminated','=',False)]}" groups="contract.can_terminate_contract" />
                     <button type="object" string="Preview" name="action_preview" />
-                    <!-- AX4B - CPTM - CONTRATO REAJUSTE DE PREÇO -->
+                    <!-- AX4B - FOCVS - CONTRATO REAJUSTE DE PREÇO -->
                     <button type="object" string="UPDATE PRICE" name="action_atualizar_preco" />
-                    <!-- AX4B - CPTM - CONTRATO REAJUSTE DE PREÇO -->
+                    <!-- AX4B - FOCVS - CONTRATO REAJUSTE DE PREÇO -->
 
-                    <!-- AX4B - CPTM - CONTRATO MEDIÇÃO -->
+                    <!-- AX4B - FOCVS - CONTRATO MEDIÇÃO -->
                     <button type="object" string="CONFIRM" name="action_confirmar_receber_fatura" attrs="{'invisible': [('create_invoice_visibility', '=', False)]}" />
                     <button type="object" string="GENERATE ORDERS" name="action_receber_fatura" attrs="{'invisible': [('create_invoice_visibility', '=', False)]}" context="{'ativar_consorcio': ativar_consorcio, 'partner_id': partner_id, 'cod_consorcio':cod_consorcio}" />
                     <field name="state" widget="statusbar" force_save="1" />
-                    <!-- AX4B - CPTM - CONTRATO MEDIÇÃO -->
+                    <!-- AX4B - FOCVS - CONTRATO MEDIÇÃO -->
                 </header>
                 <sheet string="Contract">
                     <field name="active" invisible="1" />
@@ -86,43 +86,43 @@
                     <group name="main">
                         <group>
                             <field name="commercial_partner_id" invisible="1" />
-                            <!-- AX4B - CPTM - RATEIO FORNECEDOR  -->
+                            <!-- AX4B - FOCVS - RATEIO FORNECEDOR  -->
                             <field name="houve_recebimento" invisible="1" />
                             <field name="cod_consorcio" attrs="{'readonly':[('houve_recebimento', '=', True)],'required': [('ativar_consorcio','=', True)],'invisible': [('ativar_consorcio','=', False)]}" domain="[('cd_ativo','=',True)]" />
                             <field name="partner_id" attrs="{'readonly':[('houve_recebimento', '=', True)], 'required': [('ativar_consorcio','=', False)], 'invisible': [('ativar_consorcio','=', True)]}" />
-                            <!-- AX4B - CPTM - RATEIO FORNECEDOR  -->
+                            <!-- AX4B - FOCVS - RATEIO FORNECEDOR  -->
                             <field name="pricelist_id" attrs="{'readonly': [('is_terminated','=',True)]}" />
-                            <!-- AX4B - CPTM - CONTRATO REAJUSTE DE PREÇO -->
+                            <!-- AX4B - FOCVS - CONTRATO REAJUSTE DE PREÇO -->
                             <field name="reajuste_preco" attrs="{'readonly': [('is_terminated','=',True)]}" />
-                            <!-- AX4B - CPTM - CONTRATO REAJUSTE DE PREÇO -->
+                            <!-- AX4B - FOCVS - CONTRATO REAJUSTE DE PREÇO -->
                             <field name="payment_term_id" attrs="{'readonly': [('is_terminated','=',True)]}" />
                             <field name="user_id" attrs="{'readonly': [('is_terminated','=',True)]}" />
-                            <!-- AX4B - PRODUTO - FISCAL DO CONTRATO -->
+                            <!-- AX4B - FOCVS - FISCAL DO CONTRATO -->
                             <field name="contract_supervisor" />
-                            <!-- AX4B - PRODUTO - FISCAL DO CONTRATO -->
-                            <!--AX4B - CPTM RESERVA DE GARANTIA-->
+                            <!-- AX4B - FOCVS - FISCAL DO CONTRATO -->
+                            <!-- AX4B - FOCVS RESERVA DE GARANTIA-->
                             <field name="cod_reserva_garantia" attrs="{'invisible': [('bt_reserva_garantia', '!=', True)], 'required': [('bt_reserva_garantia', '=', True)]}" />
-                            <!--AX4B - CPTM - RESERVA DE GARANTIA-->
+                            <!-- AX4B - FOCVS - RESERVA DE GARANTIA-->
                             <field name="cod_conta_contabil" attrs="{'invisible': [('bt_reserva_garantia', '!=', True)], 'required': [('bt_reserva_garantia', '=', True)]}" />
-                            <!--AX4B -CPTM RESERVA DE GARANTIA-->
+                            <!-- AX4B - FOCVS RESERVA DE GARANTIA-->
                         </group>
                         <group>
-                            <!-- AX4B - CPTM - ADITIVAR CONTRATO -->
-                            <!--AX4B - CPTM - RESERVA DE GARANTIA-->
+                            <!-- AX4B - FOCVS - ADITIVAR CONTRATO -->
+                            <!-- AX4B - FOCVS - RESERVA DE GARANTIA-->
                             <field name="bt_reserva_garantia" widget="boolean_toggle" />
-                            <!--AX4B - CPTM - RESERVA DE GARANTIA-->
-                            <!-- AX4B - CPTM - RATEIO FORNECEDOR  -->
+                            <!-- AX4B - FOCVS - RESERVA DE GARANTIA-->
+                            <!-- AX4B - FOCVS - RATEIO FORNECEDOR  -->
                             <field name="ativar_consorcio" widget="boolean_toggle" attrs="{'invisible':[('houve_recebimento', '=', True)],}" />
-                            <!-- AX4B - CPTM - RATEIO FORNECEDOR  -->
+                            <!-- AX4B - FOCVS - RATEIO FORNECEDOR  -->
                             <field name="cd_aditivo_n" readonly="1" attrs="{'invisible': [('state','!=','confirmado')],}" />
                             <field name="data_aditivacao" readonly="1" attrs="{'invisible': [('state','!=','confirmado')],}" />
-                            <!-- AX4B - CPTM - ADITIVAR CONTRATO -->
+                            <!-- AX4B - FOCVS - ADITIVAR CONTRATO -->
                             <field name="contract_template_id" attrs="{'readonly': [('is_terminated','=',True)]}" domain="['|', ('contract_type', '=', contract_type), ('contract_type', '=', False)]" context="{'default_contract_type': contract_type}" />
                             <field name="contract_type" invisible="1" required="1" />
                             <field name="fiscal_position_id" attrs="{'readonly': [('is_terminated','=',True)]}" />
-                            <!-- AX4B_CPTM CAMPO TIPO DE CONTRATO -->
+                            <!-- AX4B - FOCVS CAMPO TIPO DE CONTRATO -->
                             <field name="tipo" required="1" />
-                            <!-- AX4B_CPTM CAMPO TIPO DE CONTRATO-->
+                            <!-- AX4B - FOCVS CAMPO TIPO DE CONTRATO-->
                             <field name="journal_id" required="1" attrs="{'readonly': [('is_terminated','=',True)]}" />
                             <field name="tag_ids" widget="many2many_tags" />
                         </group>
@@ -166,9 +166,9 @@
                                     <field name="quantity" attrs="{'readonly': [('state_contract', '!=', 'rascunho')]}" />
                                     <!-- AX4B - FORMULÁRIO DE CONTRATO - SALDO -->
 
-                                    <!-- AX4B - CPTM - CONTRATO MEDIÇÃO  -->
+                                    <!-- AX4B - FOCVS - CONTRATO MEDIÇÃO  -->
                                     <field name="cd_recebido" readonly="1" />
-                                    <!-- AX4B - CPTM - CONTRATO MEDIÇÃO  -->
+                                    <!-- AX4B - FOCVS - CONTRATO MEDIÇÃO  -->
                                     <!--AX4B - FORMULÁRIO DE CONTRATO - SALDO-->
                                     <field name="saldo" readonly="1" />
                                     <!--AX4B - FORMULÁRIO DE CONTRATO - SALDO-->
@@ -216,9 +216,9 @@
                                     <field name="quantity" attrs="{'readonly': [('state_contract', '!=', 'rascunho')]}" />
                                     <!-- AX4B - FORMULÁRIO DE CONTRATO - SALDO -->
 
-                                    <!-- AX4B - CPTM - CONTRATO MEDIÇÃO  -->
+                                    <!-- AX4B - FOCVS - CONTRATO MEDIÇÃO  -->
                                     <field name="cd_recebido" readonly="1" />
-                                    <!-- AX4B - CPTM - CONTRATO MEDIÇÃO  -->
+                                    <!-- AX4B - FOCVS - CONTRATO MEDIÇÃO  -->
                                     <!--AX4B - FORMULÁRIO DE CONTRATO - SALDO-->
                                     <field name="saldo" readonly="1" />
                                     <!--AX4B - FORMULÁRIO DE CONTRATO - SALDO-->
@@ -288,7 +288,7 @@
                                 </p>
                             </group>
                         </page>
-                        <!-- AX4B - CPTM - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO -->
+                        <!-- AX4B - FOCVS - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO -->
                         <!-- <page name="Orçamento" string="Budget">
                             <group>
                                 <group>
@@ -328,13 +328,13 @@
                                 </group>
                             </group>
                         </page> -->
-                        <!-- AX4B - CPTM - RATEIO FORNECEDOR -->
+                        <!-- AX4B - FOCVS - RATEIO FORNECEDOR -->
                         <page name="faturas_do_consorcio" string="Receive Consortium Invoices" attrs="{'invisible': [('ativar_consorcio','=', False)]}">
                             <field name="fatura_consorcio" />
                         </page>
-                        <!-- AX4B - CPTM - RATEIO FORNECEDOR -->
+                        <!-- AX4B - FOCVS - RATEIO FORNECEDOR -->
 
-                        <!-- AX4B - CPTM - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO -->
+                        <!-- AX4B - FOCVS - CONTRACTS INCLUSÃO DE CAMPOS NOTA DE EMPENHO -->
                     </notebook>
                 </sheet>
                 <div class="oe_chatter">
@@ -387,15 +387,17 @@
         <field name="arch" type="xml">
             <tree>
                 <field name="name" string="Name" />
-                <!-- AX4B - CPTM ADICIONANDO FIELD SELECTION DE TIPO DE CONTRATO -->
+                <!-- AX4B - FOCVS ADICIONANDO FIELD SELECTION DE TIPO DE CONTRATO -->
                 <field name="tipo" />
-                <!-- AX4B - CPTM ADICIONANDO FIELD SELECTION DE TIPO DE CONTRATO -->
+                <!-- AX4B - FOCVS ADICIONANDO FIELD SELECTION DE TIPO DE CONTRATO -->
                 <field name="code" />
                 <field name="journal_id" groups="account.group_account_user" />
                 <field name="partner_id" />
+                <field name="date_start" />
+                <field name="date_end" />
                 <field name="active" invisible="1" />
                 <field name="company_id" groups="base.group_multi_company" />
-                <!-- AX4B - CPTM ADICIONANDO FIELD SELECTION DE TIPO DE CONTRATO -->
+                <!-- AX4B - FOCVS ADICIONANDO FIELD SELECTION DE TIPO DE CONTRATO -->
                 <field name="state" />
             </tree>
         </field>
