@@ -393,8 +393,10 @@
                 <field name="code" />
                 <field name="journal_id" groups="account.group_account_user" />
                 <field name="partner_id" />
+                <!-- AX4B - FOCVS ADICIONANDO CAMPOS NA TREE -->
                 <field name="date_start" />
                 <field name="date_end" />
+                <!-- AX4B - FOCVS ADICIONANDO CAMPOS NA TREE -->
                 <field name="active" invisible="1" />
                 <field name="company_id" groups="base.group_multi_company" />
                 <!-- AX4B - FOCVS ADICIONANDO FIELD SELECTION DE TIPO DE CONTRATO -->
