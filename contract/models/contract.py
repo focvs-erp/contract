@@ -1048,5 +1048,5 @@ class ContractContract(models.Model):
     # AX4B - CONCLUIR CONTRATO DE FORNECEDOR 
 
     # AX4B - FOCVS - CENTRO DE CUSTO
-    cost_center = fields.Many2one('ax4b_accounting.cost_center')
+    cost_center = fields.Many2one('ax4b_accounting.cost_center') 
     # AX4B - FOCVS - CENTRO DE CUSTO
