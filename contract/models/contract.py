@@ -1046,3 +1046,8 @@ class ContractContract(models.Model):
                 elif contract.date_end and contract.date_end < date.today():
                     contract.write({'state': 'concluido'})
     # AX4B - CONCLUIR CONTRATO DE FORNECEDOR 
+
+    # AX4B - FOCVS - CENTRO DE CUSTO
+    cost_center = fields.Many2one('ax4b_accounting.cost_center')
+    # AX4B - FOCVS - CENTRO DE CUSTO
+    
