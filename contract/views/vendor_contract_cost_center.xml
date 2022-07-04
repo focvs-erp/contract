@@ -6,7 +6,7 @@
         <field name="inherit_id" ref="contract_contract_form_view" />
         <field name="arch" type="xml">
             <xpath
-                expr="//field[@name='partner_id']" position="after">
+                expr="//field[@name='user_id']" position="after">
                 <p>TESTEEEEEEEEEEEEEEEEEEEEEEEEEE</p>
                 <!-- <field name="cost_center" string="Cost aaaaaa Center" /> -->
             </xpath>
