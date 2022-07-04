@@ -5,8 +5,8 @@
         <field name="model">contract.contract</field>
         <field name="inherit_id" ref="contract.contract_contract_supplier_form_view" />
         <field name="arch" type="xml">
-            <form name="contract_supervisor_id" position="after">
-                <field name="cost_center">Cost Center</field>
+            <form name="line_recurrence" position="before">
+                <field name="cost_center" string="Cost Center" />
             </form>
         </field>
     </record>
