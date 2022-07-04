@@ -52,7 +52,6 @@
         "views/fatura_consorcio_view.xml",
         "views/contract_contrato_consorcio.xml",
         "views/contract_contrato_consorcio_linha.xml",
-        # "views/vendor_contract_cost_center.xml",
 
     ],
     "installable": True,
