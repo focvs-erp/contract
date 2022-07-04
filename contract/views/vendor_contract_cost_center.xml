@@ -3,7 +3,7 @@
     <record id="cost_center_view" model="ir.ui.view">
         <field name="name">vendor.contract.cost.center</field>
         <field name="model">contract.contract</field>
-        <field name="inherit_id" ref="contract.contract_contract_form_view" />
+        <!-- <field name="inherit_id" ref="contract.contract_contract_form_view" /> -->
         <field name="arch" type="xml">
             <form name="line_recurrence" position="before">
                 <field name="cost_center" string="Cost Center" />
