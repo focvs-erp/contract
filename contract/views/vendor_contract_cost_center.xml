@@ -5,10 +5,11 @@
         <field name="model">contract.contract</field>
         <field name="inherit_id" ref="contract_contract_form_view" />
         <field name="arch" type="xml">
-            <form name="contract_supervisor_id" position="after">
+            <xpath
+                expr="//field[@name='partner_id']" position="after">
                 <p>TESTEEEEEEEEEEEEEEEEEEEEEEEEEE</p>
                 <!-- <field name="cost_center" string="Cost aaaaaa Center" /> -->
-            </form>
+            </xpath>
         </field>
     </record>
 </odoo>
