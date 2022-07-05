@@ -97,9 +97,6 @@
                             <!-- AX4B - CPTM - CONTRATO REAJUSTE DE PREÇO -->
                             <field name="payment_term_id" attrs="{'readonly': [('is_terminated','=',True)]}" />
                             <field name="user_id" attrs="{'readonly': [('is_terminated','=',True)]}" />
-                            <!-- AX4B - FOCVS - CENTRO DE CUSTO -->
-                            <field name="cost_center_id" string="Cost Center" />
-                            <!-- AX4B - FOCVS - CENTRO DE CUSTO -->
                             <!-- AX4B - PRODUTO - FISCAL DO CONTRATO -->
                             <field name="contract_supervisor_id" domain="[('parent_id', '=', partner_id)]"/>
                             <!-- AX4B - PRODUTO - FISCAL DO CONTRATO -->
@@ -403,9 +400,6 @@
                 <field name="date_start" />
                 <field name="date_end" />
                 <!-- AX4B - 0146 -  ADICIONADO CAMPO DATA INICIAL E DATA FINAL -->
-                <!-- AX4B - FOCVS - CENTRO DE CUSTO -->
-                <field name="cost_center_id" string="Cost Center" />
-                <!-- AX4B - FOCVS - CENTRO DE CUSTO -->
                 <field name="state" />
             </tree>
         </field>
