@@ -21,4 +21,4 @@ from . import receber_fatura_line
 from . import account_contrato_consorcio
 from . import account_contrato_consorcio_linha 
 from . import fatura_consorcio
-from . import vendor_contract_cost_center
+# from . import vendor_contract_cost_center
