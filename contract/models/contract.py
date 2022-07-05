@@ -1045,4 +1045,4 @@ class ContractContract(models.Model):
                         contract.write({'state': 'concluido'})
                 elif contract.date_end and contract.date_end < date.today():
                     contract.write({'state': 'concluido'})
-    # AX4B - CONCLUIR CONTRATO DE FORNECEDOR 
+    # AX4B - CONCLUIR CONTRATO DE FORNECEDOR
