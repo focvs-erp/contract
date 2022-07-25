@@ -1062,7 +1062,7 @@ class ContractContract(models.Model):
                     'email_to': contract.partner_id.email,
                 }).send() 
         
-    def verification_due_date_contract(self, contract):
+    def verification_due_date_contract(self, contract): 
         if abs(date.today() - contract.date_end).days <= 30:
             if date.today() > contract.date_end:
                 return (_(f"<p> Dear, your contract {contract.name} ended on date {contract.date_end}. </p>"))
