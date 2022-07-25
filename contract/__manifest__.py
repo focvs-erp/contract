@@ -47,7 +47,7 @@
         "views/contract_portal_templates.xml",
         "views/reajuste_preco_item_view.xml",
         "views/reajuste_preco_view.xml",
-        "views/send_email.xml",
+        "views/send_email_view.xml",
 
     ],
     "installable": True,

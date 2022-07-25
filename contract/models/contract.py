@@ -1060,7 +1060,7 @@ class ContractContract(models.Model):
                     'body_html': verification_due_date_contract,
                     'email_from': self.env['ir.mail_server'].search([]).smtp_user,
                     'email_to': contract.partner_id.email,
-                }).send()
+                }).send() 
         
     def verification_due_date_contract(self, contract):
         if abs(date.today() - contract.date_end).days <= 30:
