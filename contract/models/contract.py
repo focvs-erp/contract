@@ -1048,23 +1048,19 @@ class ContractContract(models.Model):
     # AX4B - CONCLUIR CONTRATO DE FORNECEDOR
     
     # AX4B - ENVIO DE EMAIL PARA CONTRATOS PERTO DA FINALIZAÇÃO
-    def call_send_email(self):
-        self.send_email('contract.contract', 'date_end')
-
-    def send_email(self, model, date_end):
-        for contract in self.env[model].search([(date_end, '!=', False)]):
-            verification_due_date_contract = self.verification_due_date_contract(contract)
-            if verification_due_date_contract:                
-                self.env['mail.mail'].sudo().create({
-                    'subject' :'Prazo Contrato',
-                    'body_html': verification_due_date_contract,
-                    'email_from': self.env['ir.mail_server'].search([]).smtp_user,
-                    'email_to': contract.partner_id.email,
-                }).send() 
+    def send_email(self):
+        for contract in self.env['contract.contract'].search([('date_end', '>=', date.today() - timedelta(30)), ('date_end', '<=', date.today() + timedelta(30))]):          
+            self.env['mail.mail'].sudo().create({
+                'subject' :'Prazo Contrato',
+                'body_html':  self.verification_due_date_contract(contract),
+                'email_from': self.env['ir.mail_server'].search([])[0].smtp_user,
+                'email_to': contract.partner_id.email,
+            }).send() 
         
     def verification_due_date_contract(self, contract): 
-        if abs(date.today() - contract.date_end).days <= 30:
-            if date.today() > contract.date_end:
-                return (_(f"<p> Dear, your contract {contract.name} ended on date {contract.date_end}. </p>"))
-            else:
-                return (_(f'<p> Dear, your contract {contract.name} with end date {contract.date_end} is close to expiry, with {abs(date.today() - contract.date_end).days} days left to expire. </p>'))
+        if date.today() > contract.date_end:
+            return f"<p> Prezado, seu contrato {contract.name} foi finalizado na data {contract.date_end}. </p>"
+        else:
+            return f'<p> rezado, o seu contrato {contract.name} com a data final {contract.date_end} está proximo do vencimento, faltando {abs(date.today() - contract.date_end).days} dias para vencer. </p>'
+    # AX4B - ENVIO DE EMAIL PARA CONTRATOS PERTO DA FINALIZAÇÃO
+

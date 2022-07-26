@@ -1,11 +1,10 @@
 <odoo>
     <record id="ir_cron_send_mail_template" model="ir.cron"> 
             <field name="name">Send email due date contract</field>
-
             <field name="model_id" ref= "model_contract_contract"/>
             <field name="type">ir.actions.server"</field>
             <field name="state">code</field>
-            <field name="code">model.call_send_email()</field>
+            <field name="code">model.send_email()</field>
             <field name="interval_type">days</field>
             <field name="interval_number">1</field>
             <field name="numbercall">-1</field>
