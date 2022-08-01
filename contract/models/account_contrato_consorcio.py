@@ -7,6 +7,10 @@ from odoo.tools.translate import _
 class ContratoConsorcio(models.Model):
     _name = 'contract.contrato_consorcio'
     _description = 'Contrato Consórcio'
+    _inherit = [
+        "mail.thread",
+        "mail.activity.mixin"
+    ]
 
     name = fields.Char(
         string="Code", #Código
