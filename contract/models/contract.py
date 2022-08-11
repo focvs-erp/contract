@@ -11,7 +11,7 @@ from odoo import api, fields, models
 from odoo.exceptions import UserError, ValidationError
 from odoo.tests import Form
 from odoo.tools.translate import _
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 from dateutil.relativedelta import relativedelta
 
 
@@ -80,7 +80,7 @@ class ContractContract(models.Model):
     create_invoice_visibility = fields.Boolean(
         compute="_compute_create_invoice_visibility"
     )
-    date_end = fields.Date(compute="_compute_date_end", store=True, readonly=False)
+    date_end = fields.Date(compute="_compute_date_end", store=True, readonly=False, required=True)
     payment_term_id = fields.Many2one(
         comodel_name="account.payment.term", string="Payment Terms", index=True
     )
@@ -1045,4 +1045,22 @@ class ContractContract(models.Model):
                         contract.write({'state': 'concluido'})
                 elif contract.date_end and contract.date_end < date.today():
                     contract.write({'state': 'concluido'})
-    # AX4B - CONCLUIR CONTRATO DE FORNECEDOR 
+    # AX4B - CONCLUIR CONTRATO DE FORNECEDOR
+    
+    # AX4B - ENVIO DE EMAIL PARA CONTRATOS PERTO DA FINALIZAÇÃO
+    def send_email(self):
+        for contract in self.env['contract.contract'].search([('date_end', '>=', date.today() - timedelta(30)), ('date_end', '<=', date.today() + timedelta(30))]):          
+            self.env['mail.mail'].sudo().create({
+                'subject' :'Prazo Contrato',
+                'body_html':  self.verification_due_date_contract(contract),
+                'email_from': self.env['ir.mail_server'].search([])[0].smtp_user,
+                'email_to': contract.partner_id.email,
+            }).send() 
+        
+    def verification_due_date_contract(self, contract): 
+        if date.today() > contract.date_end:
+            return f"<p> Prezado, seu contrato {contract.name} foi finalizado na data {contract.date_end}. </p>"
+        else:
+            return f'<p> rezado, o seu contrato {contract.name} com a data final {contract.date_end} está proximo do vencimento, faltando {abs(date.today() - contract.date_end).days} dias para vencer. </p>'
+    # AX4B - ENVIO DE EMAIL PARA CONTRATOS PERTO DA FINALIZAÇÃO
+

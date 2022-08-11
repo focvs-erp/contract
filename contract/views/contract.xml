@@ -393,6 +393,13 @@
                 <field name="code" />
                 <field name="journal_id" groups="account.group_account_user" />
                 <field name="partner_id" />
+                <!-- AX4B - FOCVS - ADICIONANDO CAMPOS NA TREE CONTRATOS - ESTO_0038 -->
+                <field name="company_id" />
+                <field name="pricelist_id" />
+                <field name="reajuste_preco" />
+                <field name="payment_term_id" />
+                <field name="user_id" />
+                <!-- AX4B - FOCVS - ADICIONANDO CAMPOS NA TREE CONTRATOS - ESTO_0038 -->
                 <field name="active" invisible="1" />
                 <field name="company_id" groups="base.group_multi_company" />
                 <!-- AX4B - CPTM ADICIONANDO FIELD SELECTION DE TIPO DE CONTRATO -->
