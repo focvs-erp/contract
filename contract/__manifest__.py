@@ -47,7 +47,11 @@
         "views/contract_portal_templates.xml",
         "views/reajuste_preco_item_view.xml",
         "views/reajuste_preco_view.xml",
-        "views/send_email.xml",
+        "views/receber_fatura_line_view.xml",
+        "views/receber_fatura_view.xml",
+        "views/fatura_consorcio_view.xml",
+        "views/contract_contrato_consorcio.xml",
+        "views/contract_contrato_consorcio_linha.xml",
 
     ],
     "installable": True,

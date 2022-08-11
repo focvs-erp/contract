@@ -16,3 +16,8 @@ from . import res_config_settings
 from . import contract_terminate_reason
 from . import reajuste_preco
 from . import reajuste_preco_item
+from . import receber_fatura
+from . import receber_fatura_line
+from . import account_contrato_consorcio
+from . import account_contrato_consorcio_linha 
+from . import fatura_consorcio
