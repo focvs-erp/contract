@@ -97,10 +97,10 @@
                             <!-- AX4B - FOCVS - CONTRATO REAJUSTE DE PREÇO -->
                             <field name="payment_term_id" attrs="{'readonly': [('is_terminated','=',True)]}" />
                             <field name="user_id" attrs="{'readonly': [('is_terminated','=',True)]}" />
-                            <!-- AX4B - FOCVS - FISCAL DO CONTRATO -->
-                            <field name="contract_supervisor" />
-                            <!-- AX4B - FOCVS - FISCAL DO CONTRATO -->
-                            <!-- AX4B - FOCVS RESERVA DE GARANTIA-->
+                            <!-- AX4B - PRODUTO - FISCAL DO CONTRATO -->
+                            <field name="contract_supervisor_id" domain="[('parent_id', '=', partner_id)]"/>
+                            <!-- AX4B - PRODUTO - FISCAL DO CONTRATO -->
+                            <!--AX4B - CPTM RESERVA DE GARANTIA-->
                             <field name="cod_reserva_garantia" attrs="{'invisible': [('bt_reserva_garantia', '!=', True)], 'required': [('bt_reserva_garantia', '=', True)]}" />
                             <!-- AX4B - FOCVS - RESERVA DE GARANTIA-->
                             <field name="cod_conta_contabil" attrs="{'invisible': [('bt_reserva_garantia', '!=', True)], 'required': [('bt_reserva_garantia', '=', True)]}" />
@@ -400,13 +400,12 @@
                 <field name="payment_term_id" />
                 <field name="user_id" />
                 <!-- AX4B - FOCVS - ADICIONANDO CAMPOS NA TREE CONTRATOS - ESTO_0038 -->
-                <!-- AX4B - FOCVS ADICIONANDO CAMPOS NA TREE -->
-                <field name="date_start" />
-                <field name="date_end" />
-                <!-- AX4B - FOCVS ADICIONANDO CAMPOS NA TREE -->
                 <field name="active" invisible="1" />
                 <field name="company_id" groups="base.group_multi_company" />
-                <!-- AX4B - FOCVS ADICIONANDO FIELD SELECTION DE TIPO DE CONTRATO -->
+                <!-- AX4B - 0146 -  ADICIONADO CAMPO DATA INICIAL E DATA FINAL -->
+                <field name="date_start" />
+                <field name="date_end" />
+                <!-- AX4B - 0146 -  ADICIONADO CAMPO DATA INICIAL E DATA FINAL -->
                 <field name="state" />
             </tree>
         </field>

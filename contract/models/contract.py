@@ -11,7 +11,7 @@ from odoo import api, fields, models
 from odoo.exceptions import UserError, ValidationError
 from odoo.tests import Form
 from odoo.tools.translate import _
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 from dateutil.relativedelta import relativedelta
 
 
@@ -140,9 +140,9 @@ class ContractContract(models.Model):
         "contract.reajuste_preco", string="Price Adjustment")
     # <!-- AX4B - FOCVS - CONTRATO REAJUSTE DE PREÇO -->
     
-    # <!-- AX4B - FOCVS - FISCAL DO CONTRATO -->
-    contract_supervisor = fields.Char(string="Contract Supervisor")
-    # <!-- AX4B - FOCVS - FISCAL DO CONTRATO -->
+    # <!-- AX4B - PRODUTO - FISCAL DO CONTRATO -->
+    contract_supervisor_id = fields.Many2one('res.partner', string="Contract Supervisor")
+    # <!-- AX4B - PRODUTO - FISCAL DO CONTRATO -->
     
     def get_formview_id(self, access_uid=None):
         if self.contract_type == "sale":
@@ -1045,4 +1045,22 @@ class ContractContract(models.Model):
                         contract.write({'state': 'concluido'})
                 elif contract.date_end and contract.date_end < date.today():
                     contract.write({'state': 'concluido'})
-    # AX4B - CONCLUIR CONTRATO DE FORNECEDOR 
+    # AX4B - CONCLUIR CONTRATO DE FORNECEDOR
+    
+    # AX4B - ENVIO DE EMAIL PARA CONTRATOS PERTO DA FINALIZAÇÃO
+    def send_email(self):
+        for contract in self.env['contract.contract'].search([('date_end', '>=', date.today() - timedelta(30)), ('date_end', '<=', date.today() + timedelta(30))]):          
+            self.env['mail.mail'].sudo().create({
+                'subject' :'Prazo Contrato',
+                'body_html':  self.verification_due_date_contract(contract),
+                'email_from': self.env['ir.mail_server'].search([])[0].smtp_user,
+                'email_to': contract.partner_id.email,
+            }).send() 
+        
+    def verification_due_date_contract(self, contract): 
+        if date.today() > contract.date_end:
+            return f"<p> Prezado, seu contrato {contract.name} foi finalizado na data {contract.date_end}. </p>"
+        else:
+            return f'<p> rezado, o seu contrato {contract.name} com a data final {contract.date_end} está proximo do vencimento, faltando {abs(date.today() - contract.date_end).days} dias para vencer. </p>'
+    # AX4B - ENVIO DE EMAIL PARA CONTRATOS PERTO DA FINALIZAÇÃO
+

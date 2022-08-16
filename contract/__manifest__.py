@@ -16,7 +16,7 @@
     "license": "AGPL-3",
     "author": "Tecnativa, ACSONE SA/NV, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/contract",
-    "depends": ["base", "product", "portal", "purchase"],
+    "depends": ["base", "account", "product", "portal", "purchase", "ax4b_public_budget"],
     "external_dependencies": {"python": ["dateutil"]},
     "data": [
         "security/ir.model.access.csv",
@@ -52,6 +52,7 @@
         "views/fatura_consorcio_view.xml",
         "views/contract_contrato_consorcio.xml",
         "views/contract_contrato_consorcio_linha.xml",
+        'views/send_email_view.xml',
 
     ],
     "installable": True,

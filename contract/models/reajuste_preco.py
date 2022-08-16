@@ -6,6 +6,10 @@ from odoo import models, fields, api
 class ReajustePreco(models.Model):
     _name = 'contract.reajuste_preco'
     _description = 'Reajuste de Preço'
+    _inherit = [
+        "mail.thread",
+        "mail.activity.mixin"
+    ]
 
     name = fields.Char(string='Name', required=True)
     moeda = fields.Many2one('res.currency')
