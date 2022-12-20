@@ -141,7 +141,7 @@
         id="agreement_menu_root"
         name="Agreements"
         web_icon="agreement,static/description/icon.png"
-        sequence="10"
+        sequence="1000"
     />
     <menuitem
         id="agreement_menu"
